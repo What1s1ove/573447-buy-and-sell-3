@@ -8,6 +8,12 @@ parserOptions:
   project: ./tsconfig.json
 
 extends:
+  - htmlacademy/node
   - airbnb-typescript/base
   - prettier
-  - htmlacademy/node
+
+rules:
+  '@typescript-eslint/quotes':
+    - error
+    - backtick
+  no-console: off
