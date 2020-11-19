@@ -4,7 +4,8 @@
   "description": "Куплю. Продам",
   "main": "./src/service/service.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run eslint",
+    "eslint": "eslint --ext .ts src/"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/What1s1ove/573447-buy-and-sell-3/issues"
   },
-  "homepage": "https://github.com/What1s1ove/573447-buy-and-sell-3#readme"
+  "homepage": "https://github.com/What1s1ove/573447-buy-and-sell-3#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "4.8.1",
+    "eslint": "7.13.0",
+    "eslint-config-airbnb-typescript": "12.0.0",
+    "eslint-config-htmlacademy": "0.6.0",
+    "eslint-config-prettier": "6.15.0",
+    "eslint-plugin-import": "2.22.1",
+    "typescript": "4.0.5"
+  }
 }
