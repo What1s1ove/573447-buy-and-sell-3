@@ -1,0 +1,13 @@
+env:
+  es6: true
+  node: true
+
+parserOptions:
+  ecmaVersion: 2018
+  sourceType: module
+  project: ./tsconfig.json
+
+extends:
+  - airbnb-typescript/base
+  - prettier
+  - htmlacademy/node
