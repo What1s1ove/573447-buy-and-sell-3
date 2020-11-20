@@ -4,13 +4,15 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": ["./*"]
     },
     "target": "ES2019",
     "lib": ["dom", "esnext"],
     "module": "commonjs",
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "allowJs": true,
+    "resolveJsonModule": true,
     "strict": true,
     "noUnusedParameters": true,
     "suppressImplicitAnyIndexErrors": true,
