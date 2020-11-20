@@ -1,5 +1,5 @@
-import version from './version';
-import help from './help';
+import version from './version/version';
+import help from './help/help';
 
 const cli = {
   version,
