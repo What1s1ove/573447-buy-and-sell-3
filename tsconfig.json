@@ -3,6 +3,9 @@
   "exclude": ["node_modules"],
   "compilerOptions": {
     "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"]
+    },
     "target": "ES2019",
     "lib": ["dom", "esnext"],
     "module": "commonjs",
