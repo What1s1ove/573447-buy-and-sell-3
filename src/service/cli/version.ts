@@ -1,5 +1,5 @@
-import {CliCommandName} from '~/src/common/enums';
-import packageJsonFile from '~/package.json';
+import {CliCommandName} from '~/common/enums';
+import packageJsonFile from '~/../package.json';
 
 const checkAppVersion = () => {
   const {version} = packageJsonFile;
