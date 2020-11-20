@@ -4,7 +4,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["src/*"]
     },
     "target": "ES2019",
     "lib": ["dom", "esnext"],
