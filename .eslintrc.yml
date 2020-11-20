@@ -2,6 +2,15 @@ env:
   es6: true
   node: true
 
+settings:
+  alias:
+    extensions: ['.ts']
+    map:
+      - ['~', './src']
+  import/resolver:
+    node:
+      extensions: ['.js', '.jsx', '.ts', '.tsx']
+
 parserOptions:
   ecmaVersion: 2018
   sourceType: module
@@ -16,4 +25,6 @@ rules:
   '@typescript-eslint/quotes':
     - error
     - backtick
+  import/prefer-default-export: off
+  import/extensions: off
   no-console: off
