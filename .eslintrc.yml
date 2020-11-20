@@ -9,7 +9,7 @@ settings:
       - ['~', './src']
   import/resolver:
     node:
-      extensions: ['.js', '.jsx', '.ts', '.tsx']
+      extensions: ['.js', '.ts']
 
 parserOptions:
   ecmaVersion: 2018
