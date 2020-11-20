@@ -1,3 +1,4 @@
+import {CliCommandName} from '~/src/common/enums';
 import packageJsonFile from '~/package.json';
 
 const checkAppVersion = () => {
@@ -6,4 +7,7 @@ const checkAppVersion = () => {
   console.info(version);
 };
 
-export {checkAppVersion};
+export default {
+  name: CliCommandName.VERSION,
+  run: checkAppVersion,
+};
