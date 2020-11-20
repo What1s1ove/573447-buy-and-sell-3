@@ -2,7 +2,7 @@
   "name": "573447-buy-and-sell-3",
   "version": "1.0.0",
   "description": "Куплю. Продам",
-  "main": "./src/service/service.js",
+  "main": "./src/service/service.ts",
   "scripts": {
     "test": "npm run eslint",
     "eslint": "eslint --ext .ts src/"
@@ -23,6 +23,7 @@
     "eslint-config-airbnb-typescript": "12.0.0",
     "eslint-config-htmlacademy": "0.6.0",
     "eslint-config-prettier": "6.15.0",
+    "eslint-import-resolver-alias": "1.1.2",
     "eslint-plugin-import": "2.22.1",
     "prettier": "2.1.2",
     "ts-node": "9.0.0",
