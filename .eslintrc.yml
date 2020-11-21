@@ -25,6 +25,14 @@ rules:
   '@typescript-eslint/quotes':
     - error
     - backtick
+  '@typescript-eslint/comma-dangle':
+    - error
+    - only-multiline
+    - arrays: never
+      objects: always
+      imports: never
+      exports: never
+      functions: never
   import/prefer-default-export: off
   import/extensions: off
   no-console: off
