@@ -6,7 +6,7 @@ import {
   writeToFile,
 } from '~/helpers';
 import {IOffer} from '~/common/interfaces';
-import {CliCommandName, OfferType} from '~/common/enums';
+import {CliCommandName, CliExitCode, OfferType} from '~/common/enums';
 import {MocksConfig} from './common';
 
 const offerTypes = Object.values(OfferType);
@@ -58,10 +58,12 @@ export default {
       if (err) {
         console.error(`Can't write data to file...`);
 
-        return;
+        process.exit(CliExitCode.ERROR);
       }
 
       console.log(`Operation success. File created.`);
+
+      process.exit(CliExitCode.SUCCESS);
     });
   },
 };
