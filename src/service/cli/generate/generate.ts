@@ -21,7 +21,10 @@ const generateOffer = (): IOffer => ({
   )}.jpg`,
   description: getRandomItems(
     MocksConfig.DESCRIPTION.DESCRIPTIONS,
-    MocksConfig.DESCRIPTION.MAX_COUNT
+    getRandomNumber(
+      MocksConfig.DESCRIPTION.MIN_COUNT,
+      MocksConfig.DESCRIPTION.MAX_COUNT
+    )
   ).join(` `),
   type: getRandomItem(offerTypes),
   sum: getRandomNumber(MocksConfig.PRICE.MIN, MocksConfig.PRICE.MAX),

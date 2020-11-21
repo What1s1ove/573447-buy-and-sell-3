@@ -18,6 +18,7 @@ const MocksConfig = {
     MAX: 16,
   },
   DESCRIPTION: {
+    MIN_COUNT: 1,
     MAX_COUNT: 5,
     DESCRIPTIONS: [
       `Товар в отличном состоянии.`,
