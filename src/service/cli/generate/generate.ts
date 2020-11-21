@@ -3,6 +3,7 @@ import {
   getRandomItems,
   getRandomNumber,
   getTwoDigitalString,
+  writeToFile,
 } from '~/helpers';
 import {IOffer} from '~/common/interfaces';
 import {CliCommandName, OfferType} from '~/common/enums';
@@ -47,6 +48,14 @@ export default {
 
     const mockedOffers = generateMockedOffers(offersCount);
 
-    console.log(mockedOffers);
+    writeToFile(MocksConfig.FILE_NAME, JSON.stringify(mockedOffers), (err) => {
+      if (err) {
+        console.error(`Can't write data to file...`);
+
+        return;
+      }
+
+      console.log(`Operation success. File created.`);
+    });
   },
 };
