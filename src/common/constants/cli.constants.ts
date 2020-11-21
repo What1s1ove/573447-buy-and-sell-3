@@ -1,3 +1,4 @@
-const CLI_USER_ARGV_IDX = 2;
+const USER_ARGV_IDX = 2;
+const COMMAND_ARGS_IDX = 1;
 
-export {CLI_USER_ARGV_IDX};
+export {USER_ARGV_IDX, COMMAND_ARGS_IDX};

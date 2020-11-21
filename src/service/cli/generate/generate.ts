@@ -33,7 +33,7 @@ const generateOffer = (): IOffer => ({
   ),
 });
 
-const generateMockedOffers = (count: number = MocksConfig.DEFAULT_COUNT): IOffer[] => {
+const generateMockedOffers = (count: number): IOffer[] => {
   const mockedOffers = Array.from(new Array(count), generateOffer);
 
   return mockedOffers;
@@ -41,5 +41,12 @@ const generateMockedOffers = (count: number = MocksConfig.DEFAULT_COUNT): IOffer
 
 export default {
   name: CliCommandName.GENERATE,
-  run: generateMockedOffers,
+  run: (args: string[]) => {
+    const [count] = args;
+    const offersCount = Number(count) || MocksConfig.DEFAULT_COUNT;
+
+    const mockedOffers = generateMockedOffers(offersCount);
+
+    console.log(mockedOffers);
+  },
 };
