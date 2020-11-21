@@ -1,7 +1,7 @@
 enum CliCommandName {
-  VERSION = `version`,
-  HELP = `help`,
-  GENERATE = `generate`,
+  VERSION = `--version`,
+  HELP = `--help`,
+  GENERATE = `--generate`,
 }
 
 export {CliCommandName};

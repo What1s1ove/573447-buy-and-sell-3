@@ -1,3 +1,3 @@
-const CLI_USER_ARGV_INDEX = 2;
+const CLI_USER_ARGV_IDX = 2;
 
-export {CLI_USER_ARGV_INDEX};
+export {CLI_USER_ARGV_IDX};
