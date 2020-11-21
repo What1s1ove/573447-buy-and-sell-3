@@ -46,6 +46,12 @@ export default {
     const [count] = args;
     const offersCount = Number(count) || MocksConfig.DEFAULT_COUNT;
 
+    if (offersCount > MocksConfig.MAX_COUNT) {
+      console.error(`Не больше 1000 объявлений`);
+
+      return;
+    }
+
     const mockedOffers = generateMockedOffers(offersCount);
 
     writeToFile(MocksConfig.FILE_NAME, JSON.stringify(mockedOffers), (err) => {

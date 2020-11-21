@@ -1,5 +1,6 @@
 const MocksConfig = {
   DEFAULT_COUNT: 1,
+  MAX_COUNT: 1000,
   FILE_NAME: `mocks.json`,
   TITLES: [
     `Продам книги Стивена Кинга`,
