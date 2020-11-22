@@ -1,4 +1,4 @@
-import {CliCommandName} from '~/common/enums';
+import {CliCommandName, CliExitCode} from '~/common/enums';
 import {USER_ARGV_IDX, COMMAND_ARGS_IDX} from '~/common/constants';
 import {Cli} from './cli/cli';
 
@@ -7,7 +7,9 @@ const [userCommand] = userArguments;
 const commandArguments = userArguments.slice(COMMAND_ARGS_IDX);
 
 if (!userArguments.length || !Cli[userCommand]) {
-  Cli[CliCommandName.VERSION].run(commandArguments);
+  Cli[CliCommandName.HELP].run(commandArguments);
+
+  process.exit(CliExitCode.SUCCESS);
 }
 
 Cli[userCommand].run(commandArguments);
