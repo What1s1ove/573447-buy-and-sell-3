@@ -8,7 +8,7 @@ const saveOffersToFile = async (mockedOffers: IOffer[]) => {
     await writeToFile(MocksConfig.FILE_NAME, JSON.stringify(mockedOffers));
 
     console.log(paintMessage(`Operation success. File created.`, `green`));
-  } catch (err) {
+  } catch {
     console.error(paintMessage(`Can't write data to file...`, `red`));
 
     process.exit(CliExitCode.ERROR);
