@@ -5,7 +5,7 @@ import packageJsonFile from '~/../package.json';
 const checkAppVersion = () => {
   const {version} = packageJsonFile;
 
-  console.info(paintMessage(version, `gray`));
+  console.info(paintMessage(version, `blue`));
 };
 
 export default {
