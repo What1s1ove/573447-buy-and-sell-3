@@ -1,7 +1,7 @@
-import fs, {NoParamCallback} from 'fs';
+import fs from 'fs/promises';
 
-const writeToFile = (path: string, content: string, cb: NoParamCallback) => {
-  fs.writeFile(path, content, cb);
+const writeToFile = async (path: string, content: string) => {
+  fs.writeFile(path, content);
 };
 
 export {writeToFile};

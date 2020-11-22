@@ -3,12 +3,11 @@ import {
   getRandomItems,
   getRandomNumber,
   getTwoDigitalString,
-  paintMessage,
-  writeToFile,
 } from '~/helpers';
 import {IOffer} from '~/common/interfaces';
-import {CliCommandName, CliExitCode, OfferType} from '~/common/enums';
+import {CliCommandName, OfferType} from '~/common/enums';
 import {MocksConfig} from './common';
+import { saveOffersToFile } from './helpers';
 
 const offerTypes = Object.values(OfferType);
 
@@ -46,7 +45,7 @@ const generateMockedOffers = (count: number): IOffer[] => {
 
 export default {
   name: CliCommandName.GENERATE,
-  run(args: string[]) {
+  async run(args: string[]) {
     const [count] = args;
     const offersCount = Number(count) || MocksConfig.DEFAULT_COUNT;
 
@@ -58,14 +57,6 @@ export default {
 
     const mockedOffers = generateMockedOffers(offersCount);
 
-    writeToFile(MocksConfig.FILE_NAME, JSON.stringify(mockedOffers), (err) => {
-      if (err) {
-        console.error(paintMessage(`Can't write data to file...`, `red`));
-
-        process.exit(CliExitCode.ERROR);
-      }
-
-      console.log(paintMessage(`Operation success. File created.`, `green`));
-    });
+    await saveOffersToFile(mockedOffers);
   },
 };
