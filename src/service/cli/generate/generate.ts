@@ -45,7 +45,7 @@ const generateMockedOffers = (count: number): IOffer[] => {
 
 export default {
   name: CliCommandName.GENERATE,
-  run: (args: string[]) => {
+  run(args: string[]) {
     const [count] = args;
     const offersCount = Number(count) || MocksConfig.DEFAULT_COUNT;
 
