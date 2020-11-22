@@ -2,10 +2,10 @@ import version from './version/version';
 import help from './help/help';
 import generate from './generate/generate';
 
-const cli = {
-  version,
-  help,
-  generate,
+const Cli = {
+  [version.name]: version,
+  [help.name]: help,
+  [generate.name]: generate,
 };
 
-export {cli};
+export {Cli};

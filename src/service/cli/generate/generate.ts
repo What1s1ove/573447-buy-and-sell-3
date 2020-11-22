@@ -65,8 +65,6 @@ export default {
       }
 
       console.log(`Operation success. File created.`);
-
-      process.exit(CliExitCode.SUCCESS);
     });
   },
 };
