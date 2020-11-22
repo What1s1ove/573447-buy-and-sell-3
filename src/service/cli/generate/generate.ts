@@ -3,6 +3,7 @@ import {
   getRandomItems,
   getRandomNumber,
   getTwoDigitalString,
+  paintMessage,
   writeToFile,
 } from '~/helpers';
 import {IOffer} from '~/common/interfaces';
@@ -59,12 +60,12 @@ export default {
 
     writeToFile(MocksConfig.FILE_NAME, JSON.stringify(mockedOffers), (err) => {
       if (err) {
-        console.error(`Can't write data to file...`);
+        console.error(paintMessage(`Can't write data to file...`, `red`));
 
         process.exit(CliExitCode.ERROR);
       }
 
-      console.log(`Operation success. File created.`);
+      console.log(paintMessage(`Operation success. File created.`, `green`));
     });
   },
 };
