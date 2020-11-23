@@ -26,4 +26,14 @@ const MocksConfig = {
   },
 };
 
-export {MocksConfig};
+type GenerateMockedOfferCbArgs = {
+  titles: string[];
+  descriptions: string[];
+  categories: string[];
+};
+
+type GenerateMockedOffersCbArgs = {
+  count: number;
+} & GenerateMockedOfferCbArgs;
+
+export {MocksConfig, GenerateMockedOfferCbArgs, GenerateMockedOffersCbArgs};
