@@ -6,7 +6,7 @@ import {
 } from '~/helpers';
 import {IOffer} from '~/common/interfaces';
 import {CliCommandName, OfferType} from '~/common/enums';
-import { saveOffersToFile, readOfferFileContent } from './helpers';
+import { saveOffersToFile, getOffersData } from './helpers';
 import {
   MocksConfig,
   GenerateMockedOfferCbArgs,
@@ -62,9 +62,7 @@ export default {
       return;
     }
 
-    const titles = await readOfferFileContent(MocksConfig.TITLE.FILE_PATH);
-    const descriptions = await readOfferFileContent(MocksConfig.DESCRIPTION.FILE_PATH);
-    const categories = await readOfferFileContent(MocksConfig.CATEGORY.FILE_PATH);
+    const {titles, descriptions, categories} = await getOffersData();
     const mockedOffers = generateMockedOffers({
       count: offersCount,
       titles,

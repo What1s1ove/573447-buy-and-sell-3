@@ -27,4 +27,16 @@ const readOfferFileContent = async (path: string) => {
   }
 };
 
-export {saveOffersToFile, readOfferFileContent};
+const getOffersData = async () => {
+  const titles = await readOfferFileContent(MocksConfig.TITLE.FILE_PATH);
+  const descriptions = await readOfferFileContent(MocksConfig.DESCRIPTION.FILE_PATH);
+  const categories = await readOfferFileContent(MocksConfig.CATEGORY.FILE_PATH);
+
+  return {
+    titles,
+    descriptions,
+    categories,
+  };
+};
+
+export {saveOffersToFile, readOfferFileContent, getOffersData};
