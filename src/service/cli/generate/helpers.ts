@@ -1,4 +1,4 @@
-import {paintMessage, writeToFile} from '~/helpers';
+import {paintMessage, writeToFile, readFile} from '~/helpers';
 import {CliExitCode} from '~/common/enums';
 import {IOffer} from '~/common/interfaces';
 import {MocksConfig} from './common';
@@ -15,4 +15,16 @@ const saveOffersToFile = async (mockedOffers: IOffer[]) => {
   }
 };
 
-export {saveOffersToFile};
+const readOfferFileContent = async (path: string) => {
+  try {
+    const content = await readFile(path);
+
+    return content.split(`\n`);
+  } catch (err) {
+    console.error(paintMessage(err, `red`));
+
+    return [];
+  }
+};
+
+export {saveOffersToFile, readOfferFileContent};
