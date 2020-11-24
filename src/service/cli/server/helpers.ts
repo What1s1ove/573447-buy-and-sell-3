@@ -14,12 +14,10 @@ const getMocks = async (): Promise<IOffer[] | never> => {
 
 const getOffersListMarkup = (offers: IOffer[]) => {
   const offerListMarkup = `
-  <ul>${offers.reduce(
-    (offerTemplate, offer) =>
-      offerTemplate.concat(`
-    <li>${offer.title}</li>`),
-    ``
-  )}
+  <ul>${offers.reduce((offerTemplate, offer) =>
+    offerTemplate.concat(`
+    <li>${offer.title}</li>
+  `), ``)}
   </ul>`;
 
   return offerListMarkup;
