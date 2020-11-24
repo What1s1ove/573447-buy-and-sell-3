@@ -15,6 +15,7 @@
   "homepage": "https://github.com/What1s1ove/573447-buy-and-sell-3#readme",
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register ./src/service/service.ts",
+    "server": "nodemon -e ts,js --exec ts-node -r tsconfig-paths/register ./src/service/service.ts --server",
     "test": "npm run eslint",
     "eslint": "eslint --ext .ts src/"
   },
