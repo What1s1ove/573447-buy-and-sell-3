@@ -1,9 +1,9 @@
-import {Router, Request, Response} from 'express';
+import {Router} from 'express';
 import {ApiMyRoute} from '~/common/enums';
 
 const myRouter = Router();
 
-myRouter.get(ApiMyRoute.ROOT, (req: Request, res: Response) => res.send(req.path));
-myRouter.get(ApiMyRoute.COMMENTS, (req: Request, res: Response) => res.send(req.path));
+myRouter.get(ApiMyRoute.ROOT, (_, res) => res.render(`my-tickets`));
+myRouter.get(ApiMyRoute.COMMENTS, (_, res) => res.render(`comments`));
 
 export default myRouter;
