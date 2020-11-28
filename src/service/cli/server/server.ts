@@ -1,32 +1,24 @@
-import http from 'http';
+import express from 'express';
 import {paintMessage} from '~/helpers';
 import {CliCommandName, HttpCode} from '~/common/enums';
-import {IncomingMessage, ServerResponse} from '~/common/types';
-import {getMocks, getOffersListMarkup, sendResponse} from './helpers';
-import {ServerPath, DEFAULT_PORT} from './common';
+import {getMocks} from './helpers';
+import {DEFAULT_PORT, ApiPath} from './common';
 
-const onClientConnect = async (req: IncomingMessage, res: ServerResponse) => {
-  const notFoundMessageText = `Not found`;
+const app = express();
 
-  switch (req.url) {
-    case ServerPath.ROOT: {
-      try {
-        const mockedOffers = await getMocks();
-        const markup = getOffersListMarkup(mockedOffers);
-        sendResponse(res, HttpCode.OK, markup);
-      } catch (err) {
-        sendResponse(res, HttpCode.NOT_FOUND, notFoundMessageText);
-      }
+app.use(express.json());
 
-      break;
-    }
-    default: {
-      sendResponse(res, HttpCode.NOT_FOUND, notFoundMessageText);
+app.get(ApiPath.OFFERS, async (_, res) => {
+  try {
+    const mocks = (await getMocks()) || [];
 
-      break;
-    }
+    res.status(HttpCode.OK).json(mocks);
+  } catch {
+    res.status(HttpCode.OK).json([]);
   }
-};
+});
+
+app.use((_, res) => res.status(HttpCode.NOT_FOUND).send(`Not found`));
 
 export default {
   name: CliCommandName.SERVER,
@@ -34,19 +26,8 @@ export default {
     const [customPort] = args;
     const port = Number(customPort) || DEFAULT_PORT;
 
-    http
-      .createServer(onClientConnect)
-      .listen(port)
-      .on(`listening`, (err: Error) => {
-        if (err) {
-          console.error(
-            paintMessage(`Ошибка при создании сервера, ${err}`, `red`)
-          );
-
-          return;
-        }
-
-        console.info(paintMessage(`Ожидаю соединений на ${port}`, `green`));
-      });
+    app.listen(port, () => {
+      console.info(paintMessage(`Ожидаю соединений на ${port}`, `green`));
+    });
   },
 };
