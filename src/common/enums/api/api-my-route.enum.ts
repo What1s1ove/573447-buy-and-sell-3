@@ -1,4 +1,4 @@
-enum ApiMyRoute {
+enum SSRApiMyRoute {
   ROOT = `/`,
   COMMENTS = `/comments`,
 }
