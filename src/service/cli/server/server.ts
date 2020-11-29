@@ -26,8 +26,12 @@ export default {
     const [customPort] = args;
     const port = Number(customPort) || DEFAULT_PORT;
 
-    app.listen(port, () => {
+    const server = app.listen(port, () => {
       console.info(paintMessage(`Ожидаю соединений на ${port}`, `green`));
+    });
+
+    server.once(`error`, (err) => {
+      console.error(`Ошибка при создании сервера`, err);
     });
   },
 };
