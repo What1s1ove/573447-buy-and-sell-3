@@ -1,8 +1,8 @@
-enum ApiMainRoute {
+enum SsrMainPath {
   ROOT = `/`,
   REGISTER = `/register`,
   LOGIN = `/login`,
   SEARCH = `/search`,
 }
 
-export {ApiMainRoute};
+export {SsrMainPath};

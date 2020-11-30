@@ -1,7 +1,7 @@
-enum ApiRoute {
+enum SsrPath {
   MAIN = `/`,
   MY = `/my`,
   OFFERS = `/offers`,
 }
 
-export {ApiRoute};
+export {SsrPath};

@@ -1,6 +1,6 @@
-enum SSRApiMyRoute {
+enum SsrMyPath {
   ROOT = `/`,
   COMMENTS = `/comments`,
 }
 
-export {ApiMyRoute};
+export {SsrMyPath};

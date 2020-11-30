@@ -1,6 +1,6 @@
 import path from 'path';
 import express, {Request, Response, NextFunction} from 'express';
-import {ApiRoute, HttpCode} from '~/common/enums';
+import {SsrPath, HttpCode} from '~/common/enums';
 import mainRouter from '~/express/routes/main/main.router';
 import myRouter from '~/express/routes/my/my.router';
 import offersRouter from '~/express/routes/offers/offers.router';
@@ -10,9 +10,9 @@ const DEFAULT_PORT = 8080;
 
 const app = express();
 
-app.use(ApiRoute.MAIN, mainRouter);
-app.use(ApiRoute.MY, myRouter);
-app.use(ApiRoute.OFFERS, offersRouter);
+app.use(SsrPath.MAIN, mainRouter);
+app.use(SsrPath.MY, myRouter);
+app.use(SsrPath.OFFERS, offersRouter);
 
 app.use(express.static(path.resolve(__dirname, PUBLIC_DIR)));
 
