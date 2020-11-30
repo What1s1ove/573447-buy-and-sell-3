@@ -1,7 +1,61 @@
-import {paintMessage, writeToFile, readFile} from '~/helpers';
-import {CliExitCode} from '~/common/enums';
+import {
+  paintMessage,
+  writeToFile,
+  readFile,
+  getRandomItem,
+  getTwoDigitalString,
+  getRandomNumber,
+  getRandomItems,
+} from '~/helpers';
+import {CliExitCode, OfferType} from '~/common/enums';
 import {IOffer} from '~/common/interfaces';
-import {MocksConfig} from './common';
+import {
+  GenerateMockedOfferCbArgs,
+  GenerateMockedOffersCbArgs,
+  MocksConfig,
+} from './common';
+
+const offerTypes = Object.values(OfferType);
+
+const generateMockedOffer = ({
+  titles,
+  descriptions,
+  categories,
+}: GenerateMockedOfferCbArgs): IOffer => ({
+  title: getRandomItem(titles),
+  picture: `item${getTwoDigitalString(
+    getRandomNumber(
+      MocksConfig.PICTURE_NUMBER.MIN,
+      MocksConfig.PICTURE_NUMBER.MAX
+    )
+  )}.jpg`,
+  description: getRandomItems(
+    descriptions,
+    getRandomNumber(
+      MocksConfig.DESCRIPTION.MIN_COUNT,
+      MocksConfig.DESCRIPTION.MAX_COUNT
+    )
+  ).join(` `),
+  type: getRandomItem(offerTypes),
+  sum: getRandomNumber(MocksConfig.PRICE.MIN, MocksConfig.PRICE.MAX),
+  category: getRandomItems(
+    categories,
+    getRandomNumber(MocksConfig.CATEGORY.MIN_COUNT, categories.length)
+  ),
+});
+
+const generateMockedOffers = ({
+  count,
+  titles,
+  categories,
+  descriptions,
+}: GenerateMockedOffersCbArgs): IOffer[] => {
+  const mockedOffers = Array.from(new Array(count), () =>
+    generateMockedOffer({titles, categories, descriptions})
+  );
+
+  return mockedOffers;
+};
 
 const saveOffersToFile = async (mockedOffers: IOffer[]) => {
   try {
@@ -29,7 +83,9 @@ const readOfferFileContent = async (path: string) => {
 
 const getOffersData = async () => {
   const titles = await readOfferFileContent(MocksConfig.TITLE.FILE_PATH);
-  const descriptions = await readOfferFileContent(MocksConfig.DESCRIPTION.FILE_PATH);
+  const descriptions = await readOfferFileContent(
+    MocksConfig.DESCRIPTION.FILE_PATH
+  );
   const categories = await readOfferFileContent(MocksConfig.CATEGORY.FILE_PATH);
 
   return {
@@ -39,4 +95,10 @@ const getOffersData = async () => {
   };
 };
 
-export {saveOffersToFile, readOfferFileContent, getOffersData};
+export {
+  generateMockedOffer,
+  generateMockedOffers,
+  saveOffersToFile,
+  readOfferFileContent,
+  getOffersData,
+};

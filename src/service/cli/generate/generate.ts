@@ -1,54 +1,6 @@
-import {
-  getRandomItem,
-  getRandomItems,
-  getRandomNumber,
-  getTwoDigitalString,
-} from '~/helpers';
-import {IOffer} from '~/common/interfaces';
-import {CliCommandName, OfferType} from '~/common/enums';
-import { saveOffersToFile, getOffersData } from './helpers';
-import {
-  MocksConfig,
-  GenerateMockedOfferCbArgs,
-  GenerateMockedOffersCbArgs,
-} from './common';
-
-const offerTypes = Object.values(OfferType);
-
-const generateOffer = ({
-  titles,
-  descriptions,
-  categories,
-}: GenerateMockedOfferCbArgs): IOffer => ({
-  title: getRandomItem(titles),
-  picture: `item${getTwoDigitalString(
-    getRandomNumber(
-      MocksConfig.PICTURE_NUMBER.MIN,
-      MocksConfig.PICTURE_NUMBER.MAX
-    )
-  )}.jpg`,
-  description: getRandomItems(
-    descriptions,
-    getRandomNumber(
-      MocksConfig.DESCRIPTION.MIN_COUNT,
-      MocksConfig.DESCRIPTION.MAX_COUNT
-    )
-  ).join(` `),
-  type: getRandomItem(offerTypes),
-  sum: getRandomNumber(MocksConfig.PRICE.MIN, MocksConfig.PRICE.MAX),
-  category: getRandomItems(
-    categories,
-    getRandomNumber(MocksConfig.CATEGORY.MIN_COUNT, categories.length)
-  ),
-});
-
-const generateMockedOffers = ({count, titles, categories, descriptions}: GenerateMockedOffersCbArgs): IOffer[] => {
-  const mockedOffers = Array.from(new Array(count), () =>
-    generateOffer({titles, categories, descriptions})
-  );
-
-  return mockedOffers;
-};
+import {CliCommandName} from '~/common/enums';
+import {saveOffersToFile, getOffersData, generateMockedOffers} from './helpers';
+import {MocksConfig} from './common';
 
 export default {
   name: CliCommandName.GENERATE,
