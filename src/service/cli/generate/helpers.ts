@@ -1,3 +1,4 @@
+import {nanoid} from 'nanoid';
 import {
   paintMessage,
   writeToFile,
@@ -9,6 +10,7 @@ import {
 } from '~/helpers';
 import {CliExitCode, OfferType} from '~/common/enums';
 import {IOffer} from '~/common/interfaces';
+import { MAX_ID_LENGTH } from '~/common/constants';
 import {
   GenerateMockedOfferCbArgs,
   GenerateMockedOffersCbArgs,
@@ -22,6 +24,7 @@ const generateMockedOffer = ({
   descriptions,
   categories,
 }: GenerateMockedOfferCbArgs): IOffer => ({
+  id: nanoid(MAX_ID_LENGTH),
   title: getRandomItem(titles),
   picture: `item${getTwoDigitalString(
     getRandomNumber(
