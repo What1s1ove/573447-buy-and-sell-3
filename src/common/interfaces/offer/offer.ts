@@ -1,4 +1,5 @@
 import {OfferType} from '~/common/enums';
+import {IComment} from '~/common/interfaces/comment';
 
 interface IOffer {
   id: string;
@@ -8,6 +9,7 @@ interface IOffer {
   type: OfferType;
   sum: number;
   category: string[];
+  comments: IComment[];
 }
 
 export {IOffer};
