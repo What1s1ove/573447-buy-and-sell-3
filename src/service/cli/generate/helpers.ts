@@ -9,9 +9,11 @@ import {
   getRandomItems,
 } from '~/helpers';
 import {CliExitCode, OfferType} from '~/common/enums';
-import {IOffer} from '~/common/interfaces';
+import {IOffer, IComment} from '~/common/interfaces';
 import { MAX_ID_LENGTH } from '~/common/constants';
 import {
+  GenerateMockedCommentCbArgs,
+  GenerateMockedCommentsCbArgs,
   GenerateMockedOfferCbArgs,
   GenerateMockedOffersCbArgs,
   MocksConfig,
@@ -19,10 +21,35 @@ import {
 
 const offerTypes = Object.values(OfferType);
 
+const generateMockedComment = ({
+  comments,
+}: GenerateMockedCommentCbArgs): IComment => ({
+  id: nanoid(MAX_ID_LENGTH),
+  text: getRandomItems(
+    comments,
+    getRandomNumber(
+      MocksConfig.COMMENTS.MIN_SENTENCES_COUNT,
+      MocksConfig.COMMENTS.MAX_SENTENCES_COUNT
+    )
+  ).join(` `),
+});
+
+const generateMockedComments = ({
+  count,
+  comments,
+}: GenerateMockedCommentsCbArgs): IComment[] => {
+  const mockedComments = Array.from(new Array(count), () =>
+    generateMockedComment({comments})
+  );
+
+  return mockedComments;
+};
+
 const generateMockedOffer = ({
   titles,
   descriptions,
   categories,
+  comments
 }: GenerateMockedOfferCbArgs): IOffer => ({
   id: nanoid(MAX_ID_LENGTH),
   title: getRandomItem(titles),
@@ -45,6 +72,13 @@ const generateMockedOffer = ({
     categories,
     getRandomNumber(MocksConfig.CATEGORY.MIN_COUNT, categories.length)
   ),
+  comments: generateMockedComments({
+    count: getRandomNumber(
+      MocksConfig.COMMENTS.MIN_COUNT,
+      MocksConfig.COMMENTS.MAX_COUNT
+    ),
+    comments
+  }),
 });
 
 const generateMockedOffers = ({
@@ -52,9 +86,10 @@ const generateMockedOffers = ({
   titles,
   categories,
   descriptions,
+  comments,
 }: GenerateMockedOffersCbArgs): IOffer[] => {
   const mockedOffers = Array.from(new Array(count), () =>
-    generateMockedOffer({titles, categories, descriptions})
+    generateMockedOffer({titles, categories, descriptions, comments})
   );
 
   return mockedOffers;
@@ -86,15 +121,15 @@ const readOfferFileContent = async (path: string) => {
 
 const getOffersData = async () => {
   const titles = await readOfferFileContent(MocksConfig.TITLE.FILE_PATH);
-  const descriptions = await readOfferFileContent(
-    MocksConfig.DESCRIPTION.FILE_PATH
-  );
+  const descriptions = await readOfferFileContent(MocksConfig.DESCRIPTION.FILE_PATH);
   const categories = await readOfferFileContent(MocksConfig.CATEGORY.FILE_PATH);
+  const comments = await readOfferFileContent(MocksConfig.COMMENTS.FILE_PATH);
 
   return {
     titles,
     descriptions,
     categories,
+    comments,
   };
 };
 

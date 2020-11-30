@@ -14,12 +14,13 @@ export default {
       return;
     }
 
-    const {titles, descriptions, categories} = await getOffersData();
+    const {titles, descriptions, categories, comments} = await getOffersData();
     const mockedOffers = generateMockedOffers({
       count: offersCount,
       titles,
       descriptions,
       categories,
+      comments,
     });
 
     await saveOffersToFile(mockedOffers);
