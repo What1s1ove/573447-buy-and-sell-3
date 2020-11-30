@@ -30,17 +30,32 @@ const MocksConfig = {
     MAX_COUNT: 4,
     MIN_SENTENCES_COUNT: 1,
     MAX_SENTENCES_COUNT: 3,
-  }
+  },
 };
+
+type GenerateMockedCommentCbArgs = {
+  comments: string[];
+};
+
+type GenerateMockedCommentsCbArgs = {
+  count: number;
+} & GenerateMockedCommentCbArgs;
 
 type GenerateMockedOfferCbArgs = {
   titles: string[];
   descriptions: string[];
   categories: string[];
+  comments: string[];
 };
 
 type GenerateMockedOffersCbArgs = {
   count: number;
 } & GenerateMockedOfferCbArgs;
 
-export {MocksConfig, GenerateMockedOfferCbArgs, GenerateMockedOffersCbArgs};
+export {
+  MocksConfig,
+  GenerateMockedCommentCbArgs,
+  GenerateMockedCommentsCbArgs,
+  GenerateMockedOfferCbArgs,
+  GenerateMockedOffersCbArgs,
+};
