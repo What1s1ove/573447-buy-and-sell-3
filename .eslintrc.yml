@@ -21,6 +21,9 @@ extends:
   - airbnb-typescript/base
   - prettier
 
+ignorePatterns:
+  '**/express/public/**/*.js'
+
 rules:
   '@typescript-eslint/quotes':
     - error
@@ -40,7 +43,3 @@ rules:
   import/extensions: off
   no-console: off
 
-
-
-   ignorePatterns:
-  '**/express/public/**/*.js'
