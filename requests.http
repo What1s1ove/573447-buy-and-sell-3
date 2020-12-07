@@ -1,0 +1,2 @@
+# categories list
+GET http://localhost:3000/api/category HTTP/1.1
