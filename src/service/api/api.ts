@@ -15,3 +15,5 @@ const app = Router();
     })
   );
 })();
+
+export default app;
