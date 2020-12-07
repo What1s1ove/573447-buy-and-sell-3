@@ -1,12 +1,15 @@
 import express from 'express';
+import apiRouter from '~/service/api/api';
 import {paintMessage} from '~/helpers';
 import {CliCommandName, HttpCode} from '~/common/enums';
+import {API_PREFIX} from '~/common/constants';
 import {getMocks} from './helpers';
 import {DEFAULT_PORT, ApiPath} from './common';
 
 const app = express();
 
 app.use(express.json());
+app.use(API_PREFIX, apiRouter);
 
 app.get(ApiPath.OFFERS, async (_, res) => {
   try {

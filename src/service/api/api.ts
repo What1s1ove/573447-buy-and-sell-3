@@ -3,17 +3,17 @@ import {initCategoryApi} from './category/category';
 import {Category} from '~/service/data';
 import {getMockedDate} from './helpers';
 
-const app = Router();
+const apiRouter = Router();
 
 (async () => {
   const mockedData = await getMockedDate();
 
   initCategoryApi(
-    app,
+    apiRouter,
     new Category({
       offers: mockedData,
     })
   );
 })();
 
-export default app;
+export default apiRouter;
