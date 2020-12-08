@@ -19,4 +19,12 @@ const getNewOffer = (offer: CreatedOffer) => {
   return newOffer;
 };
 
-export {getOfferById, getNewOffer};
+const updateOffer = (offers: IOffer[], updatedOffer: IOffer) => {
+  const updatedOffers = offers.map((offer) => (
+    offer.id === updatedOffer.id ? updatedOffer : offer
+  ));
+
+  return updatedOffers;
+};
+
+export {getOfferById, getNewOffer, updateOffer};
