@@ -9,7 +9,7 @@ const offerRequireKeys = [
   OfferKey.DESCRIPTION,
   OfferKey.PICTURE,
   OfferKey.TITLE,
-  OfferKey.TITLE,
+  OfferKey.TYPE,
   OfferKey.SUM,
 ];
 
