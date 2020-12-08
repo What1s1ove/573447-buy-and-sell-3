@@ -1,7 +1,7 @@
 import {Router} from 'express';
 import {initCategoryApi} from './category/category';
 import {initOffersApi} from './offers/offers';
-import {Category} from '~/service/data';
+import {Category, Offers} from '~/service/data';
 import {getMockedDate} from './helpers';
 
 const apiRouter = Router();
@@ -16,7 +16,12 @@ const apiRouter = Router();
     })
   );
 
-  initOffersApi(apiRouter);
+  initOffersApi(
+    apiRouter,
+    new Offers({
+      offers: mockedData,
+    })
+  );
 })();
 
 export default apiRouter;
