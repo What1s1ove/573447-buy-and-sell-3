@@ -1,15 +1,15 @@
-import {OfferType} from '~/common/enums';
+import {OfferKey, OfferType} from '~/common/enums';
 import {IComment} from '~/common/interfaces/comment';
 
 interface IOffer {
-  id: string;
-  title: string;
-  picture: string;
-  description: string;
-  type: OfferType;
-  sum: number;
-  category: string[];
-  comments: IComment[];
+  [OfferKey.ID]: string;
+  [OfferKey.TITLE]: string;
+  [OfferKey.PICTURE]: string;
+  [OfferKey.DESCRIPTION]: string;
+  [OfferKey.TYPE]: OfferType;
+  [OfferKey.SUM]: number;
+  [OfferKey.CATEGORY]: string[];
+  [OfferKey.COMMENTS]: IComment[];
 }
 
 export {IOffer};
