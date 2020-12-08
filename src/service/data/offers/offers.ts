@@ -37,10 +37,16 @@ class Offers {
     return offer;
   }
 
-  drop(offer: IOffer): null {
-    this.#offers = removeOffer(this.#offers, offer);
+  drop(id: string): IOffer | null {
+    const deletedOffer = getOfferById(this.#offers, id);
 
-    return null;
+    if (!deletedOffer) {
+      return null;
+    }
+
+    this.#offers = removeOffer(this.#offers, deletedOffer);
+
+    return deletedOffer;
   }
 }
 
