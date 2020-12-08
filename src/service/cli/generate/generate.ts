@@ -4,7 +4,7 @@ import {MocksConfig} from './common';
 
 export default {
   name: CliCommandName.GENERATE,
-  async run(args: string[]) {
+  async run(args: string[]): Promise<void> {
     const [count] = args;
     const offersCount = Number(count) || MocksConfig.DEFAULT_COUNT;
 

@@ -1,4 +1,5 @@
 import {getUniqueItems} from '~/helpers';
+import {OfferType} from '~/common/enums';
 import {IOffer} from '~/common/interfaces';
 import {getCategories} from './helpers';
 
@@ -13,7 +14,7 @@ class Category {
     this.#offers = offers;
   }
 
-  findAll() {
+  findAll(): OfferType[] {
     const categories = getUniqueItems(getCategories(this.#offers));
 
     return categories;

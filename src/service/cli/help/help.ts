@@ -1,7 +1,7 @@
 import {paintMessage} from '~/helpers';
 import {CliCommandName} from '~/common/enums';
 
-const outputHelpInfo = () => {
+const outputHelpInfo = (): void => {
   const text = `
     Программа запускает http-сервер и формирует файл с данными для API.
 

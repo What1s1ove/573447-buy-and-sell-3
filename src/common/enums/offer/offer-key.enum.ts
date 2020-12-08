@@ -3,7 +3,7 @@ enum OfferKey {
   TITLE = `title`,
   PICTURE = `picture`,
   DESCRIPTION = `description`,
-  TYPE = `enum`,
+  TYPE = `type`,
   SUM = `sum`,
   CATEGORY = `category`,
   COMMENTS = `comments`,

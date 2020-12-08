@@ -13,17 +13,17 @@ class Offers {
     this.#offers = offers;
   }
 
-  findAll() {
+  findAll(): IOffer[] {
     return this.#offers;
   }
 
-  findOne(id: string) {
+  findOne(id: string): IOffer | null {
     const offerById = getOfferById(this.#offers, id);
 
     return offerById;
   }
 
-  create(offer: CreatedOffer) {
+  create(offer: CreatedOffer): IOffer {
     const newOffer = getNewOffer(offer);
 
     this.#offers.push(newOffer);
@@ -31,13 +31,13 @@ class Offers {
     return newOffer;
   }
 
-  update(offer: IOffer) {
+  update(offer: IOffer): IOffer {
     this.#offers = updateOffer(this.#offers, offer);
 
     return offer;
   }
 
-  drop(offer: IOffer) {
+  drop(offer: IOffer): null {
     this.#offers = removeOffer(this.#offers, offer);
 
     return null;

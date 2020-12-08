@@ -4,7 +4,7 @@ import {IOffer} from '~/common/interfaces';
 
 let data: IOffer[] | null = null;
 
-const getMockedDate = async () => {
+const getMockedDate = async (): Promise<IOffer[]> => {
   try {
     if (data === null) {
       const fileContent = await readFile(MOCKS_FILE_PATH);

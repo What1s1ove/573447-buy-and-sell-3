@@ -1,5 +1,7 @@
 import fs from 'fs/promises';
 
-const readFile = async (filePath: string) => fs.readFile(filePath, `utf8`);
+const readFile = async (filePath: string): Promise<string> => {
+  return fs.readFile(filePath, `utf8`);
+};
 
 export {readFile};

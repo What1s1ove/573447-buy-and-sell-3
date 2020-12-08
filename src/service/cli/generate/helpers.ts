@@ -94,7 +94,7 @@ const generateMockedOffers = ({
   return mockedOffers;
 };
 
-const saveOffersToFile = async (mockedOffers: IOffer[]) => {
+const saveOffersToFile = async (mockedOffers: IOffer[]): Promise<void> => {
   try {
     await writeToFile(MocksConfig.FILE_NAME, JSON.stringify(mockedOffers));
 
@@ -106,7 +106,7 @@ const saveOffersToFile = async (mockedOffers: IOffer[]) => {
   }
 };
 
-const readOfferFileContent = async (path: string) => {
+const readOfferFileContent = async (path: string): Promise<string[]> => {
   try {
     const content = await readFile(path);
 
@@ -118,7 +118,7 @@ const readOfferFileContent = async (path: string) => {
   }
 };
 
-const getOffersData = async () => {
+const getOffersData = async (): Promise<GenerateMockedOfferCbArgs> => {
   const titles = await readOfferFileContent(MocksConfig.TITLE.FILE_PATH);
   const descriptions = await readOfferFileContent(MocksConfig.DESCRIPTION.FILE_PATH);
   const categories = await readOfferFileContent(MocksConfig.CATEGORY.FILE_PATH);

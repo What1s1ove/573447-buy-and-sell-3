@@ -6,7 +6,7 @@ import {getMockedDate} from './helpers';
 
 const apiRouter = Router();
 
-(async () => {
+(async (): Promise<void> => {
   const mockedData = await getMockedDate();
 
   initCategoryApi(

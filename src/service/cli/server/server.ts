@@ -25,7 +25,7 @@ app.use((_, res) => res.status(HttpCode.NOT_FOUND).send(`Not found`));
 
 export default {
   name: CliCommandName.SERVER,
-  run(args: string[]) {
+  run(args: string[]): void {
     const [customPort] = args;
     const port = Number(customPort) || DEFAULT_PORT;
 

@@ -1,4 +1,4 @@
-const getUniqueItems = <T>(items: T[]) => {
+const getUniqueItems = <T>(items: T[]): T[] => {
   const uniqueItems = Array.from(new Set(items));
 
   return uniqueItems;
