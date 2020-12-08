@@ -1,4 +1,3 @@
-import {nanoid} from 'nanoid';
 import {
   paintMessage,
   writeToFile,
@@ -7,10 +6,10 @@ import {
   getTwoDigitalString,
   getRandomNumber,
   getRandomItems,
+  getRandomId,
 } from '~/helpers';
 import {CliExitCode, OfferType} from '~/common/enums';
 import {IOffer, IComment} from '~/common/interfaces';
-import { MAX_ID_LENGTH } from '~/common/constants';
 import {
   GenerateMockedCommentCbArgs,
   GenerateMockedCommentsCbArgs,
@@ -24,7 +23,7 @@ const offerTypes = Object.values(OfferType);
 const generateMockedComment = ({
   comments,
 }: GenerateMockedCommentCbArgs): IComment => ({
-  id: nanoid(MAX_ID_LENGTH),
+  id: getRandomId(),
   text: getRandomItems(
     comments,
     getRandomNumber(
@@ -51,7 +50,7 @@ const generateMockedOffer = ({
   categories,
   comments
 }: GenerateMockedOfferCbArgs): IOffer => ({
-  id: nanoid(MAX_ID_LENGTH),
+  id: getRandomId(),
   title: getRandomItem(titles),
   picture: `item${getTwoDigitalString(
     getRandomNumber(
