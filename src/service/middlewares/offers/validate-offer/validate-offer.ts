@@ -1,11 +1,5 @@
 import {HttpCode} from '~/common/enums';
-import {
-  Request,
-  Response,
-  NextFunction,
-  CreatedOffer,
-  OfferIdParam,
-} from '~/common/types';
+import {Request, Response, NextFunction, CreatedOffer} from '~/common/types';
 import {checkIsValidOffer} from './helpers';
 import {Params} from './common';
 
