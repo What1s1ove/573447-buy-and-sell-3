@@ -3,7 +3,16 @@ import {OfferIdParam} from '~/common/types';
 
 type Params = OfferIdParam;
 
-const offerRequireKeys = [
+type OfferRequireKeys = [
+  OfferKey.CATEGORY,
+  OfferKey.DESCRIPTION,
+  OfferKey.PICTURE,
+  OfferKey.TITLE,
+  OfferKey.TYPE,
+  OfferKey.SUM
+];
+
+const offerRequireKeys: OfferRequireKeys = [
   OfferKey.CATEGORY,
   OfferKey.DESCRIPTION,
   OfferKey.PICTURE,

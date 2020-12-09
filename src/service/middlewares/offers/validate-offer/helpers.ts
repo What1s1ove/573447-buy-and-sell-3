@@ -1,10 +1,9 @@
-import {OfferKey} from '~/common/enums';
 import {CreatedOffer} from '~/common/types';
+import {checkIsValidateByKeys} from '~/helpers';
 import {offerRequireKeys} from './common';
 
 const checkIsValidOffer = (offer: CreatedOffer): boolean => {
-  const offerKeys = Object.keys(offer) as OfferKey[];
-  const isValidOffer = offerKeys.every((key) => offerRequireKeys.includes(key));
+  const isValidOffer = checkIsValidateByKeys(offer, offerRequireKeys);
 
   return isValidOffer;
 };

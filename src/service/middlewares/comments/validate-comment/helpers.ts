@@ -1,10 +1,9 @@
-import {CommentKey} from '~/common/enums';
+import {checkIsValidateByKeys} from '~/helpers';
 import {CreatedComment} from '~/common/types';
 import {commentRequireKeys} from './common';
 
 const checkIsValidComment = (comment: CreatedComment): boolean => {
-  const commentKeys = Object.keys(comment) as CommentKey[];
-  const isValidComment = commentKeys.every((key) => commentRequireKeys.includes(key));
+  const isValidComment = checkIsValidateByKeys(comment, commentRequireKeys);
 
   return isValidComment;
 };

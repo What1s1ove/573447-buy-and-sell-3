@@ -3,6 +3,8 @@ import {OfferIdParam} from '~/common/types';
 
 type Params = OfferIdParam;
 
-const commentRequireKeys = [CommentKey.TEXT];
+type CommentRequireKeys = [CommentKey.TEXT];
+
+const commentRequireKeys: CommentRequireKeys = [CommentKey.TEXT];
 
 export {Params, commentRequireKeys};
