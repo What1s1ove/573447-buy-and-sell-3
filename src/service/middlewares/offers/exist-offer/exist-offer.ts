@@ -1,10 +1,9 @@
 import {Offers} from '~/service/data';
 import {HttpCode} from '~/common/enums';
-import {Request, Response, NextFunction} from '~/common/types';
-import {OfferParams} from './common';
+import {Request, Response, NextFunction, OfferIdParam} from '~/common/types';
 
 const existOffer = (service: Offers) => (
-  req: Request<OfferParams, null, null>,
+  req: Request<OfferIdParam, null, null>,
   res: Response,
   next: NextFunction
 ): void => {

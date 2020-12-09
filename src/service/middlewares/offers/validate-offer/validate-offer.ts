@@ -1,10 +1,15 @@
 import {HttpCode} from '~/common/enums';
-import {Request, Response, NextFunction, CreatedOffer} from '~/common/types';
+import {
+  Request,
+  Response,
+  NextFunction,
+  CreatedOffer,
+  OfferIdParam,
+} from '~/common/types';
 import {checkIsValidOffer} from './helpers';
-import {OfferParams} from './common';
 
 const validateOffer = (
-  req: Request<OfferParams, unknown, CreatedOffer>,
+  req: Request<OfferIdParam, unknown, CreatedOffer>,
   res: Response,
   next: NextFunction
 ): void => {

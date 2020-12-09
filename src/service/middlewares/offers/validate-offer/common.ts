@@ -1,9 +1,5 @@
 import {OfferKey} from '~/common/enums';
 
-type OfferParams = {
-  offerId?: string;
-};
-
 const offerRequireKeys = [
   OfferKey.CATEGORY,
   OfferKey.DESCRIPTION,
@@ -13,4 +9,4 @@ const offerRequireKeys = [
   OfferKey.SUM,
 ];
 
-export {offerRequireKeys, OfferParams};
+export {offerRequireKeys};
