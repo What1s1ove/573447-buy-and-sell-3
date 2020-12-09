@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import {ApiPath, HttpCode, OffersApiPath} from '~/common/enums';
-import {validateOffer} from '~/service/middlewares';
+import {existOffer, validateOffer} from '~/service/middlewares';
 import {IOffer} from '~/common/interfaces';
 import {OffersApiServices} from './common';
 
@@ -36,9 +36,9 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
 
   offersRouter.put(OffersApiPath.$OFFER_ID, validateOffer, (req, res) => {
     const {offerId} = req.params;
-    const existOffer = offersService.findOne(offerId!);
+    const offer = offersService.findOne(offerId!);
 
-    if (!existOffer) {
+    if (!offer) {
       return res.status(HttpCode.NOT_FOUND).send(`Not found with ${offerId}`);
     }
 
@@ -56,6 +56,15 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
     }
 
     return res.status(HttpCode.OK).json(offer);
+  });
+
+  offersRouter.get(OffersApiPath.$OFFER_ID_COMMENTS, existOffer(offersService), (_, res) => {
+    const {offer} = res.locals;
+    const comments = commentsService.findAll(offer as IOffer);
+
+    res.status(HttpCode.OK)
+      .json(comments);
+
   });
 };
 
