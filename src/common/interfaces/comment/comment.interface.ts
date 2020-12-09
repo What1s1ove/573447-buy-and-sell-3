@@ -1,6 +1,8 @@
+import {CommentKey} from '~/common/enums';
+
 interface IComment {
-  id: string;
-  text: string;
+  [CommentKey.ID]: string;
+  [CommentKey.TEXT]: string;
 }
 
 export {IComment};
