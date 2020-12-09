@@ -1,3 +1,4 @@
+import {OfferKey} from '~/common/enums';
 import {IOffer} from '~/common/interfaces';
 import {CreatedOffer} from '~/common/types';
 import {getOfferById, getNewOffer, updateOffer, removeOffer} from './helpers';
@@ -17,7 +18,7 @@ class Offers {
     return this.#offers;
   }
 
-  findOne(id: string): IOffer | null {
+  findOne(id: IOffer[OfferKey.ID]): IOffer | null {
     const offerById = getOfferById(this.#offers, id);
 
     return offerById;
@@ -37,7 +38,7 @@ class Offers {
     return offer;
   }
 
-  drop(id: string): IOffer | null {
+  drop(id: IOffer[OfferKey.ID]): IOffer | null {
     const deletedOffer = getOfferById(this.#offers, id);
 
     if (!deletedOffer) {

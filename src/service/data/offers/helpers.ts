@@ -1,12 +1,15 @@
-import {getRandomId} from '~/helpers';
-import {OfferKey} from '~/common/enums';
+import {getItemByKey, getRandomId, removeItemByKey} from '~/helpers';
+import {CommentKey, OfferKey} from '~/common/enums';
 import {IOffer} from '~/common/interfaces';
 import {CreatedOffer} from '~/common/types';
 
-const getOfferById = (offers: IOffer[], id: string): IOffer | null => {
-  const offerById = offers.find((offer) => offer.id === id);
+const getOfferById = (
+  offers: IOffer[],
+  id: IOffer[CommentKey.ID]
+): IOffer | null => {
+  const offerById = getItemByKey(offers, OfferKey.ID, id);
 
-  return offerById ?? null;
+  return offerById;
 };
 
 const getNewOffer = (offer: CreatedOffer): IOffer => {
@@ -28,7 +31,7 @@ const updateOffer = (offers: IOffer[], updatedOffer: IOffer): IOffer[] => {
 };
 
 const removeOffer = (offers: IOffer[], removedOffer: IOffer): IOffer[] => {
-  const updatedOffers = offers.filter((offer) => offer.id !== removedOffer.id);
+  const updatedOffers = removeItemByKey(offers, OfferKey.ID, removedOffer.id);
 
   return updatedOffers;
 };
