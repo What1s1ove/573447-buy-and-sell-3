@@ -7,9 +7,10 @@ import {
   OfferIdParam,
 } from '~/common/types';
 import {checkIsValidOffer} from './helpers';
+import {Params} from './common';
 
 const validateOffer = (
-  req: Request<OfferIdParam, unknown, CreatedOffer>,
+  req: Request<Partial<Params>, unknown, CreatedOffer>,
   res: Response,
   next: NextFunction
 ): void => {
