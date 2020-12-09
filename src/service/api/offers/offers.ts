@@ -1,7 +1,8 @@
 import {Router} from 'express';
 import {ApiPath, HttpCode, OffersApiPath} from '~/common/enums';
-import {existOffer, validateOffer} from '~/service/middlewares';
+import {existOffer, validateComment, validateOffer} from '~/service/middlewares';
 import {IOffer} from '~/common/interfaces';
+import {Response, Request, OfferIdParam} from '~/common/types';
 import {OffersApiServices} from './common';
 
 const offersRouter = Router();
@@ -14,7 +15,7 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
   offersRouter.get(OffersApiPath.ROOT, (_req, res) => {
     const offers = offersService.findAll();
 
-    res.status(HttpCode.OK).json(offers);
+    return res.status(HttpCode.OK).json(offers);
   });
 
   offersRouter.post(OffersApiPath.ROOT, validateOffer, (req, res) => {
@@ -58,13 +59,40 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
     return res.status(HttpCode.OK).json(offer);
   });
 
-  offersRouter.get(OffersApiPath.$OFFER_ID_COMMENTS, existOffer(offersService), (_, res) => {
+  offersRouter.get(
+    OffersApiPath.$OFFER_ID_COMMENTS,
+    existOffer(offersService),
+    (_, res) => {
+      const {offer} = res.locals;
+      const comments = commentsService.findAll(offer as IOffer);
+
+      return res.status(HttpCode.OK).json(comments);
+    }
+  );
+
+  offersRouter.post(
+    OffersApiPath.$OFFER_ID_COMMENTS,
+    [existOffer(offersService), validateComment],
+    (req: Request<Partial<OfferIdParam>>, res: Response) => {
+      const {offer} = res.locals;
+      const comment = commentsService.create(offer as IOffer, req.body);
+
+      return res.status(HttpCode.CREATED).json(comment);
+    }
+  );
+
+  offersRouter.delete(OffersApiPath.$OFFER_ID_COMMENTS_$COMMENT_ID, existOffer(offersService), (req, res) => {
     const {offer} = res.locals;
-    const comments = commentsService.findAll(offer as IOffer);
+    const {commentId} = req.params;
+    const deletedComment = commentsService.drop(offer as IOffer, commentId!);
 
-    res.status(HttpCode.OK)
-      .json(comments);
+    if (!deletedComment) {
+      return res.status(HttpCode.NOT_FOUND)
+        .send(`Not found`);
+    }
 
+    return res.status(HttpCode.OK)
+      .json(deletedComment);
   });
 };
 
