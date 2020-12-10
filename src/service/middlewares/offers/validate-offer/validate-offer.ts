@@ -7,15 +7,15 @@ const validateOffer = (
   req: Request<Partial<Params>, unknown, CreatedOffer>,
   res: Response,
   next: NextFunction
-): void => {
+): Response | void => {
   const newOffer = req.body;
   const isValidOffer = checkIsValidOffer(newOffer);
 
   if (!isValidOffer) {
-    res.status(HttpCode.BAD_REQUEST).send(`Bad request`);
+    return res.status(HttpCode.BAD_REQUEST).send(`Bad request`);
   }
 
-  next();
+  return next();
 };
 
 export {validateOffer};

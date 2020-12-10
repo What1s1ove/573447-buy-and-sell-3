@@ -7,15 +7,15 @@ const validateComment = (
   req: Request<Partial<Params>, unknown, CreatedComment>,
   res: Response,
   next: NextFunction
-): void => {
+): Response | void => {
   const newComment = req.body;
   const isValidComment = checkIsValidComment(newComment);
 
   if (!isValidComment) {
-    res.status(HttpCode.BAD_REQUEST).send(`Bad request`);
+    return res.status(HttpCode.BAD_REQUEST).send(`Bad request`);
   }
 
-  next();
+  return next();
 };
 
 export {validateComment};
