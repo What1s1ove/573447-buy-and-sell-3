@@ -10,7 +10,7 @@ const initCategoryApi = (app: Router, service: Category): void => {
   categoryRouter.get(CategoryApiPath.ROOT, async (_req, res) => {
     const categories = await service.findAll();
 
-    res.status(HttpCode.OK).json(categories);
+    return res.status(HttpCode.OK).json(categories);
   });
 };
 

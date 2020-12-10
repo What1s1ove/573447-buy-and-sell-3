@@ -1,7 +1,8 @@
 import {Router} from 'express';
 import {initCategoryApi} from './category/category';
 import {initOffersApi} from './offers/offers';
-import {Category, Offers, Comments} from '~/service/data';
+import {initSearchApi} from './search/search';
+import {Category, Offers, Comments, Search} from '~/service/data';
 import {getMockedDate} from './helpers';
 
 const apiRouter = Router();
@@ -22,6 +23,13 @@ const apiRouter = Router();
     }),
     comments: new Comments(),
   });
+
+  initSearchApi(
+    apiRouter,
+    new Search({
+      offers: mockedData,
+    })
+  );
 })();
 
 export default apiRouter;
