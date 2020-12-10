@@ -68,3 +68,8 @@ Content-Type: application/json
 # Delete comment
 
 DELETE http://localhost:3000/api/offers/6VsYCB/comments/0vc9ro HTTP/1.1
+
+###
+
+# Seatch
+GET http://localhost:3000/api/search?query=Куплю HTTP/1.1
