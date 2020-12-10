@@ -1,9 +1,9 @@
 import {CreatedOffer} from '~/common/types';
-import {checkIsValidateByKeys} from '~/helpers';
+import {checkIsValidByKeys} from '~/helpers';
 import {offerRequireKeys} from './common';
 
 const checkIsValidOffer = (offer: CreatedOffer): boolean => {
-  const isValidOffer = checkIsValidateByKeys(offer, offerRequireKeys);
+  const isValidOffer = checkIsValidByKeys(offer, offerRequireKeys);
 
   return isValidOffer;
 };
