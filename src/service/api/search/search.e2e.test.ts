@@ -34,15 +34,15 @@ describe(`API returns offer based on search query`, () => {
   });
 });
 
-test(`API returns code 404 if nothing is found`, () => {
-  request(app)
+test(`API returns code 200 if nothing is found`, async () => {
+  await request(app)
     .get(ApiPath.SEARCH)
     .query({
       query: `Продам свою душу`,
     })
-    .expect(HttpCode.NOT_FOUND);
+    .expect(HttpCode.OK);
 });
 
-test(`API returns 400 when query string is absent`, () => {
-  request(app).get(ApiPath.SEARCH).expect(HttpCode.BAD_REQUEST);
+test(`API returns 400 when query string is absent`, async () => {
+  await request(app).get(ApiPath.SEARCH).expect(HttpCode.BAD_REQUEST);
 });
