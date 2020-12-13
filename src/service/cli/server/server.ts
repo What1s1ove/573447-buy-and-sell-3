@@ -3,6 +3,8 @@ import apiRouter from '~/service/api/api';
 import { getLogger } from '~/helpers';
 import { CliCommandName, HttpCode, LoggerName } from '~/common/enums';
 import { API_PREFIX } from '~/common/constants';
+import { HttpError } from '~/common/exceptions';
+import { Request, Response, NextFunction} from '~/common/types';
 import { DEFAULT_PORT } from './common';
 
 const app = express();
@@ -25,6 +27,10 @@ app.use((req, res) => {
   logger.error(`Route not found: ${req.url}`);
 
   return res.status(HttpCode.NOT_FOUND).send(`Not found`);
+});
+
+app.use((err: HttpError, _req: Request, _res: Response, _next: NextFunction) => {
+  logger.error(`An error occured on processing request: ${err.message}`);
 });
 
 export default {
