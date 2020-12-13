@@ -5,7 +5,7 @@ type Constructor = {
   offers: IOffer[];
 };
 
-class SearchService {
+class Search {
   #offers: IOffer[];
 
   constructor({offers}: Constructor) {
@@ -19,4 +19,4 @@ class SearchService {
   }
 }
 
-export default SearchService;
+export default Search;
