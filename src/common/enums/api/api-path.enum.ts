@@ -1,5 +1,5 @@
 enum ApiPath {
-  CATEGORY = `/category`,
+  CATEGORIES = `/categories`,
   OFFERS = `/offers`,
   SEARCH = `/search`,
 }
