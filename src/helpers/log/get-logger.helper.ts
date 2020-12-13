@@ -14,11 +14,8 @@ const loggerInstance = pino(
   isDevMode ? process.stdout : pino.destination(LOG_FILE),
 );
 
-const logger = {
-  loggerInstance,
-  getLogger(options: LoggerOptions = {}): Logger {
-    return loggerInstance.child(options);
-  },
+const getLogger = (options: LoggerOptions = {}): Logger => {
+  return loggerInstance.child(options);
 };
 
-export { logger };
+export { getLogger };
