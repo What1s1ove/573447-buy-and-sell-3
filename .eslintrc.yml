@@ -23,8 +23,8 @@ extends:
   - prettier
 
 ignorePatterns:
-  '**/express/public/**/*.js'
-  'jest.config.js'
+  - '**/express/public/**/*.js'
+  - 'jest.config.js'
 
 rules:
   '@typescript-eslint/quotes':
