@@ -15,6 +15,7 @@
   "homepage": "https://github.com/What1s1ove/573447-buy-and-sell-3#readme",
   "scripts": {
     "start": "cross-env LOG_LEVEL=error ts-node -r tsconfig-paths/register ./src/service/service.ts",
+    "start:debug": "cross-env LOG_LEVEL=info ts-node -r tsconfig-paths/register ./src/service/service.ts",
     "start:front-server": "nodemon --exec ts-node -r tsconfig-paths/register ./src/express/express.ts",
     "server": "cross-env nodemon --exec ts-node -r tsconfig-paths/register ./src/service/service.ts --server",
     "test": "npm run eslint && npm run jest",
