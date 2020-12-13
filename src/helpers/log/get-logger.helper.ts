@@ -8,7 +8,7 @@ const defaultLogLevel: Level = isDevMode ? `info` : `error`;
 const loggerInstance = pino(
   {
     name: `base-logger`,
-    level: ENV.LOG_LEVEL || defaultLogLevel,
+    level: ENV.LOG_LEVEL ?? defaultLogLevel,
     prettyPrint: isDevMode,
   },
   isDevMode ? process.stdout : pino.destination(LOG_FILE),
