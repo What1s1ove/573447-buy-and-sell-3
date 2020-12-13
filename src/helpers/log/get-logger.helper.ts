@@ -1,7 +1,7 @@
 import pino, { Logger, LoggerOptions, Level } from 'pino';
 import { AppEnvironment, ENV } from '~/common/enums';
 
-const LOG_FILE = `./logs/api.log`;
+const LOG_FILE = `./src/service/logs/api.log`;
 const isDevMode = ENV.NODE_ENV === AppEnvironment.DEVELOPMENT;
 const defaultLogLevel: Level = isDevMode ? `info` : `error`;
 

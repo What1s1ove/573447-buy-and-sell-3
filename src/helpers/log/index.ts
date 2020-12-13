@@ -1,1 +1,1 @@
-export * from './logger.helper';
+export * from './get-logger.helper';
