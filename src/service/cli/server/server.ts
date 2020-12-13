@@ -3,23 +3,12 @@ import apiRouter from '~/service/api/api';
 import {paintMessage} from '~/helpers';
 import {CliCommandName, HttpCode} from '~/common/enums';
 import {API_PREFIX} from '~/common/constants';
-import {getMocks} from './helpers';
-import {DEFAULT_PORT, ApiPath} from './common';
+import {DEFAULT_PORT} from './common';
 
 const app = express();
 
 app.use(express.json());
 app.use(API_PREFIX, apiRouter);
-
-app.get(ApiPath.OFFERS, async (_, res) => {
-  try {
-    const mocks = (await getMocks()) || [];
-
-    res.status(HttpCode.OK).json(mocks);
-  } catch {
-    res.status(HttpCode.OK).json([]);
-  }
-});
 
 app.use((_, res) => res.status(HttpCode.NOT_FOUND).send(`Not found`));
 
