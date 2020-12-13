@@ -1,4 +1,4 @@
-import chalk, {Color} from 'chalk';
+import chalk, { Color } from 'chalk';
 
 const paintMessage = (message: string, color: typeof Color): string => {
   const paintedMessage = chalk[color](message);
@@ -6,4 +6,4 @@ const paintMessage = (message: string, color: typeof Color): string => {
   return paintedMessage;
 };
 
-export {paintMessage};
+export { paintMessage };

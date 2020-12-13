@@ -10,4 +10,4 @@ const Cli = {
   [server.name]: server,
 };
 
-export {Cli};
+export { Cli };

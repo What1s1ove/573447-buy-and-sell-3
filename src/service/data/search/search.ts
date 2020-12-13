@@ -1,5 +1,5 @@
-import {IOffer} from '~/common/interfaces';
-import {getOffersByTitleValue} from './helpers';
+import { IOffer } from '~/common/interfaces';
+import { getOffersByTitleValue } from './helpers';
 
 type Constructor = {
   offers: IOffer[];
@@ -8,7 +8,7 @@ type Constructor = {
 class Search {
   #offers: IOffer[];
 
-  constructor({offers}: Constructor) {
+  constructor({ offers }: Constructor) {
     this.#offers = offers;
   }
 

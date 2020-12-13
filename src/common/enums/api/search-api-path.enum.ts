@@ -2,4 +2,4 @@ enum SearchApiPath {
   ROOT = `/`,
 }
 
-export {SearchApiPath};
+export { SearchApiPath };

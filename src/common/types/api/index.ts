@@ -1,5 +1,5 @@
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 
-export {Request, Response, NextFunction};
+export { Request, Response, NextFunction };
 export * from './offers';
 export * from './comments';

@@ -4,4 +4,4 @@ enum ApiPath {
   SEARCH = `/search`,
 }
 
-export {ApiPath};
+export { ApiPath };

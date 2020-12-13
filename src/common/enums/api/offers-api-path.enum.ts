@@ -5,4 +5,4 @@ enum OffersApiPath {
   $OFFER_ID_COMMENTS_$COMMENT_ID = `/:offerId/comments/:commentId`,
 }
 
-export {OffersApiPath};
+export { OffersApiPath };

@@ -8,4 +8,4 @@ const getShuffledItems = <T>(items: T[]): T[] => {
   return shuffledArray;
 };
 
-export {getShuffledItems};
+export { getShuffledItems };

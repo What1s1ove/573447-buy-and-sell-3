@@ -3,4 +3,4 @@ enum CommentKey {
   TEXT = `text`,
 }
 
-export {CommentKey};
+export { CommentKey };

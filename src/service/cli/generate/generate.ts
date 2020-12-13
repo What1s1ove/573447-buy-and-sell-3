@@ -1,6 +1,10 @@
-import {CliCommandName} from '~/common/enums';
-import {saveOffersToFile, getOffersData, generateMockedOffers} from './helpers';
-import {MocksConfig} from './common';
+import { CliCommandName } from '~/common/enums';
+import {
+  saveOffersToFile,
+  getOffersData,
+  generateMockedOffers,
+} from './helpers';
+import { MocksConfig } from './common';
 
 export default {
   name: CliCommandName.GENERATE,
@@ -14,7 +18,7 @@ export default {
       return;
     }
 
-    const {titles, descriptions, categories, comments} = await getOffersData();
+    const { titles, descriptions, categories, comments } = await getOffersData();
     const mockedOffers = generateMockedOffers({
       count: offersCount,
       titles,

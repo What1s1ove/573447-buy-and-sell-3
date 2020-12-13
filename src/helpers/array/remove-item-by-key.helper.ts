@@ -4,4 +4,4 @@ const removeItemByKey = <T>(items: T[], key: keyof T, value: unknown): T[] => {
   return updatedItems;
 };
 
-export {removeItemByKey};
+export { removeItemByKey };

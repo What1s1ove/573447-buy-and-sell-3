@@ -6,4 +6,4 @@ const getRandomNumber = (min: number, max: number): number => {
   return randomNumber;
 };
 
-export {getRandomNumber};
+export { getRandomNumber };

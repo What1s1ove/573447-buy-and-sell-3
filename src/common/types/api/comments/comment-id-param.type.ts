@@ -2,4 +2,4 @@ type CommentIdParam = {
   commentId: string;
 };
 
-export {CommentIdParam};
+export { CommentIdParam };

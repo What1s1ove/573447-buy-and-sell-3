@@ -4,4 +4,4 @@ enum SsrPath {
   OFFERS = `/offers`,
 }
 
-export {SsrPath};
+export { SsrPath };

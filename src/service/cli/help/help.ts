@@ -1,5 +1,5 @@
-import {paintMessage} from '~/helpers';
-import {CliCommandName} from '~/common/enums';
+import { paintMessage } from '~/helpers';
+import { CliCommandName } from '~/common/enums';
 
 const outputHelpInfo = (): void => {
   const text = `

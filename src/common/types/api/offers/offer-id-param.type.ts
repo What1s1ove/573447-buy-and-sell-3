@@ -2,4 +2,4 @@ type OfferIdParam = {
   offerId: string;
 };
 
-export {OfferIdParam};
+export { OfferIdParam };

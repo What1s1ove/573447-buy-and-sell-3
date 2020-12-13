@@ -1,9 +1,9 @@
 import express from 'express';
 import apiRouter from '~/service/api/api';
-import {paintMessage} from '~/helpers';
-import {CliCommandName, HttpCode} from '~/common/enums';
-import {API_PREFIX} from '~/common/constants';
-import {DEFAULT_PORT} from './common';
+import { paintMessage } from '~/helpers';
+import { CliCommandName, HttpCode } from '~/common/enums';
+import { API_PREFIX } from '~/common/constants';
+import { DEFAULT_PORT } from './common';
 
 const app = express();
 

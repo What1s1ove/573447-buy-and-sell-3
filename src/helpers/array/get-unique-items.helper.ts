@@ -4,4 +4,4 @@ const getUniqueItems = <T>(items: T[]): T[] => {
   return uniqueItems;
 };
 
-export {getUniqueItems};
+export { getUniqueItems };

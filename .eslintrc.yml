@@ -30,24 +30,56 @@ rules:
     - backtick
   '@typescript-eslint/comma-dangle':
     - error
-    - only-multiline
-    - arrays: never
-      objects: always
-      imports: never
-      exports: never
-      functions: never
+    - always-multiline
   '@typescript-eslint/no-unused-vars':
     - error
-    - argsIgnorePattern: ^_
+    - vars: all
+      args: after-used
+      argsIgnorePattern: ^_
+      caughtErrors: all
   '@typescript-eslint/explicit-function-return-type':
     - error
+  '@typescript-eslint/await-thenable':
+    - error
+  '@typescript-eslint/no-misused-promises':
+    - error
+  '@typescript-eslint/require-await':
+    - error
+  '@typescript-eslint/no-non-null-assertion':
+    - error
+  '@typescript-eslint/restrict-template-expressions':
+    - error
+    - allowNumber: true
+      allowBoolean: false
+      allowAny: false
+      allowNullable: false
+  '@typescript-eslint/no-unnecessary-condition':
+    - error
+  object-curly-spacing:
+    - error
+    - always
+  implicit-arrow-linebreak:
+    - error
+    - beside
+  function-paren-newline:
+    - error
+    - consistent
+  no-confusing-arrow:
+    - error
+    - allowParens: true
+  no-process-exit:
+    - error
+  require-atomic-updates:
+    - error
+  no-console:
+    - error
+    - allow:
+      - warn
+      - error
+      - info
   arrow-parens:
     - error
     - always
-  no-param-reassign:
-  - error
-  - props: false
+  no-param-reassign: off
   import/prefer-default-export: off
   import/extensions: off
-  no-console: off
-

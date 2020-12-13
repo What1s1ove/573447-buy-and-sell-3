@@ -1,3 +1,3 @@
 const API_PREFIX = `/api`;
 
-export {API_PREFIX};
+export { API_PREFIX };

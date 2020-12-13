@@ -5,4 +5,4 @@ enum CliCommandName {
   SERVER = `--server`,
 }
 
-export {CliCommandName};
+export { CliCommandName };

@@ -8,8 +8,8 @@ import {
   getRandomItems,
   getRandomId,
 } from '~/helpers';
-import {CliExitCode, OfferType} from '~/common/enums';
-import {IOffer, IComment} from '~/common/interfaces';
+import { OfferType } from '~/common/enums';
+import { IOffer, IComment } from '~/common/interfaces';
 import {
   GenerateMockedCommentCbArgs,
   GenerateMockedCommentsCbArgs,
@@ -28,8 +28,8 @@ const generateMockedComment = ({
     comments,
     getRandomNumber(
       MocksConfig.COMMENTS.MIN_SENTENCES_COUNT,
-      MocksConfig.COMMENTS.MAX_SENTENCES_COUNT
-    )
+      MocksConfig.COMMENTS.MAX_SENTENCES_COUNT,
+    ),
   ).join(` `),
 });
 
@@ -37,9 +37,9 @@ const generateMockedComments = ({
   count,
   comments,
 }: GenerateMockedCommentsCbArgs): IComment[] => {
-  const mockedComments = Array.from(new Array(count), () =>
-    generateMockedComment({comments})
-  );
+  const mockedComments = Array.from(new Array(count), () => (
+    generateMockedComment({ comments })
+  ));
 
   return mockedComments;
 };
@@ -48,35 +48,35 @@ const generateMockedOffer = ({
   titles,
   descriptions,
   categories,
-  comments
+  comments,
 }: GenerateMockedOfferCbArgs): IOffer => ({
   id: getRandomId(),
   title: getRandomItem(titles),
   picture: `item${getTwoDigitalString(
     getRandomNumber(
       MocksConfig.PICTURE_NUMBER.MIN,
-      MocksConfig.PICTURE_NUMBER.MAX
-    )
+      MocksConfig.PICTURE_NUMBER.MAX,
+    ),
   )}.jpg`,
   description: getRandomItems(
     descriptions,
     getRandomNumber(
       MocksConfig.DESCRIPTION.MIN_COUNT,
-      MocksConfig.DESCRIPTION.MAX_COUNT
-    )
+      MocksConfig.DESCRIPTION.MAX_COUNT,
+    ),
   ).join(` `),
   type: getRandomItem(offerTypes),
   sum: getRandomNumber(MocksConfig.PRICE.MIN, MocksConfig.PRICE.MAX),
   category: getRandomItems(
     categories,
-    getRandomNumber(MocksConfig.CATEGORY.MIN_COUNT, categories.length)
+    getRandomNumber(MocksConfig.CATEGORY.MIN_COUNT, categories.length),
   ),
   comments: generateMockedComments({
     count: getRandomNumber(
       MocksConfig.COMMENTS.MIN_COUNT,
-      MocksConfig.COMMENTS.MAX_COUNT
+      MocksConfig.COMMENTS.MAX_COUNT,
     ),
-    comments
+    comments,
   }),
 });
 
@@ -87,9 +87,9 @@ const generateMockedOffers = ({
   descriptions,
   comments,
 }: GenerateMockedOffersCbArgs): IOffer[] => {
-  const mockedOffers = Array.from(new Array(count), () =>
-    generateMockedOffer({titles, categories, descriptions, comments})
-  );
+  const mockedOffers = Array.from(new Array(count), () => (
+    generateMockedOffer({ titles, categories, descriptions, comments })
+  ));
 
   return mockedOffers;
 };
@@ -98,11 +98,9 @@ const saveOffersToFile = async (mockedOffers: IOffer[]): Promise<void> => {
   try {
     await writeToFile(MocksConfig.FILE_NAME, JSON.stringify(mockedOffers));
 
-    console.log(paintMessage(`Operation success. File created.`, `green`));
+    console.error(paintMessage(`Operation success. File created.`, `green`));
   } catch {
     console.error(paintMessage(`Can't write data to file...`, `red`));
-
-    process.exit(CliExitCode.ERROR);
   }
 };
 
@@ -120,7 +118,9 @@ const readOfferFileContent = async (path: string): Promise<string[]> => {
 
 const getOffersData = async (): Promise<GenerateMockedOfferCbArgs> => {
   const titles = await readOfferFileContent(MocksConfig.TITLE.FILE_PATH);
-  const descriptions = await readOfferFileContent(MocksConfig.DESCRIPTION.FILE_PATH);
+  const descriptions = await readOfferFileContent(
+    MocksConfig.DESCRIPTION.FILE_PATH,
+  );
   const categories = await readOfferFileContent(MocksConfig.CATEGORY.FILE_PATH);
   const comments = await readOfferFileContent(MocksConfig.COMMENTS.FILE_PATH);
 

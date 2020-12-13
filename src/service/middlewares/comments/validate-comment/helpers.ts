@@ -1,6 +1,6 @@
-import {checkIsValidByKeys} from '~/helpers';
-import {CreatedComment} from '~/common/types';
-import {commentRequireKeys} from './common';
+import { checkIsValidByKeys } from '~/helpers';
+import { CreatedComment } from '~/common/types';
+import { commentRequireKeys } from './common';
 
 const checkIsValidComment = (comment: CreatedComment): boolean => {
   const isValidComment = checkIsValidByKeys(comment, commentRequireKeys);
@@ -8,4 +8,4 @@ const checkIsValidComment = (comment: CreatedComment): boolean => {
   return isValidComment;
 };
 
-export {checkIsValidComment};
+export { checkIsValidComment };

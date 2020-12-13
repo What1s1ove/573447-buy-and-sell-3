@@ -1,5 +1,5 @@
-import {Router} from 'express';
-import {SsrOffersPath} from '~/common/enums';
+import { Router } from 'express';
+import { SsrOffersPath } from '~/common/enums';
 
 const offersRouter = Router();
 

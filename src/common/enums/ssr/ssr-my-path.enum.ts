@@ -3,4 +3,4 @@ enum SsrMyPath {
   COMMENTS = `/comments`,
 }
 
-export {SsrMyPath};
+export { SsrMyPath };

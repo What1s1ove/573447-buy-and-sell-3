@@ -1,7 +1,7 @@
-import {OfferKey} from '~/common/enums';
-import {IOffer} from '~/common/interfaces';
-import {CreatedOffer} from '~/common/types';
-import {getOfferById, getNewOffer, updateOffer, removeOffer} from './helpers';
+import { OfferKey } from '~/common/enums';
+import { IOffer } from '~/common/interfaces';
+import { CreatedOffer } from '~/common/types';
+import { getOfferById, getNewOffer, updateOffer, removeOffer } from './helpers';
 
 type Constructor = {
   offers: IOffer[];
@@ -10,7 +10,7 @@ type Constructor = {
 class Offers {
   #offers: IOffer[];
 
-  constructor({offers}: Constructor) {
+  constructor({ offers }: Constructor) {
     this.#offers = offers;
   }
 

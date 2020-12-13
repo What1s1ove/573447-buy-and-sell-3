@@ -1,6 +1,6 @@
-import {readFile} from '~/helpers';
-import {MOCKS_FILE_PATH} from '~/common/constants';
-import {IOffer} from '~/common/interfaces';
+import { readFile } from '~/helpers';
+import { MOCKS_FILE_PATH } from '~/common/constants';
+import { IOffer } from '~/common/interfaces';
 
 const data: IOffer[] = [];
 
@@ -9,12 +9,12 @@ const getMockedDate = async (): Promise<IOffer[]> => {
     if (!data.length) {
       const fileContent = await readFile(MOCKS_FILE_PATH);
 
-      data.push(...JSON.parse(fileContent) as IOffer[]);
+      data.push(...(JSON.parse(fileContent) as IOffer[]));
 
       return data;
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     return Promise.reject(err);
   }
@@ -22,4 +22,4 @@ const getMockedDate = async (): Promise<IOffer[]> => {
   return data;
 };
 
-export {getMockedDate};
+export { getMockedDate };

@@ -9,4 +9,4 @@ enum OfferKey {
   COMMENTS = `comments`,
 }
 
-export {OfferKey};
+export { OfferKey };

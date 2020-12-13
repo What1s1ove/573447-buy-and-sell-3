@@ -1,5 +1,5 @@
-import {CommentIdParam, OfferIdParam} from '~/common/types';
+import { CommentIdParam, OfferIdParam } from '~/common/types';
 
 type Params = OfferIdParam & CommentIdParam;
 
-export {Params};
+export { Params };

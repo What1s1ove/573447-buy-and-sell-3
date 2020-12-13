@@ -3,4 +3,4 @@ enum OfferType {
   SALE = `sale`,
 }
 
-export {OfferType};
+export { OfferType };

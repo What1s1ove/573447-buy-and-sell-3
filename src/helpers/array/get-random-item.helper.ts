@@ -1,4 +1,4 @@
-import {getRandomNumber} from '~/helpers/number';
+import { getRandomNumber } from '~/helpers/number';
 
 const RANDOM_ITEM_START_IDX = 0;
 const RANDOM_ITEM_DECREMENT = 1;
@@ -6,7 +6,7 @@ const RANDOM_ITEM_DECREMENT = 1;
 const getRandomItem = <T>(items: T[]): T => {
   const randomIdx = getRandomNumber(
     RANDOM_ITEM_START_IDX,
-    items.length - RANDOM_ITEM_DECREMENT
+    items.length - RANDOM_ITEM_DECREMENT,
   );
 
   const randomItem = items[randomIdx];
@@ -14,4 +14,4 @@ const getRandomItem = <T>(items: T[]): T => {
   return randomItem;
 };
 
-export {getRandomItem};
+export { getRandomItem };

@@ -1,4 +1,4 @@
-import {MOCKS_FILE_PATH} from '~/common/constants';
+import { MOCKS_FILE_PATH } from '~/common/constants';
 
 const DATA_PATH = `./data`;
 

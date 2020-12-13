@@ -1,5 +1,5 @@
-import {OfferKey} from '~/common/enums';
-import {OfferIdParam} from '~/common/types';
+import { OfferKey } from '~/common/enums';
+import { OfferIdParam } from '~/common/types';
 
 type Params = OfferIdParam;
 
@@ -12,4 +12,4 @@ const offerRequireKeys = [
   OfferKey.SUM,
 ] as const;
 
-export {Params, offerRequireKeys};
+export { Params, offerRequireKeys };

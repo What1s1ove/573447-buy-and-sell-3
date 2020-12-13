@@ -5,4 +5,4 @@ enum SsrOffersPath {
   CATEGORY_$CATEGORY_ID = `/category/:id`,
 }
 
-export {SsrOffersPath};
+export { SsrOffersPath };

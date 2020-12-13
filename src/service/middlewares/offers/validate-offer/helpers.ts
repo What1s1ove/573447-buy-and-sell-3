@@ -1,6 +1,6 @@
-import {CreatedOffer} from '~/common/types';
-import {checkIsValidByKeys} from '~/helpers';
-import {offerRequireKeys} from './common';
+import { CreatedOffer } from '~/common/types';
+import { checkIsValidByKeys } from '~/helpers';
+import { offerRequireKeys } from './common';
 
 const checkIsValidOffer = (offer: CreatedOffer): boolean => {
   const isValidOffer = checkIsValidByKeys(offer, offerRequireKeys);
@@ -8,4 +8,4 @@ const checkIsValidOffer = (offer: CreatedOffer): boolean => {
   return isValidOffer;
 };
 
-export {checkIsValidOffer};
+export { checkIsValidOffer };

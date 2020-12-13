@@ -2,4 +2,4 @@ enum CategoryApiPath {
   ROOT = `/`,
 }
 
-export {CategoryApiPath};
+export { CategoryApiPath };

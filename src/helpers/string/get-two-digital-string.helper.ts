@@ -9,4 +9,4 @@ const getTwoDigitalString = (number: number): string => {
   return twoDigitalFormatted;
 };
 
-export {getTwoDigitalString};
+export { getTwoDigitalString };

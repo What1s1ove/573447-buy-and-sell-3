@@ -1,8 +1,8 @@
 /* eslint-disable class-methods-use-this */
-import {CommentKey} from '~/common/enums';
-import {IComment, IOffer} from '~/common/interfaces';
-import {CreatedComment} from '~/common/types';
-import {getCommentById, getNewComment, removeComment} from './helpers';
+import { CommentKey } from '~/common/enums';
+import { IComment, IOffer } from '~/common/interfaces';
+import { CreatedComment } from '~/common/types';
+import { getCommentById, getNewComment, removeComment } from './helpers';
 
 class Comments {
   findAll(offer: IOffer): IComment[] {

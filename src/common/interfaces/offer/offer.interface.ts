@@ -1,5 +1,5 @@
-import {OfferKey, OfferType} from '~/common/enums';
-import {IComment} from '~/common/interfaces/comment';
+import { OfferKey, OfferType } from '~/common/enums';
+import { IComment } from '~/common/interfaces/comment';
 
 interface IOffer {
   [OfferKey.ID]: string;
@@ -12,4 +12,4 @@ interface IOffer {
   [OfferKey.COMMENTS]: IComment[];
 }
 
-export {IOffer};
+export { IOffer };

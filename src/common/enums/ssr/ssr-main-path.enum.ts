@@ -5,4 +5,4 @@ enum SsrMainPath {
   SEARCH = `/search`,
 }
 
-export {SsrMainPath};
+export { SsrMainPath };

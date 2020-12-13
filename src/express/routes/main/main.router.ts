@@ -1,5 +1,5 @@
-import {Router} from 'express';
-import {SsrMainPath} from '~/common/enums';
+import { Router } from 'express';
+import { SsrMainPath } from '~/common/enums';
 
 const mainRouter = Router();
 

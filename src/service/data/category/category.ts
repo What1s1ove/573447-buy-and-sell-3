@@ -1,6 +1,6 @@
-import {getUniqueItems} from '~/helpers';
-import {IOffer} from '~/common/interfaces';
-import {getCategories} from './helpers';
+import { getUniqueItems } from '~/helpers';
+import { IOffer } from '~/common/interfaces';
+import { getCategories } from './helpers';
 
 type Constructor = {
   offers: IOffer[];
@@ -9,7 +9,7 @@ type Constructor = {
 class Category {
   #offers: IOffer[];
 
-  constructor({offers}: Constructor) {
+  constructor({ offers }: Constructor) {
     this.#offers = offers;
   }
 

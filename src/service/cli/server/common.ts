@@ -4,4 +4,4 @@ enum ApiPath {
   OFFERS = `/offers`,
 }
 
-export {DEFAULT_PORT, ApiPath};
+export { DEFAULT_PORT, ApiPath };
