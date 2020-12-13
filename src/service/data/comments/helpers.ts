@@ -13,12 +13,12 @@ const getCommentById = (
 };
 
 const getNewComment = (comment: CreatedComment): IComment => {
-  const newOffer: IComment = {
+  const newComment: IComment = {
     ...comment,
     [CommentKey.ID]: getRandomId(),
   };
 
-  return newOffer;
+  return newComment;
 };
 
 const removeComment = (
