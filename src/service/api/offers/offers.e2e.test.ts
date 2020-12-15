@@ -82,8 +82,8 @@ describe(`API creates an offer if data is valid`, () => {
     expect(response?.body).toEqual(expect.objectContaining(newOffer));
   });
 
-  test(`Offers count is changed`, () => {
-    request(app)
+  test(`Offers count is changed`, async () => {
+    await request(app)
       .get(ApiPath.OFFERS)
       .expect((res) => expect(res.body.length).toBe(6));
   });
@@ -139,8 +139,8 @@ describe(`API changes existent offer`, () => {
     expect(response?.body).toEqual(expect.objectContaining(newOffer));
   });
 
-  test(`Offer is really changed`, () => {
-    request(app)
+  test(`Offer is really changed`, async () => {
+    await request(app)
       .get(`${ApiPath.OFFERS}/bUAlOA`)
       .expect((res) => expect(res.body.title).toBe(`Дам погладить котика`));
   });
@@ -196,8 +196,8 @@ describe(`API correctly deletes an offer`, () => {
     expect(response?.status).toBe(HttpCode.OK);
   });
 
-  test(`Offer count is 4 now`, () => {
-    request(app)
+  test(`Offer count is 4 now`, async () => {
+    await request(app)
       .get(ApiPath.OFFERS)
       .expect((res) => expect(res.body.length).toBe(4));
   });
@@ -249,8 +249,8 @@ describe(`API creates a comment if data is valid`, () => {
     expect(response?.body).toEqual(expect.objectContaining(newComment));
   });
 
-  test(`Comments count is changed`, () => {
-    request(app)
+  test(`Comments count is changed`, async () => {
+    await request(app)
       .get(`${ApiPath.OFFERS}/GxdTgz/comments`)
       .expect((res) => expect(res.body.length).toBe(5));
   });
@@ -292,8 +292,8 @@ describe(`API correctly deletes a comment`, () => {
     expect(response?.status).toBe(HttpCode.OK);
   });
 
-  test(`Comments count is 3 now`, () => {
-    request(app)
+  test(`Comments count is 3 now`, async () => {
+    await request(app)
       .get(`${ApiPath.OFFERS}/GxdTgz/comments`)
       .expect((res) => expect(res.body.length).toBe(3));
   });
