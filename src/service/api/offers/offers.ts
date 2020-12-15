@@ -9,9 +9,9 @@ import { IOffer } from '~/common/interfaces';
 import { Response, Request, OfferIdParam } from '~/common/types';
 import { OffersApiServices } from './common';
 
-const offersRouter = Router();
-
 const initOffersApi = (app: Router, services: OffersApiServices): void => {
+  const offersRouter = Router();
+
   const { offers: offersService, comments: commentsService } = services;
 
   app.use(ApiPath.OFFERS, offersRouter);

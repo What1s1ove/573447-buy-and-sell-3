@@ -2,9 +2,9 @@ import { Router } from 'express';
 import { ApiPath, HttpCode, SearchApiPath } from '~/common/enums';
 import { Search } from '~/service/data';
 
-const searchRouter = Router();
-
 const initSearchApi = (app: Router, service: Search): void => {
+  const searchRouter = Router();
+
   app.use(ApiPath.SEARCH, searchRouter);
 
   searchRouter.get(SearchApiPath.ROOT, (req, res) => {
