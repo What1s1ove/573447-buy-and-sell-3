@@ -13,7 +13,7 @@ class Category {
     this.#offers = offers;
   }
 
-  findAll(): string[] {
+  public findAll(): string[] {
     const categories = getUniqueItems(getCategories(this.#offers));
 
     return categories;

@@ -14,17 +14,17 @@ class Offers {
     this.#offers = offers;
   }
 
-  findAll(): IOffer[] {
+  public findAll(): IOffer[] {
     return this.#offers;
   }
 
-  findOne(id: IOffer[OfferKey.ID]): IOffer | null {
+  public findOne(id: IOffer[OfferKey.ID]): IOffer | null {
     const offerById = getOfferById(this.#offers, id);
 
     return offerById;
   }
 
-  create(offer: CreatedOffer): IOffer {
+  public create(offer: CreatedOffer): IOffer {
     const newOffer = getNewOffer(offer);
 
     this.#offers.push(newOffer);
@@ -32,13 +32,13 @@ class Offers {
     return newOffer;
   }
 
-  update(offer: IOffer, offerId: IOffer[OfferKey.ID]): IOffer {
+  public update(offer: IOffer, offerId: IOffer[OfferKey.ID]): IOffer {
     this.#offers = updateOffer(this.#offers, offerId, offer);
 
     return offer;
   }
 
-  drop(id: IOffer[OfferKey.ID]): IOffer | null {
+  public drop(id: IOffer[OfferKey.ID]): IOffer | null {
     const deletedOffer = getOfferById(this.#offers, id);
 
     if (!deletedOffer) {

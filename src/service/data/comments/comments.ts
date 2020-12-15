@@ -9,7 +9,7 @@ class Comments {
     return offer.comments;
   }
 
-  create(offer: IOffer, comment: CreatedComment): IComment {
+  public create(offer: IOffer, comment: CreatedComment): IComment {
     const newComment = getNewComment(comment);
 
     offer.comments.push(newComment);
@@ -17,7 +17,7 @@ class Comments {
     return newComment;
   }
 
-  drop(offer: IOffer, commentId: IComment[CommentKey.ID]): IComment | null {
+  public drop(offer: IOffer, commentId: IComment[CommentKey.ID]): IComment | null {
     const removedComment = getCommentById(offer.comments, commentId);
 
     if (!removedComment) {

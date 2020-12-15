@@ -12,7 +12,7 @@ class Search {
     this.#offers = offers;
   }
 
-  findAll(titleValue: string): IOffer[] {
+  public findAll(titleValue: string): IOffer[] {
     const offersByTitleValue = getOffersByTitleValue(this.#offers, titleValue);
 
     return offersByTitleValue;
