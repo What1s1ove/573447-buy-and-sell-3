@@ -1,4 +1,4 @@
-import { readFile } from '~/helpers';
+import { readFile, logger, paintMessage } from '~/helpers';
 import { MOCKS_FILE_PATH } from '~/common/constants';
 import { IOffer } from '~/common/interfaces';
 
@@ -14,7 +14,9 @@ const getMockedDate = async (): Promise<IOffer[]> => {
       return data;
     }
   } catch (err) {
-    console.error(err);
+    logger.error(
+      paintMessage(`An error occured on reading file with mocks`, `red`),
+    );
 
     return Promise.reject(err);
   }

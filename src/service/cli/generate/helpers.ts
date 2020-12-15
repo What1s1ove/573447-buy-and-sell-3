@@ -7,6 +7,7 @@ import {
   getRandomNumber,
   getRandomItems,
   getRandomId,
+  logger,
 } from '~/helpers';
 import { OfferType } from '~/common/enums';
 import { IOffer, IComment } from '~/common/interfaces';
@@ -98,9 +99,9 @@ const saveOffersToFile = async (mockedOffers: IOffer[]): Promise<void> => {
   try {
     await writeToFile(MocksConfig.FILE_NAME, JSON.stringify(mockedOffers));
 
-    console.error(paintMessage(`Operation success. File created.`, `green`));
+    logger.info(paintMessage(`Operation success. File with mocks was created.`, `green`));
   } catch {
-    console.error(paintMessage(`Can't write data to file...`, `red`));
+    logger.error(paintMessage(`An error occurred on saving mocked-data: can't write mocked-data to file...`, `red`));
   }
 };
 
@@ -109,8 +110,13 @@ const readOfferFileContent = async (path: string): Promise<string[]> => {
     const content = await readFile(path);
 
     return content.trim().split(`\n`);
-  } catch (err) {
-    console.error(paintMessage(err, `red`));
+  } catch {
+    logger.error(
+      paintMessage(
+        `An error occurred on reading mocked-data: can't read mocked-data from file...`,
+        `red`,
+      ),
+    );
 
     return [];
   }
