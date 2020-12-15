@@ -32,8 +32,8 @@ class Offers {
     return newOffer;
   }
 
-  update(offer: IOffer): IOffer {
-    this.#offers = updateOffer(this.#offers, offer);
+  update(offer: IOffer, offerId: IOffer[OfferKey.ID]): IOffer {
+    this.#offers = updateOffer(this.#offers, offerId, offer);
 
     return offer;
   }

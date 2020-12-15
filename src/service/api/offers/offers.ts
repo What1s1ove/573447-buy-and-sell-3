@@ -49,7 +49,10 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
         .send(`Not found with ${offerId ?? ``}`);
     }
 
-    const updatedOffer = offersService.update(req.body as IOffer);
+    const updatedOffer = offersService.update(
+      req.body as IOffer,
+      offerId as string,
+    );
 
     return res.status(HttpCode.OK).json(updatedOffer);
   });

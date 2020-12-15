@@ -22,9 +22,13 @@ const getNewOffer = (offer: CreatedOffer): IOffer => {
   return newOffer;
 };
 
-const updateOffer = (offers: IOffer[], updatedOffer: IOffer): IOffer[] => {
+const updateOffer = (
+  offers: IOffer[],
+  offerId: IOffer[OfferKey.ID],
+  updatedOffer: IOffer,
+): IOffer[] => {
   const updatedOffers = offers.map((offer) => (
-    offer.id === updatedOffer.id ? updatedOffer : offer
+    offer.id === offerId ? { ...offer, ...updatedOffer } : offer
   ));
 
   return updatedOffers;
