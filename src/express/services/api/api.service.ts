@@ -5,10 +5,15 @@ import { IOffer } from '~/common/interfaces';
 import { CreatedOffer } from '~/common/types';
 import { checkIsOkStatusCode } from './helpers';
 
+type Constructor = {
+  baseURL: string;
+  timeout: number;
+};
+
 class Api {
   #http: AxiosInstance;
 
-  constructor({ baseURL, timeout }: AxiosRequestConfig) {
+  constructor({ baseURL, timeout }: Constructor) {
     this.#http = axios.create({
       baseURL,
       timeout,
