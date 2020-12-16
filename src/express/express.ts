@@ -1,20 +1,26 @@
 import path from 'path';
-import express, { Request, Response, NextFunction } from 'express';
-import { SsrPath, HttpCode } from '~/common/enums';
-import mainRouter from '~/express/routes/main/main.router';
+import express from 'express';
+import { Api } from '~/express/services';
+import { initMainRouter } from '~/express/routes/main/main.router';
 import myRouter from '~/express/routes/my/my.router';
 import offersRouter from '~/express/routes/offers/offers.router';
-
-const PUBLIC_DIR = `public`;
-const DEFAULT_PORT = 8080;
+import { SsrPath, HttpCode, ENV } from '~/common/enums';
+import { Request, Response, NextFunction } from '~/common/types';
+import { AppConfig } from './common';
 
 const app = express();
+const api = new Api({
+  baseURL: AppConfig.API_URL,
+  timeout: AppConfig.API_TIMEOUT,
+});
 
-app.use(SsrPath.MAIN, mainRouter);
+initMainRouter(app, {
+  api,
+});
 app.use(SsrPath.MY, myRouter);
 app.use(SsrPath.OFFERS, offersRouter);
 
-app.use(express.static(path.resolve(__dirname, PUBLIC_DIR)));
+app.use(express.static(path.resolve(__dirname, AppConfig.PUBLIC_DIR)));
 
 app.use((_, res) => res.status(HttpCode.BAD_REQUEST).render(`errors/404`));
 app.use((_err: Error, _req: Request, res: Response, _next: NextFunction) => (
@@ -24,4 +30,4 @@ app.use((_err: Error, _req: Request, res: Response, _next: NextFunction) => (
 app.set(`views`, path.resolve(__dirname, `templates`));
 app.set(`view engine`, `pug`);
 
-app.listen(DEFAULT_PORT);
+app.listen(ENV.PORT ?? AppConfig.DEFAULT_PORT);

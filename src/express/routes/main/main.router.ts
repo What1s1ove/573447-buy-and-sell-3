@@ -1,11 +1,23 @@
 import { Router } from 'express';
-import { SsrMainPath } from '~/common/enums';
+import { SsrMainPath, SsrPath } from '~/common/enums';
+import { SsrRouterSettings } from '~/express/common';
 
-const mainRouter = Router();
+const initMainRouter = (app: Router, settings: SsrRouterSettings): void => {
+  const mainRouter = Router();
+  const { api } = settings;
 
-mainRouter.get(SsrMainPath.ROOT, (_, res) => res.render(`main`));
-mainRouter.get(SsrMainPath.REGISTER, (_, res) => res.render(`sign-up`));
-mainRouter.get(SsrMainPath.LOGIN, (_, res) => res.render(`login`));
-mainRouter.get(SsrMainPath.SEARCH, (_, res) => res.render(`search-result`));
+  app.use(SsrPath.MAIN, mainRouter);
 
-export default mainRouter;
+  mainRouter.get(SsrMainPath.ROOT, async (_, res): Promise<void> => {
+    const offers = await api.getOffers();
+
+    res.render(`main`, {
+      items: offers,
+    });
+  });
+  mainRouter.get(SsrMainPath.REGISTER, (_, res) => res.render(`sign-up`));
+  mainRouter.get(SsrMainPath.LOGIN, (_, res) => res.render(`login`));
+  mainRouter.get(SsrMainPath.SEARCH, (_, res) => res.render(`search-result`));
+};
+
+export { initMainRouter };
