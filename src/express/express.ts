@@ -2,7 +2,7 @@ import path from 'path';
 import express from 'express';
 import { Api } from '~/express/services';
 import { initMainRouter } from '~/express/routes/main/main.router';
-import myRouter from '~/express/routes/my/my.router';
+import {initMyRouter} from '~/express/routes/my/my.router';
 import offersRouter from '~/express/routes/offers/offers.router';
 import { SsrPath, HttpCode, ENV } from '~/common/enums';
 import { Request, Response, NextFunction } from '~/common/types';
@@ -17,7 +17,10 @@ const api = new Api({
 initMainRouter(app, {
   api,
 });
-app.use(SsrPath.MY, myRouter);
+initMyRouter(app, {
+  api,
+});
+
 app.use(SsrPath.OFFERS, offersRouter);
 
 app.use(express.static(path.resolve(__dirname, AppConfig.PUBLIC_DIR)));
