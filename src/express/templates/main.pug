@@ -12,20 +12,6 @@ block content
           p.tickets-list__title Самое свежее
         ul
           each item, idx in items
-            li.tickets-list__item
-              - const INCREASE_FOR_IDX = 1;
-              div(class=`ticket-card ticket-card--color0${idx + INCREASE_FOR_IDX}`)
-                .ticket-card__img
-                  img(src=`/img/${item.picture}` alt=item.title)
-                div.ticket-card__info
-                  +ticketLabel(item.type)
-                  div.ticket-card__categories
-                    a(href="#") #{item.category}
-                  div.ticket-card__header
-                    h3.ticket-card__title
-                      a(href=`/offers/item`) #{item.title}
-                    p.ticket-card__price
-                      span.js-sum #{item.sum}
-                      |  ₽
-                  div.ticket-card__desc
-                    p #{item.description}
+            - const INCREASE_FOR_IDX = 1;
+            - const offerNumber = idx + INCREASE_FOR_IDX;
+            +offerItem(item, offerNumber)
