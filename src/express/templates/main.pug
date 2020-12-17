@@ -10,4 +10,16 @@ block content
       div.tickets-list__wrapper
         div.tickets-list__header
           p.tickets-list__title Самое свежее
-        +offerList(items)
+        ul.tickets-list__list
+          each item, idx in items
+            li.tickets-list__item
+              +ticketCard(item, idx)
+    section.tickets-list
+      h2.visually-hidden Самые обсуждаемые предложения
+      div.tickets-list__wrapper
+        div.tickets-list__header
+          p.tickets-list__title Самые обсуждаемые
+        ul
+          each item, idx in items
+            li.tickets-list__item
+              +ticketCard(item, idx)
