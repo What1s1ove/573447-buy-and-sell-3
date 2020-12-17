@@ -7,11 +7,7 @@ block content
       include partials/categories-list.pug
     section.tickets-list
       h2.visually-hidden Самые новые предложения
-      .tickets-list__wrapper
-        .tickets-list__header
+      div.tickets-list__wrapper
+        div.tickets-list__header
           p.tickets-list__title Самое свежее
-        ul
-          each item, idx in items
-            - const INCREASE_FOR_IDX = 1;
-            - const offerNumber = idx + INCREASE_FOR_IDX;
-            +offerItem(item, offerNumber)
+        +offerList(items)
