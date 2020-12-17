@@ -1,0 +1,6 @@
+mixin offerList(items)
+  ul.tickets-list__list
+    each item, idx in items
+      - const INCREASE_FOR_IDX = 1;
+      - const offerNumber = idx + INCREASE_FOR_IDX;
+      +offerItem(item, offerNumber)
