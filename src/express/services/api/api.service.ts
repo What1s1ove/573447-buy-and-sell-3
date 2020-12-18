@@ -53,15 +53,15 @@ class Api {
       .catch(Api.catchError);
   }
 
-  public async getOffers(): Promise<IOffer[]> {
+  public getOffers(): Promise<IOffer[]> {
     return this.load<IOffer[]>(ApiPath.OFFERS).then(Api.getData);
   }
 
-  public async getOffer(id: IOffer[OfferKey.ID]): Promise<IOffer> {
+  public getOffer(id: IOffer[OfferKey.ID]): Promise<IOffer> {
     return this.load<IOffer>(`${ApiPath.OFFERS}/${id}`).then(Api.getData);
   }
 
-  public async search(query: string): Promise<IOffer[]> {
+  public search(query: string): Promise<IOffer[]> {
     return this.load<IOffer[]>(ApiPath.SEARCH, {
       params: {
         query,
@@ -69,11 +69,11 @@ class Api {
     }).then(Api.getData);
   }
 
-  public async getCategories(): Promise<string[]> {
+  public getCategories(): Promise<string[]> {
     return this.load<string[]>(ApiPath.CATEGORIES).then(Api.getData);
   }
 
-  public async createOffer(payload: CreatedOffer): Promise<IOffer> {
+  public createOffer(payload: CreatedOffer): Promise<IOffer> {
     return this.load<IOffer>(ApiPath.OFFERS, {
       method: HttpMethod.POST,
       data: payload,
