@@ -2,9 +2,9 @@ import path from 'path';
 import express from 'express';
 import { Api } from '~/express/services';
 import { initMainRouter } from '~/express/routes/main/main.router';
-import {initMyRouter} from '~/express/routes/my/my.router';
-import offersRouter from '~/express/routes/offers/offers.router';
-import { SsrPath, HttpCode, ENV } from '~/common/enums';
+import { initMyRouter } from '~/express/routes/my/my.router';
+import { initOffersRouter } from '~/express/routes/offers/offers.router';
+import { HttpCode, ENV } from '~/common/enums';
 import { Request, Response, NextFunction } from '~/common/types';
 import { AppConfig } from './common';
 
@@ -13,17 +13,16 @@ const api = new Api({
   baseURL: AppConfig.API_URL,
   timeout: AppConfig.API_TIMEOUT,
 });
+const routers = [initMainRouter, initMyRouter, initOffersRouter];
 
-initMainRouter(app, {
-  api,
+routers.forEach((routeInit) => {
+  routeInit(app, {
+    api,
+  });
 });
-initMyRouter(app, {
-  api,
-});
-
-app.use(SsrPath.OFFERS, offersRouter);
 
 app.use(express.static(path.resolve(__dirname, AppConfig.PUBLIC_DIR)));
+app.use(express.static(path.resolve(__dirname, AppConfig.UPLOAD_DIR)));
 
 app.use((_, res) => res.status(HttpCode.BAD_REQUEST).render(`errors/404`));
 app.use((_err: Error, _req: Request, res: Response, _next: NextFunction) => (
