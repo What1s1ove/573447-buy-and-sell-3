@@ -1,6 +1,26 @@
+import path from 'path';
 import { Router } from 'express';
+import multer from 'multer';
 import { SsrOffersPath, SsrPath } from '~/common/enums';
 import { SsrRouterSettings } from '~/express/common';
+import { getRandomId } from '~/helpers';
+import { CreatedOffer } from '~/common/types';
+
+const UPLOAD_DIR = `../../upload/img/`;
+
+const uploadDirAbsolute = path.resolve(__dirname, UPLOAD_DIR);
+
+const storage = multer.diskStorage({
+  destination: uploadDirAbsolute,
+  filename: (_, file, cb) => {
+    const uniqueName = getRandomId();
+    const extension = file.originalname.split(`.`).pop() as string;
+
+    cb(null, `${uniqueName}.${extension}`);
+  },
+});
+
+const upload = multer({ storage });
 
 const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
   const offersRouter = Router();
@@ -20,9 +40,28 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
     });
   });
 
+  offersRouter.post(SsrOffersPath.ADD, upload.single(`avatar`), async (req, res) => {
+    try {
+      const { body, file } = req;
+      const offerData: CreatedOffer = {
+        picture: file.filename,
+        sum: body.price,
+        type: body.action,
+        description: body.comment,
+        title: body.title,
+        category: body.category,
+      };
+
+      await api.createOffer(offerData);
+
+      return res.redirect(`/my`);
+    } catch {
+      return res.redirect(`back`);
+    }
+  });
+
   offersRouter.get(SsrOffersPath.EDIT_$OFFER_ID, async (req, res) => {
     const { id } = req.params;
-
     const [offer, categories] = await Promise.all([
       api.getOffer(id),
       api.getCategories(),
