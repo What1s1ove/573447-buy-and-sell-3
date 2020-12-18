@@ -3,7 +3,7 @@ import { Router } from 'express';
 import multer from 'multer';
 import { SsrOffersPath, SsrPath } from '~/common/enums';
 import { SsrRouterSettings } from '~/express/common';
-import { getRandomId } from '~/helpers';
+import { getFileExtension, getRandomId } from '~/helpers';
 import { CreatedOffer } from '~/common/types';
 
 const UPLOAD_DIR = `../../upload/img/`;
@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
   destination: uploadDirAbsolute,
   filename: (_, file, cb) => {
     const uniqueName = getRandomId();
-    const extension = file.originalname.split(`.`).pop() as string;
+    const extension = getFileExtension(file.originalname);
 
     cb(null, `${uniqueName}.${extension}`);
   },
@@ -54,7 +54,7 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
 
       await api.createOffer(offerData);
 
-      return res.redirect(`/my`);
+      return res.redirect(SsrPath.MY);
     } catch {
       return res.redirect(`back`);
     }
