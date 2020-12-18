@@ -8,27 +8,21 @@ const initMyRouter = (app: Router, settings: SsrRouterSettings): void => {
 
   app.use(SsrPath.MY, myRouter);
 
-  myRouter.get(
-    SsrMyPath.ROOT,
-    async (_, res): Promise<void> => {
-      const items = await api.getOffers();
+  myRouter.get(SsrMyPath.ROOT, async (_, res) => {
+    const items = await api.getOffers();
 
-      return res.render(`my-tickets`, {
-        items,
-      });
-    },
-  );
+    return res.render(`my-tickets`, {
+      items,
+    });
+  });
 
-  myRouter.get(
-    SsrMyPath.COMMENTS,
-    async (_, res): Promise<void> => {
-      const items = await api.getOffers();
+  myRouter.get(SsrMyPath.COMMENTS, async (_, res) => {
+    const items = await api.getOffers();
 
-      return res.render(`comments`, {
-        items,
-      });
-    },
-  );
+    return res.render(`comments`, {
+      items,
+    });
+  });
 };
 
 export { initMyRouter };
