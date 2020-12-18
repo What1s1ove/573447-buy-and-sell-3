@@ -12,8 +12,12 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
     return res.render(`category`);
   });
 
-  offersRouter.get(SsrOffersPath.ADD, (_, res) => {
-    return res.render(`offers/new-ticket`);
+  offersRouter.get(SsrOffersPath.ADD, async (_, res) => {
+    const categories = await api.getCategories();
+
+    return res.render(`offers/new-ticket`, {
+      categories,
+    });
   });
 
   offersRouter.get(SsrOffersPath.EDIT_$OFFER_ID, async (req, res) => {
