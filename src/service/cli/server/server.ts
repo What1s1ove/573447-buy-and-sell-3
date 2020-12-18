@@ -4,7 +4,7 @@ import { getLogger } from '~/helpers';
 import { CliCommandName, HttpCode, LoggerName } from '~/common/enums';
 import { API_PREFIX } from '~/common/constants';
 import { HttpError } from '~/common/exceptions';
-import { Request, Response, NextFunction} from '~/common/types';
+import { Request, Response, NextFunction } from '~/common/types';
 import { DEFAULT_PORT } from './common';
 
 const app = express();
