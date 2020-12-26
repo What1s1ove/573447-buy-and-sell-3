@@ -26,6 +26,7 @@ const initMainRouter = (app: Router, settings: SsrRouterSettings): void => {
 
     return res.render(`search-result`, {
       resultItems,
+      searchValue: search,
     });
   });
 };
