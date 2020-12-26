@@ -1,4 +1,4 @@
-import { HttpCode } from '../enums';
+import { HttpCode } from '~/common/enums';
 
 type Constructor = {
   status: HttpCode;
