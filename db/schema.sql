@@ -1,10 +1,15 @@
-DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS offers;
+DROP TABLE IF EXISTS categories;
 
-CREATE TABLE categories
+CREATE TABLE users
 (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(50)
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  email VARCHAR(50) NOT NULL UNIQUE,
+  password VARCHAR(50) NOT NULL,
+  picture VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE offers
@@ -15,4 +20,11 @@ CREATE TABLE offers
   description VARCHAR(1000) NOT NULL,
   sum MONEY NOT NULL,
   created_date DATE NOT NULL
+);
+
+
+CREATE TABLE categories
+(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50)
 );
