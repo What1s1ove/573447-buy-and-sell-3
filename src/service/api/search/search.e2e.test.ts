@@ -43,6 +43,6 @@ test(`API returns code 200 if nothing is found`, async () => {
     .expect(HttpCode.OK);
 });
 
-test(`API returns 400 when query string is absent`, async () => {
-  await request(app).get(ApiPath.SEARCH).expect(HttpCode.BAD_REQUEST);
+test(`API returns 200 when query string is absent`, async () => {
+  await request(app).get(ApiPath.SEARCH).expect(HttpCode.OK);
 });

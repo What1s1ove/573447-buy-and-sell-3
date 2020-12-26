@@ -11,7 +11,7 @@ const initSearchApi = (app: Router, service: Search): void => {
     const { query = `` } = req.query;
 
     if (!query) {
-      return res.status(HttpCode.BAD_REQUEST).json([]);
+      return res.status(HttpCode.OK).json([]);
     }
 
     const offers = service.findAll(query as string);
