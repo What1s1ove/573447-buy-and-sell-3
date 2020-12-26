@@ -27,6 +27,12 @@ CREATE TABLE offers
   description VARCHAR(1000) NOT NULL,
   sum MONEY NOT NULL,
   created_date DATE NOT NULL,
+
+  user_id INTEGER NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users (id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+
   type_id INTEGER NOT NULL,
   FOREIGN KEY (type_id) REFERENCES offer_types (id)
     ON UPDATE CASCADE
