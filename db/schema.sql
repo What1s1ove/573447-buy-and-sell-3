@@ -45,3 +45,20 @@ CREATE TABLE categories
   id SERIAL PRIMARY KEY,
   name VARCHAR(50)
 );
+
+CREATE TABLE comments
+(
+  id SERIAL PRIMARY KEY,
+  created_date DATE NOT NULL,
+  text VARCHAR(1000) NOT NULL,
+
+  user_id INTEGER NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users (id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+
+  offer_id INTEGER NOT NULL,
+  FOREIGN KEY (offer_id) REFERENCES offers (id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+)
