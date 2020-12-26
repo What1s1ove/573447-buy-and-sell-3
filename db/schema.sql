@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS offer_types;
 DROP TABLE IF EXISTS offers;
 DROP TABLE IF EXISTS categories;
 
@@ -12,6 +13,12 @@ CREATE TABLE users
   picture VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE offer_types
+(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE offers
 (
   id SERIAL PRIMARY KEY,
@@ -19,7 +26,11 @@ CREATE TABLE offers
   title VARCHAR(50) NOT NULL,
   description VARCHAR(1000) NOT NULL,
   sum MONEY NOT NULL,
-  created_date DATE NOT NULL
+  created_date DATE NOT NULL,
+  type_id INTEGER NOT NULL,
+  FOREIGN KEY (type_id) REFERENCES offer_types (id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
 );
 
 
