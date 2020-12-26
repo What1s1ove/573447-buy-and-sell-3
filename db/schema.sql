@@ -1,7 +1,9 @@
+DROP TABLE IF EXISTS offers_categories;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS offer_types;
-DROP TABLE IF EXISTS offers;
 DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS offers;
+DROP TABLE IF EXISTS comments;
 
 CREATE TABLE users
 (
@@ -11,6 +13,12 @@ CREATE TABLE users
   email VARCHAR(50) NOT NULL UNIQUE,
   password VARCHAR(50) NOT NULL,
   picture VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE categories
+(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50)
 );
 
 CREATE TABLE offer_types
@@ -39,13 +47,6 @@ CREATE TABLE offers
     ON DELETE CASCADE
 );
 
-
-CREATE TABLE categories
-(
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(50)
-);
-
 CREATE TABLE comments
 (
   id SERIAL PRIMARY KEY,
@@ -61,4 +62,19 @@ CREATE TABLE comments
   FOREIGN KEY (offer_id) REFERENCES offers (id)
     ON UPDATE CASCADE
     ON DELETE CASCADE
-)
+);
+
+CREATE TABLE offers_categories
+(
+  CONSTRAINT offers_categories_pk PRIMARY KEY (offer_id, category_id),
+
+  offer_id INTEGER NOT NULL,
+  FOREIGN KEY (offer_id) REFERENCES offers (id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+
+  category_id INTEGER NOT NULL,
+  FOREIGN KEY (category_id) REFERENCES categories (id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+);
