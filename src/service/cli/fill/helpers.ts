@@ -12,8 +12,8 @@ const generateInsertSql = (tableName: TableName, rows: string[]): string => {
   return [comment, insert, sqlRows].join(`\n`).trim();
 };
 
-const generateInsertSqlRow = (...args: (string | number)[]): string => {
-  return `(DEFAULT, ${args.join(`, `)})`;
+const generateInsertSqlRow = (rowPayload: string): string => {
+  return `(DEFAULT, ${rowPayload})`;
 };
 
 const joinSqlCommands = (...sqlCommands: string[]): string => {
@@ -25,13 +25,13 @@ const joinSqlCommands = (...sqlCommands: string[]): string => {
 const generateCategoriesSqlRows = ({
   categories,
 }: GenerateMocksSqlCbArs): string[] => {
-  return categories.map((category) => generateInsertSqlRow(category));
+  return categories.map((category) => generateInsertSqlRow(`'${category}'`));
 };
 
 const generateOfferTypesSqlRows = ({
   offerTypes,
 }: GenerateMocksSqlCbArs): string[] => {
-  return offerTypes.map((offerType) => generateInsertSqlRow(offerType));
+  return offerTypes.map((offerType) => generateInsertSqlRow(`'${offerType}'`));
 };
 
 const generateUsersSqlRows = ({ users }: GenerateMocksSqlCbArs): string[] => {
@@ -44,7 +44,7 @@ const generateUsersSqlRows = ({ users }: GenerateMocksSqlCbArs): string[] => {
       MocksConfig.USER_PICTURE.NUMBER.MAX,
     );
 
-    return generateInsertSqlRow(firstName, lastName, email, password, image);
+    return generateInsertSqlRow(`'${firstName}', '${lastName}', '${email}', '${password}', '${image}'`);
   });
 };
 
@@ -58,7 +58,7 @@ const generateCommentsSqlRows = (
       const userId = getRandomNumber(INITIAL_ARRAY_IDX, users.length);
       const offerIdx = idx + INCREASE_COUNT_FOR_IDX;
 
-      return generateInsertSqlRow(createdDate, comment.text, userId, offerIdx);
+      return generateInsertSqlRow(`'${createdDate}', '${comment.text}', ${userId}, ${offerIdx}`);
     });
 
     return [...acc, ...commentsSqls];
@@ -75,13 +75,7 @@ const generateOffersSqlRows = (
     const typeId = getRandomNumber(INITIAL_ARRAY_IDX, offerTypes.length);
 
     return generateInsertSqlRow(
-      offer.picture,
-      offer.title,
-      offer.description,
-      offer.sum,
-      createdDate,
-      userId,
-      typeId,
+      `'${offer.picture}', '${offer.title}', '${offer.description}', '${offer.sum}', '${createdDate}', ${userId}, ${typeId}`,
     );
   });
 };

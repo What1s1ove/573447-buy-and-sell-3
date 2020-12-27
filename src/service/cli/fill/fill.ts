@@ -21,8 +21,8 @@ const tableNameToSqlRowsGenerator = {
   [TableName.USERS]: generateUsersSqlRows,
   [TableName.CATEGORIES]: generateCategoriesSqlRows,
   [TableName.OFFER_TYPES]: generateOfferTypesSqlRows,
-  [TableName.COMMENTS]: generateCommentsSqlRows,
   [TableName.OFFERS]: generateOffersSqlRows,
+  [TableName.COMMENTS]: generateCommentsSqlRows,
 };
 
 const offerTypes = Object.values(OfferType);
