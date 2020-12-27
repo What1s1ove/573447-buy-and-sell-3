@@ -7,10 +7,11 @@ const dataPaths = [
   MocksConfig.DESCRIPTION.FILE_PATH,
   MocksConfig.CATEGORY.FILE_PATH,
   MocksConfig.COMMENTS.FILE_PATH,
+  MocksConfig.USERS.FILE_PATH,
 ];
 
 const getMockedOffersData = async (): Promise<GenerateMockedOfferCbArgs> => {
-  const [titles, descriptions, categories, comments] = await Promise.all(
+  const [titles, descriptions, categories, comments, users] = await Promise.all(
     dataPaths.map((path) => readOfferFileContent(path)),
   );
 
@@ -19,6 +20,7 @@ const getMockedOffersData = async (): Promise<GenerateMockedOfferCbArgs> => {
     descriptions,
     categories,
     comments,
+    users,
   };
 };
 
