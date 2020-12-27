@@ -8,9 +8,10 @@ const generateMockedOffers = ({
   categories,
   descriptions,
   comments,
+  users,
 }: GenerateMockedOffersCbArgs): IOffer[] => {
   const mockedOffers = Array.from(new Array(count), () => (
-    generateMockedOffer({ titles, categories, descriptions, comments })
+    generateMockedOffer({ titles, categories, descriptions, comments, users })
   ));
 
   return mockedOffers;

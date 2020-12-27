@@ -1,0 +1,3 @@
+const INCREASE_FOR_INDEX = 1;
+
+export { INCREASE_FOR_INDEX };

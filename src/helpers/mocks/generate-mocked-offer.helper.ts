@@ -1,7 +1,8 @@
-import { getRandomId, getTwoDigitalString } from '~/helpers/string';
+import { getRandomId } from '~/helpers/string';
 import { getRandomItems, getRandomItem } from '~/helpers/array';
 import { getRandomNumber } from '~/helpers/number';
 import { generateMockedComments } from '~/helpers/mocks/generate-mocked-comments.helper';
+import { getMockedImagePath } from '~/helpers/mocks/get-mocked-image-path.helper';
 import { MocksConfig, OfferType } from '~/common/enums';
 import { GenerateMockedOfferCbArgs } from '~/common/types';
 import { IOffer } from '~/common/interfaces';
@@ -16,12 +17,11 @@ const generateMockedOffer = ({
 }: GenerateMockedOfferCbArgs): IOffer => ({
   id: getRandomId(),
   title: getRandomItem(titles),
-  picture: `item${getTwoDigitalString(
-    getRandomNumber(
-      MocksConfig.PICTURE_NUMBER.MIN,
-      MocksConfig.PICTURE_NUMBER.MAX,
-    ),
-  )}.jpg`,
+  picture: getMockedImagePath(
+    MocksConfig.OFFER_PICTURE.TYPE,
+    MocksConfig.OFFER_PICTURE.NUMBER.MIN,
+    MocksConfig.OFFER_PICTURE.NUMBER.MAX,
+  ),
   description: getRandomItems(
     descriptions,
     getRandomNumber(

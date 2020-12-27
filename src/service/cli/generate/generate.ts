@@ -28,6 +28,7 @@ export default {
       descriptions,
       categories,
       comments,
+      users,
     } = await getMockedOffersData();
     const mockedOffers = generateMockedOffers({
       count: offersCount,
@@ -35,6 +36,7 @@ export default {
       descriptions,
       categories,
       comments,
+      users,
     });
 
     await saveOffersToFile(mockedOffers);

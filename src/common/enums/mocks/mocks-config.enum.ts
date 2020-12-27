@@ -9,9 +9,12 @@ const MocksConfig = {
   TITLE: {
     FILE_PATH: `${DATA_PATH}/titles.txt`,
   },
-  PICTURE_NUMBER: {
-    MIN: 1,
-    MAX: 16,
+  OFFER_PICTURE: {
+    TYPE: `item`,
+    NUMBER: {
+      MIN: 1,
+      MAX: 16,
+    },
   },
   DESCRIPTION: {
     FILE_PATH: `${DATA_PATH}/sentences.txt`,
@@ -35,6 +38,13 @@ const MocksConfig = {
   },
   USERS: {
     FILE_PATH: `${DATA_PATH}/users.txt`,
+  },
+  USER_PICTURE: {
+    TYPE: `avatar`,
+    NUMBER: {
+      MIN: 1,
+      MAX: 4,
+    },
   },
 };
 
