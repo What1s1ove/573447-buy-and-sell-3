@@ -1,13 +1,8 @@
-import {
-  generateMockedComments,
-  generateMockedOffers,
-  getMockedImagePath,
-  getRandomId,
-  getRandomNumber,
-} from '~/helpers';
+import { getMockedImagePath, getRandomId, getRandomNumber } from '~/helpers';
 import { MocksConfig } from '~/common/enums';
 import { INCREASE_COUNT_FOR_IDX, INITIAL_ARRAY_IDX } from '~/common/constants';
 import { GenerateMocksSqlCbArs, TableName } from './common';
+import { IOffer } from '~/common/interfaces';
 
 const generateInsertSql = (tableName: TableName, rows: string[]): string => {
   const comment = `/* ${tableName} */ `;
@@ -53,21 +48,12 @@ const generateUsersSqlRows = ({ users }: GenerateMocksSqlCbArs): string[] => {
   });
 };
 
-const generateCommentsSqlRows = ({
-  count: OfferCount,
-  users,
-  comments,
-}: GenerateMocksSqlCbArs): string[] => {
-  return new Array(OfferCount).fill(null).reduce<string[]>((acc, _, idx) => {
-    const commentsCount = getRandomNumber(
-      MocksConfig.COMMENTS.MIN_COUNT,
-      MocksConfig.COMMENTS.MAX_COUNT,
-    );
-    const mockedComments = generateMockedComments({
-      count: commentsCount,
-      comments,
-    });
-    const commentsSqls = mockedComments.map((comment) => {
+const generateCommentsSqlRows = (
+  { users }: GenerateMocksSqlCbArs,
+  mockedOffers: IOffer[],
+): string[] => {
+  return mockedOffers.reduce<string[]>((acc, offer, idx) => {
+    const commentsSqls = offer.comments.map((comment) => {
       const createdDate = new Date().toISOString();
       const userId = getRandomNumber(INITIAL_ARRAY_IDX, users.length);
       const offerIdx = idx + INCREASE_COUNT_FOR_IDX;
@@ -79,19 +65,24 @@ const generateCommentsSqlRows = ({
   }, []);
 };
 
-const generateOffersSqlRows = ({
-  offerTypes,
-  ...restArgs
-}: GenerateMocksSqlCbArs): string[] => {
-  const { users } = restArgs;
-  const mockedOffers = generateMockedOffers(restArgs);
-
+const generateOffersSqlRows = (
+  { offerTypes, users }: GenerateMocksSqlCbArs,
+  mockedOffers: IOffer[],
+): string[] => {
   return mockedOffers.map((offer) => {
     const createdDate = new Date().toISOString();
     const userId = getRandomNumber(INITIAL_ARRAY_IDX, users.length);
     const typeId = getRandomNumber(INITIAL_ARRAY_IDX, offerTypes.length);
 
-    return generateInsertSqlRow(offer.picture, offer.title, offer.description, offer.sum, createdDate, userId, typeId);
+    return generateInsertSqlRow(
+      offer.picture,
+      offer.title,
+      offer.description,
+      offer.sum,
+      createdDate,
+      userId,
+      typeId,
+    );
   });
 };
 

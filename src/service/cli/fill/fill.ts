@@ -1,4 +1,5 @@
 import {
+  generateMockedOffers,
   getMockedOffersData,
   logger,
   paintMessage,
@@ -31,15 +32,20 @@ export default {
   async run(args: string[]): Promise<void> {
     const [offersCount] = args;
     const count = Number(offersCount) || MocksConfig.DEFAULT_COUNT;
+
     const mockedOfferData = await getMockedOffersData();
-    const sqlMocks = {
+    const generateArgs = {
       offerTypes,
       count,
       ...mockedOfferData,
     };
+    const mockedOffers = generateMockedOffers(generateArgs);
     const generatedSqls = Object.entries(tableNameToSqlRowsGenerator).map(
       ([tableName, generator]) => {
-        return generateInsertSql(tableName as TableName, generator(sqlMocks));
+        return generateInsertSql(
+          tableName as TableName,
+          generator(generateArgs, mockedOffers),
+        );
       },
     );
     const sql = joinSqlCommands(...generatedSqls);
