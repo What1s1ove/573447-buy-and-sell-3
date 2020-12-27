@@ -1,11 +1,11 @@
-import { logger, paintMessage } from '~/helpers';
-import { CliCommandName } from '~/common/enums';
 import {
-  saveOffersToFile,
-  getOffersData,
+  logger,
+  paintMessage,
+  getMockedOffersData,
   generateMockedOffers,
-} from './helpers';
-import { MocksConfig } from './common';
+} from '~/helpers';
+import { CliCommandName, MocksConfig } from '~/common/enums';
+import { saveOffersToFile } from './helpers';
 
 export default {
   name: CliCommandName.GENERATE,
@@ -28,7 +28,7 @@ export default {
       descriptions,
       categories,
       comments,
-    } = await getOffersData();
+    } = await getMockedOffersData();
     const mockedOffers = generateMockedOffers({
       count: offersCount,
       titles,

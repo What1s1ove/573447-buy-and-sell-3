@@ -35,29 +35,4 @@ const MocksConfig = {
   },
 };
 
-type GenerateMockedCommentCbArgs = {
-  comments: string[];
-};
-
-type GenerateMockedCommentsCbArgs = {
-  count: number;
-} & GenerateMockedCommentCbArgs;
-
-type GenerateMockedOfferCbArgs = {
-  titles: string[];
-  descriptions: string[];
-  categories: string[];
-  comments: string[];
-};
-
-type GenerateMockedOffersCbArgs = {
-  count: number;
-} & GenerateMockedOfferCbArgs;
-
-export {
-  MocksConfig,
-  GenerateMockedCommentCbArgs,
-  GenerateMockedCommentsCbArgs,
-  GenerateMockedOfferCbArgs,
-  GenerateMockedOffersCbArgs,
-};
+export { MocksConfig };
