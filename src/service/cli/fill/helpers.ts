@@ -17,9 +17,7 @@ const generateInsertSqlRow = (rowPayload: string): string => {
 };
 
 const joinSqlCommands = (...sqlCommands: string[]): string => {
-  const joinedSqlCommands = sqlCommands.join(`\n\n`).trim();
-
-  return joinedSqlCommands;
+  return sqlCommands.join(`\n\n`).trim();
 };
 
 const generateCategoriesSqlRows = ({
