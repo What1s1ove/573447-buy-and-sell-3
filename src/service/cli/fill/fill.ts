@@ -13,6 +13,7 @@ import {
   generateCategoriesSqlRows,
   generateOfferTypesSqlRows,
   generateCommentsSqlRows,
+  generateOffersSqlRows,
 } from './helpers';
 
 const tableNameToSqlRowsGenerator = {
@@ -20,6 +21,7 @@ const tableNameToSqlRowsGenerator = {
   [TableName.CATEGORIES]: generateCategoriesSqlRows,
   [TableName.OFFER_TYPES]: generateOfferTypesSqlRows,
   [TableName.COMMENTS]: generateCommentsSqlRows,
+  [TableName.OFFERS]: generateOffersSqlRows,
 };
 
 const offerTypes = Object.values(OfferType);
@@ -27,12 +29,12 @@ const offerTypes = Object.values(OfferType);
 export default {
   name: CliCommandName.FILL,
   async run(args: string[]): Promise<void> {
-    const [count] = args;
-    const offersCount = Number(count) || MocksConfig.DEFAULT_COUNT;
+    const [offersCount] = args;
+    const count = Number(offersCount) || MocksConfig.DEFAULT_COUNT;
     const mockedOfferData = await getMockedOffersData();
     const sqlMocks = {
       offerTypes,
-      count: offersCount,
+      count,
       ...mockedOfferData,
     };
     const generatedSqls = Object.entries(tableNameToSqlRowsGenerator).map(

@@ -1,5 +1,6 @@
 import {
   generateMockedComments,
+  generateMockedOffers,
   getMockedImagePath,
   getRandomId,
   getRandomNumber,
@@ -49,11 +50,11 @@ const generateUsersSqlRows = ({ users }: GenerateMocksSqlCbArs): string[] => {
 };
 
 const generateCommentsSqlRows = ({
-  count,
+  count: OfferCount,
   users,
   comments,
 }: GenerateMocksSqlCbArs): string[] => {
-  return new Array(count).fill(null).reduce<string[]>((acc, _, idx) => {
+  return new Array(OfferCount).fill(null).reduce<string[]>((acc, _, idx) => {
     const commentsCount = getRandomNumber(
       MocksConfig.COMMENTS.MIN_COUNT,
       MocksConfig.COMMENTS.MAX_COUNT,
@@ -67,11 +68,27 @@ const generateCommentsSqlRows = ({
       const userId = getRandomNumber(INITIAL_ARRAY_IDX, users.length);
       const offerIdx = idx + INCREASE_COUNT_FOR_IDX;
 
-      return `(DEFAULT, '${createdDate}', '${comment.text}', '${userId}', '${offerIdx}')`;
+      return `(DEFAULT, '${createdDate}', '${comment.text}', ${userId}, ${offerIdx})`;
     });
 
     return [...acc, ...commentsSqls];
   }, []);
+};
+
+const generateOffersSqlRows = ({
+  offerTypes,
+  ...restArgs
+}: GenerateMocksSqlCbArs): string[] => {
+  const { users } = restArgs;
+  const mockedOffers = generateMockedOffers(restArgs);
+
+  return mockedOffers.map((offer) => {
+    const createdDate = new Date().toISOString();
+    const userId = getRandomNumber(INITIAL_ARRAY_IDX, users.length);
+    const typeId = getRandomNumber(INITIAL_ARRAY_IDX, offerTypes.length);
+
+    return `(DEFAULT, '${offer.picture}', '${offer.title}', '${offer.description}', ${offer.sum}, '${createdDate}', ${userId}, ${typeId})`;
+  });
 };
 
 export {
@@ -81,4 +98,5 @@ export {
   generateCategoriesSqlRows,
   generateOfferTypesSqlRows,
   generateCommentsSqlRows,
+  generateOffersSqlRows,
 };

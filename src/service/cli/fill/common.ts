@@ -7,6 +7,7 @@ enum TableName {
   OFFER_TYPES = `offer_types`,
   USERS = `users`,
   COMMENTS = `comments`,
+  OFFERS = `offers`,
 }
 
 type GenerateMocksSqlCbArs<T = string[]> = {
