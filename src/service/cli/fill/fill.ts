@@ -9,26 +9,33 @@ import { TableName, FILL_FILE_PATH } from './common';
 import {
   generateInsertSql,
   joinSqlCommands,
+  generateUsersSqlRows,
   generateCategoriesSqlRows,
   generateOfferTypesSqlRows,
 } from './helpers';
+
+const tableNameToSqlRowsGenerator = {
+  [TableName.USERS]: generateUsersSqlRows,
+  [TableName.CATEGORIES]: generateCategoriesSqlRows,
+  [TableName.OFFER_TYPES]: generateOfferTypesSqlRows,
+};
 
 const offerTypes = Object.values(OfferType);
 
 export default {
   name: CliCommandName.FILL,
   async run(_args: string[]): Promise<void> {
-    const { categories } = await getMockedOffersData();
-    const catagoriesSql = generateInsertSql(
-      TableName.CATEGORIES,
-      generateCategoriesSqlRows(categories),
+    const mockedOfferData = await getMockedOffersData();
+    const sqlMocks = {
+      ...mockedOfferData,
+      offerTypes,
+    };
+    const generatedSqls = Object.entries(tableNameToSqlRowsGenerator).map(
+      ([tableName, generator]) => {
+        return generateInsertSql(tableName as TableName, generator(sqlMocks));
+      },
     );
-    const offerTypesSql = generateInsertSql(
-      TableName.OFFER_TYPES,
-      generateOfferTypesSqlRows(offerTypes),
-    );
-    const sql = joinSqlCommands(catagoriesSql, offerTypesSql);
-
+    const sql = joinSqlCommands(...generatedSqls);
 
     try {
       await writeToFile(FILL_FILE_PATH, sql);
