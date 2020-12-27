@@ -55,7 +55,7 @@ const generateCommentsSqlRows = (
   return mockedOffers.reduce<string[]>((acc, offer, idx) => {
     const commentsSqls = offer.comments.map((comment) => {
       const createdDate = new Date().toISOString();
-      const userId = getRandomNumber(INITIAL_ARRAY_IDX, users.length);
+      const userId = getRandomNumber(INCREASE_COUNT_FOR_IDX, users.length);
       const offerIdx = idx + INCREASE_COUNT_FOR_IDX;
 
       return generateInsertSqlRow(`'${createdDate}', '${comment.text}', ${userId}, ${offerIdx}`);
@@ -71,8 +71,8 @@ const generateOffersSqlRows = (
 ): string[] => {
   return mockedOffers.map((offer) => {
     const createdDate = new Date().toISOString();
-    const userId = getRandomNumber(INITIAL_ARRAY_IDX, users.length);
-    const typeId = getRandomNumber(INITIAL_ARRAY_IDX, offerTypes.length);
+    const userId = getRandomNumber(INCREASE_COUNT_FOR_IDX, users.length);
+    const typeId = getRandomNumber(INCREASE_COUNT_FOR_IDX, offerTypes.length);
 
     return generateInsertSqlRow(
       `'${offer.picture}', '${offer.title}', '${offer.description}', '${offer.sum}', '${createdDate}', ${userId}, ${typeId}`,
