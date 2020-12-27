@@ -1,5 +1,11 @@
+import {
+  generateMockedComments,
+  getMockedImagePath,
+  getRandomId,
+  getRandomNumber,
+} from '~/helpers';
 import { MocksConfig } from '~/common/enums';
-import { getMockedImagePath, getRandomId } from '~/helpers';
+import { INCREASE_COUNT_FOR_IDX, INITIAL_ARRAY_IDX } from '~/common/constants';
 import { GenerateMocksSqlCbArs, TableName } from './common';
 
 const generateInsertSql = (tableName: TableName, rows: string[]): string => {
@@ -31,13 +37,41 @@ const generateOfferTypesSqlRows = ({
 const generateUsersSqlRows = ({ users }: GenerateMocksSqlCbArs): string[] => {
   return users.map((user) => {
     const [firstName, lastName, email] = user.split(` `);
-
-    return `(DEFAULT, '${firstName}', '${lastName}', '${email}', '${getRandomId()}', '${getMockedImagePath(
+    const password = getRandomId();
+    const image = getMockedImagePath(
       MocksConfig.USER_PICTURE.TYPE,
       MocksConfig.USER_PICTURE.NUMBER.MIN,
       MocksConfig.USER_PICTURE.NUMBER.MAX,
-    )}')`;
+    );
+
+    return `(DEFAULT, '${firstName}', '${lastName}', '${email}', '${password}', '${image}')`;
   });
+};
+
+const generateCommentsSqlRows = ({
+  count,
+  users,
+  comments,
+}: GenerateMocksSqlCbArs): string[] => {
+  return new Array(count).fill(null).reduce<string[]>((acc, _, idx) => {
+    const commentsCount = getRandomNumber(
+      MocksConfig.COMMENTS.MIN_COUNT,
+      MocksConfig.COMMENTS.MAX_COUNT,
+    );
+    const mockedComments = generateMockedComments({
+      count: commentsCount,
+      comments,
+    });
+    const commentsSqls = mockedComments.map((comment) => {
+      const createdDate = new Date().toISOString();
+      const userId = getRandomNumber(INITIAL_ARRAY_IDX, users.length);
+      const offerIdx = idx + INCREASE_COUNT_FOR_IDX;
+
+      return `(DEFAULT, '${createdDate}', '${comment.text}', '${userId}', '${offerIdx}')`;
+    });
+
+    return [...acc, ...commentsSqls];
+  }, []);
 };
 
 export {
@@ -46,4 +80,5 @@ export {
   generateUsersSqlRows,
   generateCategoriesSqlRows,
   generateOfferTypesSqlRows,
+  generateCommentsSqlRows,
 };

@@ -4,7 +4,7 @@ import {
   paintMessage,
   writeToFile,
 } from '~/helpers';
-import { CliCommandName, OfferType } from '~/common/enums';
+import { CliCommandName, MocksConfig, OfferType } from '~/common/enums';
 import { TableName, FILL_FILE_PATH } from './common';
 import {
   generateInsertSql,
@@ -12,23 +12,28 @@ import {
   generateUsersSqlRows,
   generateCategoriesSqlRows,
   generateOfferTypesSqlRows,
+  generateCommentsSqlRows,
 } from './helpers';
 
 const tableNameToSqlRowsGenerator = {
   [TableName.USERS]: generateUsersSqlRows,
   [TableName.CATEGORIES]: generateCategoriesSqlRows,
   [TableName.OFFER_TYPES]: generateOfferTypesSqlRows,
+  [TableName.COMMENTS]: generateCommentsSqlRows,
 };
 
 const offerTypes = Object.values(OfferType);
 
 export default {
   name: CliCommandName.FILL,
-  async run(_args: string[]): Promise<void> {
+  async run(args: string[]): Promise<void> {
+    const [count] = args;
+    const offersCount = Number(count) || MocksConfig.DEFAULT_COUNT;
     const mockedOfferData = await getMockedOffersData();
     const sqlMocks = {
-      ...mockedOfferData,
       offerTypes,
+      count: offersCount,
+      ...mockedOfferData,
     };
     const generatedSqls = Object.entries(tableNameToSqlRowsGenerator).map(
       ([tableName, generator]) => {
