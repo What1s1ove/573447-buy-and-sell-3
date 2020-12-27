@@ -1,6 +1,6 @@
 import { getMockedImagePath, getRandomId, getRandomNumber } from '~/helpers';
 import { MocksConfig } from '~/common/enums';
-import { INCREASE_COUNT_FOR_IDX, INITIAL_ARRAY_IDX } from '~/common/constants';
+import { INCREASE_COUNT_FOR_IDX } from '~/common/constants';
 import { GenerateMocksSqlCbArs, TableName } from './common';
 import { IOffer } from '~/common/interfaces';
 
@@ -80,6 +80,23 @@ const generateOffersSqlRows = (
   });
 };
 
+const generateOffersCategoriesRows = (
+  { categories }: GenerateMocksSqlCbArs,
+  mockedOffers: IOffer[],
+): string[] => {
+  return mockedOffers.reduce<string[]>((acc, offer, idx) => {
+    const offerCategorySql = offer.category.map((category) => {
+      const currentCategoryIdx = categories.findIndex((it) => it === category);
+      const offerId = idx + INCREASE_COUNT_FOR_IDX;
+      const categoryId = currentCategoryIdx + INCREASE_COUNT_FOR_IDX;
+
+      return `(${offerId}, ${categoryId})`;
+    });
+
+    return [...acc, ...offerCategorySql];
+  }, []);
+};
+
 export {
   generateInsertSql,
   joinSqlCommands,
@@ -88,4 +105,5 @@ export {
   generateOfferTypesSqlRows,
   generateCommentsSqlRows,
   generateOffersSqlRows,
+  generateOffersCategoriesRows,
 };

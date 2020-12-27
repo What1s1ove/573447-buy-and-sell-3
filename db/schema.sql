@@ -66,8 +66,6 @@ CREATE TABLE comments
 
 CREATE TABLE offers_categories
 (
-  CONSTRAINT offers_categories_pk PRIMARY KEY (offer_id, category_id),
-
   offer_id INTEGER NOT NULL,
   FOREIGN KEY (offer_id) REFERENCES offers (id)
     ON UPDATE CASCADE
@@ -76,5 +74,7 @@ CREATE TABLE offers_categories
   category_id INTEGER NOT NULL,
   FOREIGN KEY (category_id) REFERENCES categories (id)
     ON UPDATE CASCADE
-    ON DELETE CASCADE
+    ON DELETE CASCADE,
+
+  CONSTRAINT offers_categories_pk PRIMARY KEY (offer_id, category_id)
 );

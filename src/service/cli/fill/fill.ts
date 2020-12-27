@@ -15,6 +15,7 @@ import {
   generateOfferTypesSqlRows,
   generateCommentsSqlRows,
   generateOffersSqlRows,
+  generateOffersCategoriesRows,
 } from './helpers';
 
 const tableNameToSqlRowsGenerator = {
@@ -23,6 +24,7 @@ const tableNameToSqlRowsGenerator = {
   [TableName.OFFER_TYPES]: generateOfferTypesSqlRows,
   [TableName.OFFERS]: generateOffersSqlRows,
   [TableName.COMMENTS]: generateCommentsSqlRows,
+  [TableName.OFFERS_CATEGORIES]: generateOffersCategoriesRows,
 };
 
 const offerTypes = Object.values(OfferType);
