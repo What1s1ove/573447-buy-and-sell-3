@@ -20,7 +20,7 @@ GROUP BY
   offers_categories.category_id,
   categories.name;
 
-/* All Offers */
+/* All offers */
 SELECT
   offers.id,
   offers.title,
@@ -55,3 +55,38 @@ GROUP BY
   users.email
 ORDER BY offers.created_date DESC;
 
+/* Full offers by id */
+SELECT
+  offers.id,
+  offers.title,
+  offers.sum,
+  offer_types.name AS "offer_type",
+  offers.description,
+  offers.created_date,
+  concat(users.first_name, ' ', users.last_name) AS "user_full_name",
+  users.email,
+  count(comments.id) AS "comments_count",
+  (
+    SELECT
+      string_agg(categories.name, ', ') AS "categories"
+    FROM offers_categories
+    LEFT JOIN categories
+      ON offers_categories.category_id = categories.id
+      AND offers_categories.offer_id = offers.id
+  )
+FROM
+  offers
+  INNER JOIN offer_types
+    ON offers.type_id = offer_types.id
+  INNER JOIN users
+    ON offers.user_id = users.id
+  INNER JOIN comments
+    ON offers.id = comments.offer_id
+WHERE
+  offers.id = 1
+GROUP BY
+  offers.id,
+  offer_types.name,
+  users.first_name,
+  users.last_name,
+  users.email;
