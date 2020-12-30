@@ -119,3 +119,8 @@ ORDER by comments.id DESC;
 SELECT * FROM offers
 WHERE offers.type_id = 1
 LIMIT 2;
+
+/* Update offer */
+UPDATE offers
+SET title = 'Уникальное предложение!'
+WHERE offers.id = 3;
