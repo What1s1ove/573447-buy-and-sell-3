@@ -114,3 +114,8 @@ INNER JOIN users
 	ON comments.user_id = users.id
 WHERE comments.offer_id = 1
 ORDER by comments.id DESC;
+
+/* Two offers with sale type */
+SELECT * FROM offers
+WHERE offers.type_id = 1
+LIMIT 2;
