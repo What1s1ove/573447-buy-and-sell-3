@@ -103,7 +103,7 @@ INNER JOIN users
 ORDER by comments.id DESC
 LIMIT 5;
 
-/* Comment by offer id */
+/* Comments by offer id */
 SELECT
 	comments.id,
 	comments.offer_id,
