@@ -55,7 +55,7 @@ GROUP BY
   users.email
 ORDER BY offers.created_date DESC;
 
-/* Full offers by id */
+/* Full offer by id */
 SELECT
   offers.id,
   offers.title,
