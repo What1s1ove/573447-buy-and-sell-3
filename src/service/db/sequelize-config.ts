@@ -3,18 +3,11 @@ import { DbConfig } from './common';
 
 const dbConfig: DbConfig = {
   [AppEnvironment.DEVELOPMENT]: {
-    database: ENV.DB_NAME,
-    host: ENV.DB_HOST,
-    port: ENV.DB_PORT,
-    username: ENV.DB_USER,
-    password: ENV.DB_PASSWORD,
-  },
-  [AppEnvironment.PRODUCTION]: {
-    database: ENV.DB_NAME,
-    host: ENV.DB_HOST,
-    port: ENV.DB_PORT,
-    username: ENV.DB_USER,
-    password: ENV.DB_PASSWORD,
+    database: ENV.DB_NAME ?? ``,
+    host: ENV.DB_HOST ?? ``,
+    port: ENV.DB_PORT ?? ``,
+    username: ENV.DB_USER ?? ``,
+    password: ENV.DB_PASSWORD ?? ``,
   },
 };
 

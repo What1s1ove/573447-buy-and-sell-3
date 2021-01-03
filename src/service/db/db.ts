@@ -1,9 +1,9 @@
 import { Sequelize } from 'sequelize';
-import { ENV } from '~/common/enums';
+import { AppEnvironment, ENV } from '~/common/enums';
 import { DbEnvironmentConfig } from './common';
 import { dbConfig } from './sequelize-config';
 
-const config: DbEnvironmentConfig = dbConfig[ENV.NODE_ENV];
+const config: DbEnvironmentConfig = dbConfig[ENV.NODE_ENV || AppEnvironment.DEVELOPMENT];
 
 const sequelize = new Sequelize(
   config.database,
