@@ -1,5 +1,6 @@
 import express from 'express';
 import apiRouter from '~/service/api/api';
+import sequelize from '~/service/db/db';
 import { getLogger } from '~/helpers';
 import { CliCommandName, HttpCode, LoggerName } from '~/common/enums';
 import { API_PREFIX } from '~/common/constants';
@@ -30,12 +31,23 @@ app.use((req, res) => {
 });
 
 app.use((err: HttpError, _req: Request, _res: Response, _next: NextFunction) => {
-  logger.error(`An error occured on processing request: ${err.message}`);
+  return logger.error(`An error occured on processing request: ${err.message}`);
 });
 
 export default {
   name: CliCommandName.SERVER,
-  run(args: string[]): void {
+  async run(args: string[]): Promise<void> {
+    try {
+      logger.info(`Trying to connect to database...`);
+
+      await sequelize.authenticate();
+    } catch (err) {
+      logger.error(`An error occured: ${(err as Error).message}`);
+
+      throw err;
+    }
+    logger.info(`Connection to database established`);
+
     const [customPort] = args;
     const port = Number(customPort) || DEFAULT_PORT;
 
