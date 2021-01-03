@@ -1,7 +1,7 @@
 enum CliCommandName {
   VERSION = `--version`,
   HELP = `--help`,
-  GENERATE = `--generate`,
+  FILLDB = `--filldb`,
   SERVER = `--server`,
   FILL = `--fill`,
 }

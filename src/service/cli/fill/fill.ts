@@ -4,8 +4,8 @@ import {
   paintMessage,
   writeToFile,
 } from '~/helpers';
-import { CliCommandName, MocksConfig, OfferType } from '~/common/enums';
-import { TableName, FILL_FILE_PATH } from './common';
+import { CliCommandName, MocksConfig, OfferType, TableName } from '~/common/enums';
+import { FILL_FILE_PATH } from './common';
 import {
   generateInsertSql,
   joinSqlCommands,
