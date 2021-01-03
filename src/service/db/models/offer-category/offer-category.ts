@@ -1,14 +1,14 @@
-import { Sequelize, Model } from 'sequelize';
+import { Sequelize, Model, ModelCtor } from 'sequelize';
+import { TableName } from '~/common/enums';
 
 class OfferCategory extends Model {}
 
-const define = (sequelize: Sequelize): Model => {
-  return OfferCategory.init(
+const define = (sequelize: Sequelize): ModelCtor<OfferCategory> => {
+  return sequelize.define(
+    OfferCategory.name,
     {},
     {
-      sequelize,
-      modelName: `OfferCategory`,
-      tableName: `offers_categories`,
+      tableName: TableName.OFFERS_CATEGORIES,
     },
   );
 };

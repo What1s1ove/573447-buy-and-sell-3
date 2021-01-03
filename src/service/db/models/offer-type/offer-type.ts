@@ -1,9 +1,11 @@
-import { Sequelize, DataTypes, Model } from 'sequelize';
+import { Sequelize, DataTypes, Model, ModelCtor } from 'sequelize';
+import { TableName } from '~/common/enums';
 
 class OfferType extends Model {}
 
-const define = (sequelize: Sequelize): Model => {
-  return OfferType.init(
+const define = (sequelize: Sequelize): ModelCtor<OfferType> => {
+  return sequelize.define(
+    OfferType.name,
     {
       name: {
         type: DataTypes.STRING,
@@ -11,9 +13,7 @@ const define = (sequelize: Sequelize): Model => {
       },
     },
     {
-      sequelize,
-      modelName: `OfferType`,
-      tableName: `offer_types`,
+      tableName: TableName.OFFER_TYPES,
     },
   );
 };
