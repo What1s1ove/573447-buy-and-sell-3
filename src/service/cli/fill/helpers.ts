@@ -1,7 +1,7 @@
 import { getMockedImagePath, getRandomId, getRandomNumber } from '~/helpers';
-import { MocksConfig } from '~/common/enums';
+import { MocksConfig, TableName } from '~/common/enums';
 import { INCREASE_COUNT_FOR_IDX } from '~/common/constants';
-import { GenerateMocksSqlCbArs, TableName } from './common';
+import { GenerateMocksSqlCbArs } from './common';
 import { IOffer } from '~/common/interfaces';
 
 const generateInsertSql = (tableName: TableName, rows: string[]): string => {

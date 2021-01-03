@@ -5,3 +5,4 @@ export * from './ssr';
 export * from './comment';
 export * from './app';
 export * from './mocks';
+export * from './db';
