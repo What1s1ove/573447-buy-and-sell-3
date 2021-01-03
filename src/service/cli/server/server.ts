@@ -41,12 +41,13 @@ export default {
       logger.info(`Trying to connect to database...`);
 
       await sequelize.authenticate();
+
+      logger.info(`Connection to database established`);
     } catch (err) {
       logger.error(`An error occured: ${(err as Error).message}`);
 
       throw err;
     }
-    logger.info(`Connection to database established`);
 
     const [customPort] = args;
     const port = Number(customPort) || DEFAULT_PORT;
