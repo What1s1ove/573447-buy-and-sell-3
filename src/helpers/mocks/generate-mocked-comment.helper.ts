@@ -1,14 +1,11 @@
-import { getRandomId } from '~/helpers/string';
 import { getRandomItems } from '~/helpers/array';
 import { getRandomNumber } from '~/helpers/number';
 import { MocksConfig } from '~/common/enums';
-import { IComment } from '~/common/interfaces';
-import { GenerateMockedCommentCbArgs } from '~/common/types';
+import { GenerateMockedCommentCbArgs, CreatedComment } from '~/common/types';
 
 const generateMockedComment = ({
   comments,
-}: GenerateMockedCommentCbArgs): IComment => ({
-  id: getRandomId(),
+}: GenerateMockedCommentCbArgs): CreatedComment => ({
   text: getRandomItems(
     comments,
     getRandomNumber(
