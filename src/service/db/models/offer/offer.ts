@@ -1,7 +1,9 @@
 import { Sequelize, DataTypes, Model, ModelCtor } from 'sequelize';
 import { TableName } from '~/common/enums';
 
-class Offer extends Model {}
+class Offer extends Model {
+  addCategories!: Function;
+}
 
 const define = (sequelize: Sequelize): ModelCtor<Offer> => {
   return sequelize.define(
@@ -27,4 +29,4 @@ const define = (sequelize: Sequelize): ModelCtor<Offer> => {
   );
 };
 
-export { define };
+export { Offer, define };

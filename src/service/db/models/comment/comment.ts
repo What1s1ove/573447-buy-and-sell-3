@@ -18,4 +18,4 @@ const define = (sequelize: Sequelize): ModelCtor<Comment> => {
   );
 };
 
-export { define };
+export { Comment, define };

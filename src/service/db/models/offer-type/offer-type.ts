@@ -18,4 +18,4 @@ const define = (sequelize: Sequelize): ModelCtor<OfferType> => {
   );
 };
 
-export { define };
+export { OfferType, define };

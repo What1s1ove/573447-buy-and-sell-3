@@ -1,7 +1,11 @@
 import { Sequelize, DataTypes, Model, ModelCtor } from 'sequelize';
 import { TableName } from '~/common/enums';
 
-class Category extends Model {}
+class Category extends Model {
+  id!: number;
+
+  name!: string;
+}
 
 const define = (sequelize: Sequelize): ModelCtor<Category> => {
   return sequelize.define(
@@ -18,4 +22,4 @@ const define = (sequelize: Sequelize): ModelCtor<Category> => {
   );
 };
 
-export { define };
+export { Category, define };
