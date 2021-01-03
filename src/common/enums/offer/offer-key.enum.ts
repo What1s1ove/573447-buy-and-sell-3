@@ -5,7 +5,7 @@ enum OfferKey {
   DESCRIPTION = `description`,
   TYPE = `type`,
   SUM = `sum`,
-  CATEGORY = `category`,
+  CATEGORIES = `categories`,
   COMMENTS = `comments`,
 }
 

@@ -8,7 +8,7 @@ interface IOffer {
   [OfferKey.DESCRIPTION]: string;
   [OfferKey.TYPE]: OfferType;
   [OfferKey.SUM]: number;
-  [OfferKey.CATEGORY]: string[];
+  [OfferKey.CATEGORIES]: string[];
   [OfferKey.COMMENTS]: IComment[];
 }
 
