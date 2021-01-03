@@ -1,4 +1,4 @@
-import { logger, paintMessage } from '~/helpers';
+import { paintMessage } from '~/helpers';
 import { CliCommandName } from '~/common/enums';
 
 const outputHelpInfo = (): void => {
@@ -14,7 +14,7 @@ const outputHelpInfo = (): void => {
     --generate <count>    формирует файл mocks.json
   `;
 
-  logger.info(paintMessage(text, `gray`));
+  console.info(paintMessage(text, `gray`));
 };
 
 export default {

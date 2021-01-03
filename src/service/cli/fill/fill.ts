@@ -1,7 +1,6 @@
 import {
   generateMockedOffers,
   getMockedOffersData,
-  logger,
   paintMessage,
   writeToFile,
 } from '~/helpers';
@@ -55,14 +54,14 @@ export default {
     try {
       await writeToFile(FILL_FILE_PATH, sql);
 
-      logger.info(
+      console.info(
         paintMessage(
           `Operation success. File with fill-data was created.`,
           `green`,
         ),
       );
     } catch {
-      logger.error(
+      console.error(
         paintMessage(
           `An error occurred on saving fill-db: can't write fill-db to file...`,
           `red`,

@@ -1,11 +1,11 @@
-import { logger, paintMessage } from '~/helpers';
+import { paintMessage } from '~/helpers';
 import { CliCommandName } from '~/common/enums';
 import packageJsonFile from '~/../package.json';
 
 const checkAppVersion = (): void => {
   const { version } = packageJsonFile;
 
-  logger.info(paintMessage(version, `blue`));
+  console.info(paintMessage(version, `blue`));
 };
 
 export default {

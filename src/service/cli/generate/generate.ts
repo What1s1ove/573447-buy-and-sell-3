@@ -1,5 +1,4 @@
 import {
-  logger,
   paintMessage,
   getMockedOffersData,
   generateMockedOffers,
@@ -14,7 +13,7 @@ export default {
     const offersCount = Number(count) || MocksConfig.DEFAULT_COUNT;
 
     if (offersCount > MocksConfig.MAX_COUNT) {
-      logger.error(
+      console.error(
         paintMessage(
           `An error occurred on creating mocked data: No more than 1000 offers.`,
           `red`,
