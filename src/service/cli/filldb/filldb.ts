@@ -42,6 +42,7 @@ export default {
       categories,
       comments,
       users,
+      offerTypes,
     } = await getMockedOffersData();
     const mockedOffers = generateMockedOffers({
       count: offersCount,
@@ -50,11 +51,13 @@ export default {
       categories,
       comments,
       users,
+      offerTypes,
     });
 
     initDb(sequelize, {
       offers: mockedOffers,
       categories,
+      offerTypes,
     });
   },
 };

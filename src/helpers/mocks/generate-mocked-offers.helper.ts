@@ -8,9 +8,17 @@ const generateMockedOffers = ({
   descriptions,
   comments,
   users,
+  offerTypes,
 }: GenerateMockedOffersCbArgs): MockedOffer[] => {
   const mockedOffers = Array.from(new Array(count), () => (
-    generateMockedOffer({ titles, categories, descriptions, comments, users })
+    generateMockedOffer({
+      offerTypes,
+      titles,
+      categories,
+      descriptions,
+      comments,
+      users,
+    })
   ));
 
   return mockedOffers;

@@ -4,6 +4,7 @@ type GenerateMockedOfferCbArgs<T = string[]> = {
   categories: T;
   comments: T;
   users: T;
+  offerTypes: T;
 };
 
 export { GenerateMockedOfferCbArgs };

@@ -1,6 +1,8 @@
-import { MocksConfig } from '~/common/enums';
+import { MocksConfig, OfferType } from '~/common/enums';
 import { GenerateMockedOfferCbArgs } from '~/common/types';
 import { readOfferFileContent } from '~/helpers/mocks/read-offer-file-content.helper';
+
+const offerTypes = Object.values(OfferType);
 
 const dataPaths = [
   MocksConfig.TITLE.FILE_PATH,
@@ -21,6 +23,7 @@ const getMockedOffersData = async (): Promise<GenerateMockedOfferCbArgs> => {
     categories,
     comments,
     users,
+    offerTypes,
   };
 };
 

@@ -5,13 +5,12 @@ import { getMockedImagePath } from '~/helpers/mocks/get-mocked-image-path.helper
 import { MocksConfig, OfferType } from '~/common/enums';
 import { GenerateMockedOfferCbArgs, MockedOffer } from '~/common/types';
 
-const offerTypes = Object.values(OfferType);
-
 const generateMockedOffer = ({
   titles,
   descriptions,
   categories,
   comments,
+  offerTypes,
 }: GenerateMockedOfferCbArgs): MockedOffer => ({
   title: getRandomItem(titles),
   picture: getMockedImagePath(
@@ -26,7 +25,7 @@ const generateMockedOffer = ({
       MocksConfig.DESCRIPTION.MAX_COUNT,
     ),
   ).join(` `),
-  type: getRandomItem(offerTypes),
+  type: getRandomItem(offerTypes) as OfferType,
   sum: getRandomNumber(MocksConfig.PRICE.MIN, MocksConfig.PRICE.MAX),
   categories: getRandomItems(
     categories,
