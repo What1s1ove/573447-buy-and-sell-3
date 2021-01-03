@@ -1,3 +1,5 @@
+import { AppEnvironment } from '~/common/enums/app';
+
 const {
   NODE_ENV,
   LOG_LEVEL,
@@ -11,7 +13,7 @@ const {
 } = process.env;
 
 const ENV = {
-  NODE_ENV: NODE_ENV ?? ``,
+  NODE_ENV: NODE_ENV ?? AppEnvironment.DEVELOPMENT,
   LOG_LEVEL: LOG_LEVEL ?? ``,
   API_PORT: API_PORT ?? ``,
   PORT: PORT ?? ``,
