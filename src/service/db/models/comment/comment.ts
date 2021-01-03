@@ -7,6 +7,12 @@ const define = (sequelize: Sequelize): ModelCtor<Comment> => {
   return sequelize.define(
     Comment.name,
     {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false,
+      },
       text: {
         type: DataTypes.STRING,
         allowNull: false,

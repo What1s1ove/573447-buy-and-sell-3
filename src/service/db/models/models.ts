@@ -1,6 +1,6 @@
 import { ModelCtor, Sequelize } from 'sequelize';
 import { define as defineCategory, Category as CategoryModel } from './category/category';
-// import { define as defineOfferType } from './offer-type/offer-type';
+import { define as defineOfferType, OfferType as OfferTypeModel } from './offer-type/offer-type';
 import { define as defineComment, Comment as CommentModel } from './comment/comment';
 import { define as defineOffer, Offer as OfferModel } from './offer/offer';
 import { define as defineOfferCategory, OfferCategory as OfferCategoryModel } from './offer-category/offer-category';
@@ -11,23 +11,20 @@ type DbModels = {
   Comment: ModelCtor<CommentModel>;
   Offer: ModelCtor<OfferModel>;
   OfferCategory: ModelCtor<OfferCategoryModel>;
+  OfferType: ModelCtor<OfferTypeModel>;
 };
 
 const define = (sequelize: Sequelize): DbModels => {
   const Category = defineCategory(sequelize);
-  // const OfferType = defineOfferType(sequelize);
+  const OfferType = defineOfferType(sequelize);
   const Comment = defineComment(sequelize);
   const Offer = defineOffer(sequelize);
   const OfferCategory = defineOfferCategory(sequelize);
 
-  // OfferType.hasMany(Offer, {
-  //   as: TableName.OFFER_TYPES,
-  //   foreignKey: `offerId`,
-  // });
-
-  // Offer.belongsTo(OfferType, {
-  //   foreignKey: `offerId`,
-  // });
+  Offer.belongsTo(OfferType, {
+    foreignKey: `offerTypeId`,
+    as: TableName.OFFER_TYPES,
+  });
 
   Offer.hasMany(Comment, {
     as: TableName.COMMENTS,
@@ -54,6 +51,7 @@ const define = (sequelize: Sequelize): DbModels => {
 
   return {
     Category,
+    OfferType,
     Comment,
     Offer,
     OfferCategory,

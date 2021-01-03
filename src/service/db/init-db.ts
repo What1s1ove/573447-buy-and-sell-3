@@ -5,14 +5,15 @@ import { define as defineModels } from './models/models';
 
 type MockedPayload = {
   categories: string[];
+  offerTypes: string[];
   offers: MockedOffer[];
 };
 
 const initDb = async (
   sequelize: Sequelize,
-  { categories, offers }: MockedPayload,
+  { categories, offers, offerTypes }: MockedPayload,
 ): Promise<void> => {
-  const { Category, Offer } = defineModels(sequelize);
+  const { Category, OfferType, Offer } = defineModels(sequelize);
   await sequelize.sync({
     force: true,
   });
@@ -23,16 +24,33 @@ const initDb = async (
     })),
   );
 
+  const offerTypesModels = await OfferType.bulkCreate(
+    offerTypes.map((item) => ({
+      name: item,
+    })),
+  );
+
   const categoryIdByName = categoryModels.reduce(
     (acc, next) => ({
-      [next.name]: next.id,
       ...acc,
+      [next.name]: next.id,
+    }),
+    {},
+  );
+
+  const offerTypeIdByName = offerTypesModels.reduce(
+    (acc, next) => ({
+      ...acc,
+      [next.name]: next.id,
     }),
     {},
   );
 
   const offerPromises = offers.map(async (offer) => {
-    const offerModel = await Offer.create(offer, {
+    const offerModel = await Offer.create({
+      ...offer,
+      offerTypeId: offerTypeIdByName[offer.type],
+    }, {
       include: [TableName.COMMENTS],
     });
 

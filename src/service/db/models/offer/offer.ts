@@ -3,12 +3,20 @@ import { TableName } from '~/common/enums';
 
 class Offer extends Model {
   addCategories!: Function;
+
+  addOfferTypes!: Function;
 }
 
 const define = (sequelize: Sequelize): ModelCtor<Offer> => {
   return sequelize.define(
     Offer.name,
     {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false,
+      },
       description: {
         type: DataTypes.STRING,
         allowNull: false,
