@@ -1,11 +1,9 @@
-import { getRandomId } from '~/helpers/string';
 import { getRandomItems, getRandomItem } from '~/helpers/array';
 import { getRandomNumber } from '~/helpers/number';
 import { generateMockedComments } from '~/helpers/mocks/generate-mocked-comments.helper';
 import { getMockedImagePath } from '~/helpers/mocks/get-mocked-image-path.helper';
 import { MocksConfig, OfferType } from '~/common/enums';
-import { GenerateMockedOfferCbArgs } from '~/common/types';
-import { IOffer } from '~/common/interfaces';
+import { GenerateMockedOfferCbArgs, MockedOffer } from '~/common/types';
 
 const offerTypes = Object.values(OfferType);
 
@@ -14,8 +12,7 @@ const generateMockedOffer = ({
   descriptions,
   categories,
   comments,
-}: GenerateMockedOfferCbArgs): IOffer => ({
-  id: getRandomId(),
+}: GenerateMockedOfferCbArgs): MockedOffer => ({
   title: getRandomItem(titles),
   picture: getMockedImagePath(
     MocksConfig.OFFER_PICTURE.TYPE,
@@ -31,7 +28,7 @@ const generateMockedOffer = ({
   ).join(` `),
   type: getRandomItem(offerTypes),
   sum: getRandomNumber(MocksConfig.PRICE.MIN, MocksConfig.PRICE.MAX),
-  category: getRandomItems(
+  categories: getRandomItems(
     categories,
     getRandomNumber(MocksConfig.CATEGORY.MIN_COUNT, categories.length),
   ),

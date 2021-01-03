@@ -15,7 +15,7 @@ const getMockedDate = async (): Promise<IOffer[]> => {
     }
   } catch (err) {
     logger.error(
-      paintMessage(`An error occured on reading file with mocks`, `red`),
+      paintMessage(`An error occurred on reading file with mocks`, `red`),
     );
 
     return Promise.reject(err);

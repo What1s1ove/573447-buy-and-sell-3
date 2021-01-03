@@ -31,7 +31,7 @@ app.use((req, res) => {
 });
 
 app.use((err: HttpError, _req: Request, _res: Response, _next: NextFunction) => {
-  return logger.error(`An error occured on processing request: ${err.message}`);
+  return logger.error(`An error occurred on processing request: ${err.message}`);
 });
 
 export default {
@@ -44,7 +44,7 @@ export default {
 
       logger.info(`Connection to database established`);
     } catch (err) {
-      logger.error(`An error occured: ${(err as Error).message}`);
+      logger.error(`An error occurred: ${(err as Error).message}`);
 
       throw err;
     }
@@ -58,7 +58,7 @@ export default {
 
     server.once(`error`, (err) => {
       return logger.error(
-        `An error occured on server creation: ${err.message}`,
+        `An error occurred on server creation: ${err.message}`,
       );
     });
   },

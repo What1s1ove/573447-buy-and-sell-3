@@ -2,7 +2,7 @@ import { getMockedImagePath, getRandomId, getRandomNumber } from '~/helpers';
 import { MocksConfig, TableName } from '~/common/enums';
 import { INCREASE_COUNT_FOR_IDX } from '~/common/constants';
 import { GenerateMocksSqlCbArs } from './common';
-import { IOffer } from '~/common/interfaces';
+import { MockedOffer } from '~/common/types';
 
 const generateInsertSql = (tableName: TableName, rows: string[]): string => {
   const comment = `/* ${tableName} */ `;
@@ -48,7 +48,7 @@ const generateUsersSqlRows = ({ users }: GenerateMocksSqlCbArs): string[] => {
 
 const generateCommentsSqlRows = (
   { users }: GenerateMocksSqlCbArs,
-  mockedOffers: IOffer[],
+  mockedOffers: MockedOffer[],
 ): string[] => {
   return mockedOffers.reduce<string[]>((acc, offer, idx) => {
     const commentsSqls = offer.comments.map((comment) => {
@@ -65,7 +65,7 @@ const generateCommentsSqlRows = (
 
 const generateOffersSqlRows = (
   { offerTypes, users }: GenerateMocksSqlCbArs,
-  mockedOffers: IOffer[],
+  mockedOffers: MockedOffer[],
 ): string[] => {
   return mockedOffers.map((offer) => {
     const createdDate = new Date().toISOString();
@@ -80,10 +80,10 @@ const generateOffersSqlRows = (
 
 const generateOffersCategoriesRows = (
   { categories }: GenerateMocksSqlCbArs,
-  mockedOffers: IOffer[],
+  mockedOffers: MockedOffer[],
 ): string[] => {
   return mockedOffers.reduce<string[]>((acc, offer, idx) => {
-    const offerCategorySql = offer.category.map((category) => {
+    const offerCategorySql = offer.categories.map((category) => {
       const currentCategoryIdx = categories.findIndex((it) => it === category);
       const offerId = idx + INCREASE_COUNT_FOR_IDX;
       const categoryId = currentCategoryIdx + INCREASE_COUNT_FOR_IDX;

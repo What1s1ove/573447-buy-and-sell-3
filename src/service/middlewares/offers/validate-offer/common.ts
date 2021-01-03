@@ -4,7 +4,7 @@ import { OfferIdParam } from '~/common/types';
 type Params = OfferIdParam;
 
 const offerRequireKeys = [
-  OfferKey.CATEGORY,
+  OfferKey.CATEGORIES,
   OfferKey.DESCRIPTION,
   OfferKey.PICTURE,
   OfferKey.TITLE,
