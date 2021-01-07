@@ -1,22 +1,21 @@
-import { getUniqueItems } from '~/helpers';
-import { IOffer } from '~/common/interfaces';
-import { getCategories } from './helpers';
+import { ICategory } from '~/common/interfaces';
+import { CategoryModel } from '~/common/types';
 
 type Constructor = {
-  offers: IOffer[];
+  categoryModel: CategoryModel;
 };
 
 class Category {
-  #offers: IOffer[];
+  #Category: CategoryModel;
 
-  constructor({ offers }: Constructor) {
-    this.#offers = offers;
+  constructor({ categoryModel }: Constructor) {
+    this.#Category = categoryModel;
   }
 
-  public findAll(): string[] {
-    const categories = getUniqueItems(getCategories(this.#offers));
-
-    return categories;
+  public findAll(): Promise<ICategory[]> {
+    return this.#Category.findAll({
+      raw: true,
+    });
   }
 }
 
