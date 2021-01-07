@@ -13,4 +13,6 @@ const define = (sequelize: Sequelize): ModelCtor<OfferCategory> => {
   );
 };
 
-export { OfferCategory, define };
+export { define };
+
+export default OfferCategory;

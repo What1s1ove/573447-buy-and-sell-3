@@ -28,4 +28,6 @@ const define = (sequelize: Sequelize): ModelCtor<OfferType> => {
   );
 };
 
-export { OfferType, define };
+export { define };
+
+export default OfferType;
