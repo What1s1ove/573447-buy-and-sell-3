@@ -7,6 +7,8 @@ enum OfferKey {
   SUM = `sum`,
   CATEGORIES = `categories`,
   COMMENTS = `comments`,
+  CREATED_AT = `createdAt`,
+  UPDATED_AT = `updatedAt`,
 }
 
 export { OfferKey };

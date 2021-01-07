@@ -10,6 +10,8 @@ interface IOffer {
   [OfferKey.SUM]: number;
   [OfferKey.CATEGORIES]: string[];
   [OfferKey.COMMENTS]: IComment[];
+  [OfferKey.CREATED_AT]: string;
+  [OfferKey.UPDATED_AT]: string;
 }
 
 export { IOffer };
