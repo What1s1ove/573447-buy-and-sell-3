@@ -1,21 +1,29 @@
+import { TableName, DbOperator } from '~/common/enums';
 import { IOffer } from '~/common/interfaces';
-import { getOffersByTitleValue } from './helpers';
+import { OfferModel } from '~/common/types';
 
 type Constructor = {
-  offers: IOffer[];
+  offerModel: OfferModel;
 };
 
 class Search {
-  #offers: IOffer[];
+  #Offer: OfferModel;
 
-  constructor({ offers }: Constructor) {
-    this.#offers = offers;
+  constructor({ offerModel }: Constructor) {
+    this.#Offer = offerModel;
   }
 
-  public findAll(titleValue: string): IOffer[] {
-    const offersByTitleValue = getOffersByTitleValue(this.#offers, titleValue);
+  public async findAll(titleValue: string): Promise<IOffer[]> {
+    const offers = await this.#Offer.findAll({
+      where: {
+        title: {
+          [DbOperator.substring]: titleValue,
+        },
+      },
+      include: [TableName.CATEGORIES],
+    });
 
-    return offersByTitleValue;
+    return offers.map((offer) => offer.get());
   }
 }
 
