@@ -49,7 +49,7 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
         type: body.action,
         description: body.comment,
         title: body.title,
-        category: body.category,
+        categories: body.category,
       };
 
       await api.createOffer(offerData);
@@ -63,7 +63,7 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
   offersRouter.get(SsrOffersPath.EDIT_$OFFER_ID, async (req, res) => {
     const { id } = req.params;
     const [offer, categories] = await Promise.all([
-      api.getOffer(id),
+      api.getOffer(Number(id)),
       api.getCategories(),
     ]);
 
