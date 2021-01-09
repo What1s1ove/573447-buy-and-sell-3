@@ -36,7 +36,7 @@ class Comments {
       },
     });
 
-    return !!deletedRows;
+    return Boolean(deletedRows);
   }
 }
 

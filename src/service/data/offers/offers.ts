@@ -1,53 +1,61 @@
-import { OfferKey } from '~/common/enums';
+import { OfferKey, TableName } from '~/common/enums';
 import { IOffer } from '~/common/interfaces';
-import { CreatedOffer } from '~/common/types';
-import { getOfferById, getNewOffer, updateOffer, removeOffer } from './helpers';
+import { CreatedOffer, OfferModel } from '~/common/types';
 
 type Constructor = {
-  offers: IOffer[];
+  offerModel: OfferModel;
 };
 
 class Offers {
-  #offers: IOffer[];
+  #Offer: OfferModel;
 
-  constructor({ offers }: Constructor) {
-    this.#offers = offers;
+  constructor({ offerModel }: Constructor) {
+    this.#Offer = offerModel;
   }
 
-  public findAll(): IOffer[] {
-    return this.#offers;
+  public async findAll(): Promise<IOffer[]> {
+    const offers = await this.#Offer.findAll({
+      include: [TableName.CATEGORIES, TableName.COMMENTS],
+    });
+
+    return offers.map((item) => item.get());
   }
 
-  public findOne(id: IOffer[OfferKey.ID]): IOffer | null {
-    const offerById = getOfferById(this.#offers, id);
-
-    return offerById;
+  public findOne(id: IOffer[OfferKey.ID]): Promise<IOffer | null> {
+    return this.#Offer.findByPk(id, {
+      include: [TableName.CATEGORIES, TableName.COMMENTS],
+    });
   }
 
-  public create(offer: CreatedOffer): IOffer {
-    const newOffer = getNewOffer(offer);
+  public async create(createdOffer: CreatedOffer): Promise<boolean> {
+    const offer = await this.#Offer.create(createdOffer);
 
-    this.#offers.push(newOffer);
+    await offer.addCategories(createdOffer.categories);
 
-    return newOffer;
+    return offer.get();
   }
 
-  public update(offer: IOffer, offerId: IOffer[OfferKey.ID]): IOffer {
-    this.#offers = updateOffer(this.#offers, offerId, offer);
+  public async update(
+    offer: IOffer,
+    offerId: IOffer[OfferKey.ID],
+  ): Promise<boolean> {
+    const [affectedRows] = await this.#Offer.update(offer, {
+      where: {
+        id: offerId,
+      },
+    });
 
-    return offer;
+    return Boolean(affectedRows);
   }
 
-  public drop(id: IOffer[OfferKey.ID]): IOffer | null {
-    const deletedOffer = getOfferById(this.#offers, id);
+  public async drop(offer: IOffer): Promise<boolean> {
+    const deletedRows = await this.#Offer.destroy({
+      where: {
+        id: offer.id,
+      },
+    });
 
-    if (!deletedOffer) {
-      return null;
-    }
-
-    this.#offers = removeOffer(this.#offers, deletedOffer);
-
-    return deletedOffer;
+    return Boolean(deletedRows);
   }
 }
 
