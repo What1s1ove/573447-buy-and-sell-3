@@ -7,14 +7,14 @@ const initSearchApi = (app: Router, service: Search): void => {
 
   app.use(ApiPath.SEARCH, searchRouter);
 
-  searchRouter.get(SearchApiPath.ROOT, (req, res) => {
+  searchRouter.get(SearchApiPath.ROOT, async (req, res) => {
     const { query = `` } = req.query;
 
     if (!query) {
       return res.status(HttpCode.OK).json([]);
     }
 
-    const offers = service.findAll(query as string);
+    const offers = await service.findAll(query as string);
 
     return res.status(HttpCode.OK).json(offers);
   });
