@@ -15,7 +15,11 @@ class Offers {
 
   public async findAll(): Promise<IOffer[]> {
     const offers = await this.#Offer.findAll({
-      include: [TableName.CATEGORIES, TableName.COMMENTS],
+      include: [
+        TableName.CATEGORIES,
+        TableName.COMMENTS,
+        TableName.OFFER_TYPES,
+      ],
     });
 
     return offers.map((item) => item.get());
@@ -23,8 +27,12 @@ class Offers {
 
   public findOne(id: IOffer[OfferKey.ID]): Promise<IOffer | null> {
     return this.#Offer.findByPk(id, {
-      include: [TableName.CATEGORIES, TableName.COMMENTS],
-    });
+      include: [
+        TableName.CATEGORIES,
+        TableName.COMMENTS,
+        TableName.OFFER_TYPES,
+      ],
+    }) as Promise<IOffer | null>;
   }
 
   public async create(createdOffer: CreatedOffer): Promise<boolean> {

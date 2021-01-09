@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 import { TableName } from '~/common/enums';
 import { MockedOffer } from '~/common/types';
-import { define as defineModels } from './models/models';
+import { defineModels } from './define-models';
 
 type MockedPayload = {
   categories: string[];

@@ -6,7 +6,7 @@ class Offer extends Model {
 
   [OfferDtoKey.TITLE]: string;
 
-  [OfferDtoKey.TYPE]: number;
+  [OfferDtoKey.OFFER_TYPE_ID]: number;
 
   [OfferDtoKey.PICTURE]: string;
 

@@ -6,6 +6,8 @@ class Comment extends Model {
 
   [CommentDtoKey.TEXT]: string;
 
+  [CommentDtoKey.OFFER_ID]: number;
+
   [CommentDtoKey.CREATED_AT]: string;
 
   [CommentDtoKey.UPDATED_AT]: string;
