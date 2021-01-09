@@ -1,32 +1,42 @@
-/* eslint-disable class-methods-use-this */
 import { CommentKey } from '~/common/enums';
 import { IComment, IOffer } from '~/common/interfaces';
-import { CreatedComment } from '~/common/types';
-import { getCommentById, getNewComment, removeComment } from './helpers';
+import { CreatedComment, CommentModel } from '~/common/types';
+
+type Constructor = {
+  commentModel: CommentModel;
+};
 
 class Comments {
-  findAll(offer: IOffer): IComment[] {
-    return offer.comments;
+  #Comment: CommentModel;
+
+  constructor({ commentModel }: Constructor) {
+    this.#Comment = commentModel;
   }
 
-  public create(offer: IOffer, comment: CreatedComment): IComment {
-    const newComment = getNewComment(comment);
-
-    offer.comments.push(newComment);
-
-    return newComment;
+  findAll(offer: IOffer): Promise<IComment[]> {
+    return this.#Comment.findAll({
+      where: {
+        offerId: offer.id,
+      },
+      raw: true,
+    });
   }
 
-  public drop(offer: IOffer, commentId: IComment[CommentKey.ID]): IComment | null {
-    const removedComment = getCommentById(offer.comments, commentId);
+  public create(offer: IOffer, comment: CreatedComment): Promise<IComment> {
+    return this.#Comment.create({
+      offerId: offer.id,
+      ...comment,
+    });
+  }
 
-    if (!removedComment) {
-      return null;
-    }
+  public async drop(commentId: IComment[CommentKey.ID]): Promise<boolean> {
+    const deletedRows = await this.#Comment.destroy({
+      where: {
+        id: commentId,
+      },
+    });
 
-    offer.comments = removeComment(offer.comments, removedComment);
-
-    return removedComment;
+    return !!deletedRows;
   }
 }
 
