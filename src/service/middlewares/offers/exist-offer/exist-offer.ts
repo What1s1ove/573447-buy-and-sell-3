@@ -1,16 +1,15 @@
 import { Offers } from '~/service/data';
-import { HttpCode, OfferKey } from '~/common/enums';
-import { IOffer } from '~/common/interfaces';
+import { HttpCode } from '~/common/enums';
 import { Request, Response, NextFunction } from '~/common/types';
 import { Params } from './common';
 
-const existOffer = (service: Offers) => (
+const existOffer = (service: Offers) => async (
   req: Request<Partial<Params>, null, null>,
   res: Response,
   next: NextFunction,
-): Response | void => {
+): Promise<Response | void> => {
   const { offerId } = req.params;
-  const offer = service.findOne(offerId as IOffer[OfferKey.ID]);
+  const offer = await service.findOne(Number(offerId));
 
   if (!offer) {
     return res
