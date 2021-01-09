@@ -3,7 +3,7 @@ enum OfferDtoKey {
   TITLE = `title`,
   PICTURE = `picture`,
   DESCRIPTION = `description`,
-  TYPE = `type`,
+  OFFER_TYPE_ID = `offerTypeId`,
   SUM = `sum`,
   CATEGORIES = `categories`,
   COMMENTS = `comments`,

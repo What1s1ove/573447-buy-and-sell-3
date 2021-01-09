@@ -6,7 +6,7 @@ interface IOfferDto {
   [OfferDtoKey.TITLE]: string;
   [OfferDtoKey.PICTURE]: string;
   [OfferDtoKey.DESCRIPTION]: string;
-  [OfferDtoKey.TYPE]: number;
+  [OfferDtoKey.OFFER_TYPE_ID]: number;
   [OfferDtoKey.SUM]: number;
   [OfferDtoKey.CATEGORIES]: string[];
   [OfferDtoKey.COMMENTS]: IComment[];

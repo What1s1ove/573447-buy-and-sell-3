@@ -1,3 +1,3 @@
-import { Op as DbOperator } from 'sequelize/types';
+import { Op as DbOperator } from 'sequelize';
 
 export { DbOperator };
