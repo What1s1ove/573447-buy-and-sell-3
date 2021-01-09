@@ -18,7 +18,7 @@ block content
             div.ticket-form__content
               div.ticket-form__row
                 div.form__field
-                  input#ticket-name.js-field(type="text" name="ticket-name" value=offer.title required="")
+                  input#ticket-name.js-field(type="text" name="ticket-name" value=offer.title required)
                   label(for="ticket-name") Название
                   span Обязательное поле
               div.ticket-form__row
@@ -28,12 +28,12 @@ block content
                   label(for="comment-field") Описание
                   span Обязательное поле
               div.ticket-form__row
-                select#category-field.form__select.js-multiple-select(name="category" data-label="Выбрать категорию публикации" multiple="")
+                select#category-field.form__select.js-multiple-select(name="category" data-label="Выбрать категорию публикации" multiple)
                   each category in categories
-                    option(value=category selected=offer.category.includes(category)) #{category}
+                    option(value=category.id selected=offer.categories.some((item) => item.id === category.id)) #{category.name}
               div.ticket-form__row
                 div.form__field.form__field--price
-                  input#price-field.js-field.js-price(type="number" name="price" min="1" value=offer.price required="")
+                  input#price-field.js-field.js-price(type="number" name="price" min="1" value=offer.price required)
                   label(for="price-field") Цена
                   span Обязательное поле
                 div.form__switch.switch
