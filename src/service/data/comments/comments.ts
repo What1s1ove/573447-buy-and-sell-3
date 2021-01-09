@@ -1,4 +1,4 @@
-import { CommentKey } from '~/common/enums';
+import { CommentKey, OfferKey } from '~/common/enums';
 import { IComment, IOffer } from '~/common/interfaces';
 import { CreatedComment, CommentModel } from '~/common/types';
 
@@ -13,10 +13,10 @@ class Comments {
     this.#Comment = commentModel;
   }
 
-  findAll(offer: IOffer): Promise<IComment[]> {
+  findAll(offerId: IOffer[OfferKey.ID]): Promise<IComment[]> {
     return this.#Comment.findAll({
       where: {
-        offerId: offer.id,
+        offerId,
       },
       raw: true,
     });

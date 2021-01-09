@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ApiPath, HttpCode, OfferKey, OffersApiPath } from '~/common/enums';
+import { ApiPath, HttpCode, OffersApiPath } from '~/common/enums';
 import {
   existOffer,
   validateComment,
@@ -16,21 +16,21 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
 
   app.use(ApiPath.OFFERS, offersRouter);
 
-  offersRouter.get(OffersApiPath.ROOT, (_req, res) => {
-    const offers = offersService.findAll();
+  offersRouter.get(OffersApiPath.ROOT, async (_req, res) => {
+    const offers = await offersService.findAll();
 
     return res.status(HttpCode.OK).json(offers);
   });
 
-  offersRouter.post(OffersApiPath.ROOT, validateOffer, (req, res) => {
-    const offer = offersService.create(req.body);
+  offersRouter.post(OffersApiPath.ROOT, validateOffer, async (req, res) => {
+    const isOfferCreated = await offersService.create(req.body);
 
-    return res.status(HttpCode.CREATED).json(offer);
+    return res.status(HttpCode.CREATED).json(isOfferCreated);
   });
 
-  offersRouter.get(OffersApiPath.$OFFER_ID, (req, res) => {
+  offersRouter.get(OffersApiPath.$OFFER_ID, async (req, res) => {
     const { offerId } = req.params;
-    const offer = offersService.findOne(offerId);
+    const offer = await offersService.findOne(Number(offerId));
 
     if (!offer) {
       return res.status(HttpCode.NOT_FOUND).send(`Not found with ${offerId}`);
@@ -39,9 +39,10 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
     return res.status(HttpCode.OK).json(offer);
   });
 
-  offersRouter.put(OffersApiPath.$OFFER_ID, validateOffer, (req, res) => {
+  offersRouter.put(OffersApiPath.$OFFER_ID, validateOffer, async (req, res) => {
     const { offerId } = req.params;
-    const offer = offersService.findOne(offerId as IOffer[OfferKey.ID]);
+    const parsedOfferId = Number(offerId);
+    const offer = await offersService.findOne(parsedOfferId);
 
     if (!offer) {
       return res
@@ -49,17 +50,17 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
         .send(`Not found with ${offerId ?? ``}`);
     }
 
-    const updatedOffer = offersService.update(
+    const isOfferUpdated = await offersService.update(
       req.body as IOffer,
-      offerId as string,
+      parsedOfferId,
     );
 
-    return res.status(HttpCode.OK).json(updatedOffer);
+    return res.status(HttpCode.OK).json(isOfferUpdated);
   });
 
-  offersRouter.delete(OffersApiPath.$OFFER_ID, (req, res) => {
+  offersRouter.delete(OffersApiPath.$OFFER_ID, async (req, res) => {
     const { offerId } = req.params;
-    const offer = offersService.drop(offerId);
+    const offer = await offersService.drop(Number(offerId));
 
     if (!offer) {
       return res.status(HttpCode.NOT_FOUND).send(`Not found`);
@@ -71,9 +72,9 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
   offersRouter.get(
     OffersApiPath.$OFFER_ID_COMMENTS,
     existOffer(offersService),
-    (_, res) => {
-      const { offer } = res.locals;
-      const comments = commentsService.findAll(offer as IOffer);
+    async (req, res) => {
+      const { offerId } = req.params;
+      const comments = await commentsService.findAll(Number(offerId));
 
       return res.status(HttpCode.OK).json(comments);
     },
@@ -82,9 +83,9 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
   offersRouter.post(
     OffersApiPath.$OFFER_ID_COMMENTS,
     [existOffer(offersService), validateComment],
-    (req: Request<Partial<OfferIdParam>>, res: Response) => {
+    async (req: Request<Partial<OfferIdParam>>, res: Response) => {
       const { offer } = res.locals;
-      const comment = commentsService.create(offer as IOffer, req.body);
+      const comment = await commentsService.create(offer as IOffer, req.body);
 
       return res.status(HttpCode.CREATED).json(comment);
     },
@@ -93,19 +94,16 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
   offersRouter.delete(
     OffersApiPath.$OFFER_ID_COMMENTS_$COMMENT_ID,
     existOffer(offersService),
-    (req, res) => {
-      const { offer } = res.locals;
+    async (req, res) => {
       const { commentId } = req.params;
-      const deletedComment = commentsService.drop(
-        offer as IOffer,
-        commentId as IOffer[OfferKey.ID],
-      );
+      const parsedCommentId = Number(commentId);
+      const isCommentDeleted = await commentsService.drop(parsedCommentId);
 
-      if (!deletedComment) {
+      if (!isCommentDeleted) {
         return res.status(HttpCode.NOT_FOUND).send(`Not found`);
       }
 
-      return res.status(HttpCode.OK).json(deletedComment);
+      return res.status(HttpCode.OK).json(isCommentDeleted);
     },
   );
 };

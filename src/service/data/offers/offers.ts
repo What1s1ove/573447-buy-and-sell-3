@@ -48,10 +48,10 @@ class Offers {
     return Boolean(affectedRows);
   }
 
-  public async drop(offer: IOffer): Promise<boolean> {
+  public async drop(offerId: IOffer[OfferKey.ID]): Promise<boolean> {
     const deletedRows = await this.#Offer.destroy({
       where: {
-        id: offer.id,
+        id: offerId,
       },
     });
 
