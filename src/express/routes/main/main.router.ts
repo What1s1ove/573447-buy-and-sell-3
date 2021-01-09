@@ -9,10 +9,14 @@ const initMainRouter = (app: Router, settings: SsrRouterSettings): void => {
   app.use(SsrPath.MAIN, mainRouter);
 
   mainRouter.get(SsrMainPath.ROOT, async (_, res) => {
-    const offers = await api.getOffers();
+    const [offers, categories] = await Promise.all([
+      api.getOffers(),
+      api.getCategories(),
+    ]);
 
     return res.render(`main`, {
       items: offers,
+      categories,
     });
   });
 
