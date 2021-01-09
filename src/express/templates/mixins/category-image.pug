@@ -1,0 +1,4 @@
+mixin categoryImage(category)
+  - const MAX_IMG_NUMBER = 6;
+  - const imageNumber = `0${Math.ceil(Math.random() * MAX_IMG_NUMBER)}`
+  img(src=`/img/cat${imageNumber}.jpg` alt=category.name)
