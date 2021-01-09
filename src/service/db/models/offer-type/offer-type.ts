@@ -1,10 +1,14 @@
 import { Sequelize, DataTypes, Model, ModelCtor } from 'sequelize';
-import { TableName } from '~/common/enums';
+import { TableName, OfferTypeDtoKey } from '~/common/enums';
 
 class OfferType extends Model {
-  id!: number;
+  [OfferTypeDtoKey.ID]: number;
 
-  name!: string;
+  [OfferTypeDtoKey.NAME]: string;
+
+  [OfferTypeDtoKey.CREATED_AT]: string;
+
+  [OfferTypeDtoKey.UPDATED_AT]: string;
 }
 
 const define = (sequelize: Sequelize): ModelCtor<OfferType> => {

@@ -1,14 +1,14 @@
 import { Sequelize, DataTypes, Model, ModelCtor } from 'sequelize';
-import { CategoryKey, TableName } from '~/common/enums';
+import { CategoryDtoKey, TableName } from '~/common/enums';
 
 class Category extends Model {
-  [CategoryKey.ID]: number;
+  [CategoryDtoKey.ID]: number;
 
-  [CategoryKey.NAME]!: string;
+  [CategoryDtoKey.NAME]: string;
 
-  [CategoryKey.CREATED_AT]: string;
+  [CategoryDtoKey.CREATED_AT]: string;
 
-  [CategoryKey.UPDATED_AT]: string;
+  [CategoryDtoKey.UPDATED_AT]: string;
 }
 
 const define = (sequelize: Sequelize): ModelCtor<Category> => {

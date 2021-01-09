@@ -1,26 +1,26 @@
 import { Sequelize, DataTypes, Model, ModelCtor } from 'sequelize';
-import { OfferKey, TableName } from '~/common/enums';
+import { OfferDtoKey, TableName } from '~/common/enums';
 
 class Offer extends Model {
-  [OfferKey.ID]: number;
+  [OfferDtoKey.ID]: number;
 
-  [OfferKey.TITLE]: string;
+  [OfferDtoKey.TITLE]: string;
 
-  [OfferKey.TYPE]: number;
+  [OfferDtoKey.TYPE]: number;
 
-  [OfferKey.PICTURE]: string;
+  [OfferDtoKey.PICTURE]: string;
 
-  [OfferKey.DESCRIPTION]: string;
+  [OfferDtoKey.DESCRIPTION]: string;
 
-  [OfferKey.SUM]: number;
+  [OfferDtoKey.SUM]: number;
 
-  [OfferKey.CATEGORIES]: string[];
+  [OfferDtoKey.CATEGORIES]: string[];
 
-  [OfferKey.CREATED_AT]: string;
+  [OfferDtoKey.CREATED_AT]: string;
 
-  [OfferKey.UPDATED_AT]: string;
+  [OfferDtoKey.UPDATED_AT]: string;
 
-  [OfferKey.COMMENTS]: [];
+  [OfferDtoKey.COMMENTS]: [];
 
   addCategories!: Function;
 

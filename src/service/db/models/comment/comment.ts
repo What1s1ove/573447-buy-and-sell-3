@@ -1,14 +1,14 @@
 import { Sequelize, DataTypes, Model, ModelCtor } from 'sequelize';
-import { CommentKey, TableName } from '~/common/enums';
+import { CommentDtoKey, TableName } from '~/common/enums';
 
 class Comment extends Model {
-  [CommentKey.ID]: number;
+  [CommentDtoKey.ID]: number;
 
-  [CommentKey.TEXT]: string;
+  [CommentDtoKey.TEXT]: string;
 
-  [CommentKey.CREATED_AT]: string;
+  [CommentDtoKey.CREATED_AT]: string;
 
-  [CommentKey.UPDATED_AT]: string;
+  [CommentDtoKey.UPDATED_AT]: string;
 }
 
 const define = (sequelize: Sequelize): ModelCtor<Comment> => {
