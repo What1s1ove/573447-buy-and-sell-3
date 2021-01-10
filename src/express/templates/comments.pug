@@ -12,16 +12,6 @@ block content
                 h2.announce-card__title #{item.title}
                 span.announce-card__info
                   span.announce-card__price ₽ #{item.sum}
-                  +ticketLabel(item.type)(class=`announce-card__type`)
-            ul.comments-list
-              each comment in item.comments
-                li.js-card
-                  div.comment-card
-                    div.comment-card__header
-                      a.comment-card__avatar.avatar(href="#")
-                        img(src="/img/avatar03.jpg" srcset="/img/avatar03@2x.jpg 2x" alt="Аватар пользователя")
-                      p.comment-card__author Александр Бурый
-                    div.comment-card__content
-                      p
-                        | #{comment.text}
-                    button.comment-card__delete.js-delete(type="button") Удалить
+                  span.announce-card__type
+                    +ticketLabel(item.type)
+            +commentsList(item.comments, true)
