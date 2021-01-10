@@ -1,3 +1,4 @@
+import { ModelName } from '~/common/enums';
 import {
   CommentModel,
   CategoryModel,
@@ -7,11 +8,11 @@ import {
 } from '~/common/types/db/model.types';
 
 type DbModels = {
-  Category: CategoryModel;
-  Comment: CommentModel;
-  Offer: OfferModel;
-  OfferCategory: OfferCategoryModel;
-  OfferType: OfferTypeModel;
+  [ModelName.CATEGORY]: CategoryModel;
+  [ModelName.COMMENT]: CommentModel;
+  [ModelName.OFFER]: OfferModel;
+  [ModelName.OFFER_CATEGORY]: OfferCategoryModel;
+  [ModelName.OFFER_TYPE]: OfferTypeModel;
 };
 
 export { DbModels };

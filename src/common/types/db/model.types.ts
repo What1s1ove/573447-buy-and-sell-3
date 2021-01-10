@@ -1,10 +1,10 @@
 import { ModelCtor } from 'sequelize/types';
 import {
-  CategoryModel as Category,
-  OfferTypeModel as OfferType,
-  CommentModel as Comment,
-  OfferModel as Offer,
-  OfferCategoryModel as OfferCategory,
+  Category,
+  OfferType,
+  Comment,
+  Offer,
+  OfferCategory,
 } from '~/service/db/models';
 
 type CategoryModel = ModelCtor<Category>;
