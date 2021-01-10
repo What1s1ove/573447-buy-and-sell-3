@@ -46,7 +46,7 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
       const offerData: CreatedOffer = {
         picture: file.filename,
         sum: body.price,
-        type: body.action,
+        offerTypeId: body.action,
         description: body.comment,
         title: body.title,
         categories: body.category,

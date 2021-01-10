@@ -1,15 +1,17 @@
-import { OfferKey, OfferType } from '~/common/enums';
+import { OfferKey } from '~/common/enums';
 import { IComment } from '~/common/interfaces/comment';
+import { IOfferType } from '~/common/interfaces/offer/offer-type.interface';
 
 interface IOffer {
   [OfferKey.ID]: number;
   [OfferKey.TITLE]: string;
   [OfferKey.PICTURE]: string;
   [OfferKey.DESCRIPTION]: string;
-  [OfferKey.TYPE]: OfferType;
+  [OfferKey.OFFER_TYPE_ID]: number;
   [OfferKey.SUM]: number;
   [OfferKey.CATEGORIES]: string[];
   [OfferKey.COMMENTS]: IComment[];
+  [OfferKey.OFFER_TYPE]: IOfferType;
   [OfferKey.CREATED_AT]: string;
   [OfferKey.UPDATED_AT]: string;
 }
