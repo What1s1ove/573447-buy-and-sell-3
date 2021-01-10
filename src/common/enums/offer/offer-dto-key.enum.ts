@@ -6,7 +6,6 @@ enum OfferDtoKey {
   OFFER_TYPE_ID = `offerTypeId`,
   SUM = `sum`,
   CATEGORIES = `categories`,
-  COMMENTS = `comments`,
   CREATED_AT = `createdAt`,
   UPDATED_AT = `updatedAt`,
 }

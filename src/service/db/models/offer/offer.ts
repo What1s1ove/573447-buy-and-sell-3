@@ -20,8 +20,6 @@ class Offer extends Model {
 
   [OfferDtoKey.UPDATED_AT]: string;
 
-  [OfferDtoKey.COMMENTS]: [];
-
   addCategories!: Function;
 
   addOfferTypes!: Function;

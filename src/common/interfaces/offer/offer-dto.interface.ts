@@ -1,5 +1,4 @@
 import { OfferDtoKey } from '~/common/enums';
-import { IComment } from '~/common/interfaces/comment';
 
 interface IOfferDto {
   [OfferDtoKey.ID]: number;
@@ -9,7 +8,6 @@ interface IOfferDto {
   [OfferDtoKey.OFFER_TYPE_ID]: number;
   [OfferDtoKey.SUM]: number;
   [OfferDtoKey.CATEGORIES]: string[];
-  [OfferDtoKey.COMMENTS]: IComment[];
   [OfferDtoKey.CREATED_AT]: string;
   [OfferDtoKey.UPDATED_AT]: string;
 }
