@@ -14,8 +14,8 @@
   },
   "homepage": "https://github.com/What1s1ove/573447-buy-and-sell-3#readme",
   "scripts": {
-    "start": "LOG_LEVEL=error ts-node -r dotenv/config -r tsconfig-paths/register ./src/service/service.ts",
-    "start:debug": "LOG_LEVEL=info ts-node -r dotenv/config -r tsconfig-paths/register ./src/service/service.ts --server | pino-pretty",
+    "start": "cross-env LOG_LEVEL=error ts-node -r dotenv/config -r tsconfig-paths/register ./src/service/service.ts",
+    "start:debug": "cross-env LOG_LEVEL=info ts-node -r dotenv/config -r tsconfig-paths/register ./src/service/service.ts --server | pino-pretty",
     "start:front-server": "nodemon --exec ts-node -r tsconfig-paths/register ./src/express/express.ts",
     "server": "nodemon --exec ts-node -r tsconfig-paths/register ./src/service/service.ts --server",
     "test": "npm run eslint && npm run jest",
