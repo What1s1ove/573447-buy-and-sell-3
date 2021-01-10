@@ -1,20 +1,33 @@
 import express from 'express';
+import { Sequelize } from 'sequelize';
 import request, { Response } from 'supertest';
+import { initDb } from '~/service/db/init-db';
 import { Search } from '~/service/data';
-import { ApiPath, HttpCode } from '~/common/enums';
+import { ApiPath, HttpCode, OfferType } from '~/common/enums';
+import { DbModels } from '~/common/types';
 import { initSearchApi } from './search';
-import { mockedOffers } from './search.mocks';
+import { mockedOffers, mockedCategories } from './search.mocks';
 
 const app = express();
+const mockedDB = new Sequelize(`sqlite::memory:`, {
+  logging: false,
+});
 
 app.use(express.json());
 
-initSearchApi(
-  app,
-  new Search({
+beforeAll(async () => {
+  await initDb(mockedDB, {
+    categories: mockedCategories,
+    offerTypes: Object.values(OfferType),
     offers: mockedOffers,
-  }),
-);
+  });
+  initSearchApi(
+    app,
+    new Search({
+      offerModel: (mockedDB.models as DbModels).Offer,
+    }),
+  );
+});
 
 describe(`API returns offer based on search query`, () => {
   let response: Response | null = null;

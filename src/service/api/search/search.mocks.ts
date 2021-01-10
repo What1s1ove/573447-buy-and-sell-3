@@ -1,17 +1,16 @@
 import { OfferType } from '~/common/enums';
-import { IOffer } from '~/common/interfaces';
+import { MockedOffer } from '~/common/types';
 
-const mockedOffers: IOffer[] = [
+const mockedCategories = [`Книги`, `Цветы`, `Животные`, `Разное`];
+
+const mockedOffers: MockedOffer[] = [
   {
-    id: `Fg0ikD`,
-    category: [`Книги`],
+    categories: [`Книги`],
     comments: [
       {
-        id: `wsFw-O`,
         text: `Почему в таком ужасном состоянии?`,
       },
       {
-        id: `aqEKjM`,
         text: `Продаю в связи с переездом. Отрываю от сердца. А где блок питания?`,
       },
     ],
@@ -22,23 +21,18 @@ const mockedOffers: IOffer[] = [
     sum: 79555,
   },
   {
-    id: `P38xSL`,
-    category: [`Цветы`],
+    categories: [`Цветы`],
     comments: [
       {
-        id: `C4szXa`,
         text: `Неплохо, но дорого. Совсем немного... Оплата наличными или перевод на карту?`,
       },
       {
-        id: `QzHcjD`,
         text: `С чем связана продажа? Почему так дешёво? Вы что?! В магазине дешевле. Продаю в связи с переездом. Отрываю от сердца.`,
       },
       {
-        id: `x2uXYW`,
         text: `Неплохо, но дорого. Совсем немного...`,
       },
       {
-        id: `RmlbJV`,
         text: `Вы что?! В магазине дешевле.`,
       },
     ],
@@ -49,11 +43,9 @@ const mockedOffers: IOffer[] = [
     sum: 55460,
   },
   {
-    id: `eb5Shc`,
-    category: [`Животные`],
+    categories: [`Животные`],
     comments: [
       {
-        id: `NXU8v2`,
         text: `Оплата наличными или перевод на карту? Продаю в связи с переездом. Отрываю от сердца. С чем связана продажа? Почему так дешёво?`,
       },
     ],
@@ -65,4 +57,4 @@ const mockedOffers: IOffer[] = [
   },
 ];
 
-export { mockedOffers };
+export { mockedCategories, mockedOffers };

@@ -1,21 +1,19 @@
 import { OfferType } from '~/common/enums';
-import { IOffer } from '~/common/interfaces';
+import { MockedOffer } from '~/common/types';
 
-const mockedOffers: IOffer[] = [
+const mockedCategories = [`Животные`, `Журналы`, `Игры`];
+
+const mockedOffers: MockedOffer[] = [
   {
-    id: `tz8bZE`,
-    category: [`Журналы`],
+    categories: [`Журналы`],
     comments: [
       {
-        id: `t1xn0L`,
         text: `С чем связана продажа? Почему так дешёво? Неплохо, но дорого. А где блок питания?`,
       },
       {
-        id: `CJw4Di`,
         text: `А где блок питания?`,
       },
       {
-        id: `VRPtPm`,
         text: `Оплата наличными или перевод на карту? Неплохо, но дорого. Почему в таком ужасном состоянии?`,
       },
     ],
@@ -26,19 +24,15 @@ const mockedOffers: IOffer[] = [
     sum: 10030,
   },
   {
-    id: `_ybejg`,
-    category: [`Игры`],
+    categories: [`Игры`],
     comments: [
       {
-        id: `-joTuR`,
         text: `А где блок питания? С чем связана продажа? Почему так дешёво?`,
       },
       {
-        id: `z2oeSG`,
         text: `А сколько игр в комплекте?`,
       },
       {
-        id: `lfA8cT`,
         text: `Оплата наличными или перевод на карту? Вы что?! В магазине дешевле.`,
       },
     ],
@@ -49,11 +43,9 @@ const mockedOffers: IOffer[] = [
     sum: 6694,
   },
   {
-    id: `qyxtfr`,
-    category: [`Животные`],
+    categories: [`Животные`],
     comments: [
       {
-        id: `1QrQ5e`,
         text: `Совсем немного... А сколько игр в комплекте? Неплохо, но дорого.`,
       },
     ],
@@ -64,15 +56,12 @@ const mockedOffers: IOffer[] = [
     sum: 87784,
   },
   {
-    id: `Ac2lfd`,
-    category: [`Игры`],
+    categories: [`Игры`],
     comments: [
       {
-        id: `KN5Alg`,
         text: `А сколько игр в комплекте? Продаю в связи с переездом. Отрываю от сердца.`,
       },
       {
-        id: `celPwg`,
         text: `С чем связана продажа? Почему так дешёво?`,
       },
     ],
@@ -82,33 +71,6 @@ const mockedOffers: IOffer[] = [
     type: OfferType.SALE,
     sum: 54264,
   },
-  {
-    id: `hoe1Wc`,
-    category: [`Животные`],
-    comments: [
-      {
-        id: `P6xbVA`,
-        text: `Оплата наличными или перевод на карту?`,
-      },
-      {
-        id: `sMDAbY`,
-        text: `Почему в таком ужасном состоянии? Совсем немного...`,
-      },
-      {
-        id: `xGepP1`,
-        text: `Продаю в связи с переездом. Отрываю от сердца. Оплата наличными или перевод на карту? Вы что?! В магазине дешевле.`,
-      },
-      {
-        id: `84fXvE`,
-        text: `С чем связана продажа? Почему так дешёво? А сколько игр в комплекте?`,
-      },
-    ],
-    description: `Таких предложений больше нет! Даю недельную гарантию. Продаю с болью в сердце... Пользовались бережно и только по большим праздникам.`,
-    picture: `item15.jpg`,
-    title: `Куплю породистого кота`,
-    type: OfferType.OFFER,
-    sum: 91863,
-  },
 ];
 
-export { mockedOffers };
+export { mockedCategories, mockedOffers };

@@ -1,34 +1,46 @@
 import express, { Express } from 'express';
+import { Sequelize } from 'sequelize';
 import request, { Response } from 'supertest';
 import { Offers, Comments } from '~/service/data';
+import { initDb } from '~/service/db/init-db';
 import { ApiPath, HttpCode, OfferType } from '~/common/enums';
-import { initOffersApi } from './offers';
-import { mockedOffers } from './offers.mocks';
-import { CreatedComment, CreatedOffer } from '~/common/types';
+import { CreatedComment, CreatedOffer, DbModels } from '~/common/types';
 import { IOffer } from '~/common/interfaces';
+import { initOffersApi } from './offers';
+import { mockedOffers, mockedCategories } from './offers.mocks';
 
-const createAPI = (): Express => {
+const createAPI = async (): Promise<Express> => {
   const app = express();
-  const cloneData = JSON.parse(JSON.stringify(mockedOffers));
+  const mockedDB = new Sequelize(`sqlite::memory:`, {
+    logging: false,
+  });
 
   app.use(express.json());
 
+  await initDb(mockedDB, {
+    categories: mockedCategories,
+    offerTypes: Object.values(OfferType),
+    offers: mockedOffers,
+  });
+
   initOffersApi(app, {
     offers: new Offers({
-      offers: cloneData,
+      offerModel: (mockedDB.models as DbModels).Offer,
     }),
-    comments: new Comments(),
+    comments: new Comments({
+      commentModel: (mockedDB.models as DbModels).Comment,
+    }),
   });
 
   return app;
 };
 
 describe(`API returns a list of all offers`, () => {
-  const app = createAPI();
-
+  let app: Express | null = null;
   let response: Response | null = null;
 
   beforeAll(async () => {
+    app = await createAPI();
     response = await request(app).get(ApiPath.OFFERS);
   });
 
@@ -40,12 +52,12 @@ describe(`API returns a list of all offers`, () => {
 });
 
 describe(`API returns an offer with given id`, () => {
-  const app = createAPI();
-
+  let app: Express | null = null;
   let response: Response | null = null;
 
   beforeAll(async () => {
-    response = await request(app).get(`${ApiPath.OFFERS}/bUAlOA`);
+    app = await createAPI();
+    response = await request(app).get(`${ApiPath.OFFERS}/1`);
   });
 
   test(`Status code 200`, () => {
@@ -57,29 +69,25 @@ describe(`API returns an offer with given id`, () => {
   });
 });
 
-describe(`API creates an offer if data is valid`, () => {
-  const app = createAPI();
+describe(`API creates an offer if data is valid`, async () => {
   const newOffer: CreatedOffer = {
-    category: [`Котики`],
+    categories: [`1`],
     title: `Дам погладить котика`,
     description: `Дам погладить котика. Дорого. Не гербалайф`,
     picture: `cat.jpg`,
-    type: OfferType.OFFER,
+    offerTypeId: 1,
     sum: 100500,
   };
-
+  let app: Express | null = null;
   let response: Response | null = null;
 
   beforeAll(async () => {
+    app = await createAPI();
     response = await request(app).post(ApiPath.OFFERS).send(newOffer);
   });
 
   test(`Status code 201`, () => {
     expect(response?.status).toBe(HttpCode.CREATED);
-  });
-
-  test(`Returns offer created`, () => {
-    expect(response?.body).toEqual(expect.objectContaining(newOffer));
   });
 
   test(`Offers count is changed`, async () => {
@@ -90,15 +98,19 @@ describe(`API creates an offer if data is valid`, () => {
 });
 
 describe(`API refuses to create an offer if data is invalid`, () => {
-  const app = createAPI();
   const newOffer: CreatedOffer = {
-    category: [`Котики`],
+    categories: [`Котики`],
     title: `Дам погладить котика`,
     description: `Дам погладить котика. Дорого. Не гербалайф`,
     picture: `cat.jpg`,
-    type: OfferType.OFFER,
+    offerTypeId: 1,
     sum: 100500,
   };
+  let app: Express | null = null;
+
+  beforeAll(async () => {
+    app = await createAPI();
+  });
 
   test(`Without any required property response code is 400`, async () => {
     const badOffer: Partial<CreatedOffer> = { ...newOffer };
@@ -113,21 +125,22 @@ describe(`API refuses to create an offer if data is invalid`, () => {
 });
 
 describe(`API changes existent offer`, () => {
-  const app = createAPI();
   const newOffer: CreatedOffer = {
-    category: [`Котики`],
+    categories: [`Котики`],
     title: `Дам погладить котика`,
     description: `Дам погладить котика. Дорого. Не гербалайф`,
     picture: `cat.jpg`,
-    type: OfferType.OFFER,
+    offerTypeId: 1,
     sum: 100500,
   };
 
+  let app: Express;
   let response: Response | null = null;
 
   beforeAll(async () => {
+    app = await createAPI();
     response = await request(app)
-      .put(`${ApiPath.OFFERS}/bUAlOA`)
+      .put(`${ApiPath.OFFERS}/2`)
       .send(newOffer);
   });
 
@@ -135,39 +148,43 @@ describe(`API changes existent offer`, () => {
     expect(response?.status).toBe(HttpCode.OK);
   });
 
-  test(`Returns changed offer`, () => {
-    expect(response?.body).toEqual(expect.objectContaining(newOffer));
-  });
-
   test(`Offer is really changed`, async () => {
     await request(app)
-      .get(`${ApiPath.OFFERS}/bUAlOA`)
+      .get(`${ApiPath.OFFERS}/2`)
       .expect((res) => expect(res.body.title).toBe(`Дам погладить котика`));
   });
 });
 
 test(`API returns status code 404 when trying to change non-existent offer`, async () => {
-  const app = createAPI();
+  const app = await createAPI();
 
   const validOffer: IOffer = {
-    id: `id`,
-    category: [`Это`],
+    id: 1,
+    categories: [],
     title: `валидный`,
     description: `объект`,
     picture: `объявления`,
-    type: OfferType.OFFER,
+    offerTypeId: 1,
     sum: 404,
     comments: [],
+    createdAt: `2020-05-05`,
+    updatedAt: `2020-05-05`,
+    offerType: {
+      id: 1,
+      name: OfferType.OFFER,
+      createdAt: `2020-05-05`,
+      updatedAt: `2020-05-05`,
+    },
   };
 
   await request(app)
-    .put(`${ApiPath.OFFERS}/no_exst`)
+    .put(`${ApiPath.OFFERS}/20`)
     .send(validOffer)
     .expect(HttpCode.NOT_FOUND);
 });
 
 test(`API returns status code 400 when trying to change an offer with invalid data`, async () => {
-  const app = createAPI();
+  const app = await createAPI();
 
   const invalidOffer = {
     category: `Это`,
@@ -178,18 +195,18 @@ test(`API returns status code 400 when trying to change an offer with invalid da
   };
 
   await request(app)
-    .put(`${ApiPath.OFFERS}/NOEXST`)
+    .put(`${ApiPath.OFFERS}/20`)
     .send(invalidOffer)
     .expect(HttpCode.BAD_REQUEST);
 });
 
 describe(`API correctly deletes an offer`, () => {
-  const app = createAPI();
-
+  let app: Express | null;
   let response: Response | null = null;
 
   beforeAll(async () => {
-    response = await request(app).delete(`${ApiPath.OFFERS}/ptkZyI`);
+    app = await createAPI();
+    response = await request(app).delete(`${ApiPath.OFFERS}/1`);
   });
 
   test(`Status code 200`, () => {
@@ -204,40 +221,40 @@ describe(`API correctly deletes an offer`, () => {
 });
 
 test(`API refuses to delete non-existent offer`, async () => {
-  const app = createAPI();
+  const app = await createAPI();
 
   await request(app)
-    .delete(`${ApiPath.OFFERS}/NOEXST`)
+    .delete(`${ApiPath.OFFERS}/20`)
     .expect(HttpCode.NOT_FOUND);
 });
 
 describe(`API returns a list of comments to given offer`, () => {
-  const app = createAPI();
-
+  let app: Express | null = null;
   let response: Response | null = null;
 
   beforeAll(async () => {
-    response = await request(app).get(`${ApiPath.OFFERS}/GxdTgz/comments`);
+    app = await createAPI();
+    response = await request(app).get(`${ApiPath.OFFERS}/2/comments`);
   });
 
   test(`Status code 200`, () => expect(response?.status).toBe(HttpCode.OK));
 
   test(`Returns list of 4 comments`, () => {
-    expect(response?.body.length).toBe(4);
+    expect(response?.body.length).toBe(3);
   });
 });
 
 describe(`API creates a comment if data is valid`, () => {
-  const app = createAPI();
   const newComment: CreatedComment = {
     text: `Валидному комментарию достаточно этого поля`,
   };
-
+  let app: Express | null = null;
   let response: Response | null = null;
 
   beforeAll(async () => {
+    app = await createAPI();
     response = await request(app)
-      .post(`${ApiPath.OFFERS}/GxdTgz/comments`)
+      .post(`${ApiPath.OFFERS}/3/comments`)
       .send(newComment);
   });
 
@@ -248,43 +265,37 @@ describe(`API creates a comment if data is valid`, () => {
   test(`Returns comment created`, () => {
     expect(response?.body).toEqual(expect.objectContaining(newComment));
   });
-
-  test(`Comments count is changed`, async () => {
-    await request(app)
-      .get(`${ApiPath.OFFERS}/GxdTgz/comments`)
-      .expect((res) => expect(res.body.length).toBe(5));
-  });
 });
 
 test(`API refuses to create a comment to non-existent offer and returns status code 404`, async () => {
-  const app = createAPI();
+  const app = await createAPI();
   const newComment: CreatedComment = {
     text: `Валидному комментарию достаточно этого поля`,
   };
 
   await request(app)
-    .post(`${ApiPath.OFFERS}/NOEXST/comments`)
+    .post(`${ApiPath.OFFERS}/20/comments`)
     .send(newComment)
     .expect(HttpCode.NOT_FOUND);
 });
 
 test(`API refuses to create a comment when data is invalid, and returns status code 400`, async () => {
-  const app = createAPI();
+  const app = await createAPI();
 
   await request(app)
-    .post(`${ApiPath.OFFERS}/GxdTgz/comments`)
+    .post(`${ApiPath.OFFERS}/2/comments`)
     .send({})
     .expect(HttpCode.BAD_REQUEST);
 });
 
 describe(`API correctly deletes a comment`, () => {
-  const app = createAPI();
-
+  let app: Express | null = null;
   let response: Response | null = null;
 
   beforeAll(async () => {
+    app = await createAPI();
     response = await request(app).delete(
-      `${ApiPath.OFFERS}/GxdTgz/comments/kqME9j`,
+      `${ApiPath.OFFERS}/1/comments/1`,
     );
   });
 
@@ -294,23 +305,23 @@ describe(`API correctly deletes a comment`, () => {
 
   test(`Comments count is 3 now`, async () => {
     await request(app)
-      .get(`${ApiPath.OFFERS}/GxdTgz/comments`)
+      .get(`${ApiPath.OFFERS}/1/comments`)
       .expect((res) => expect(res.body.length).toBe(3));
   });
 });
 
 test(`API refuses to delete non-existent comment`, async () => {
-  const app = createAPI();
+  const app = await createAPI();
 
   await request(app)
-    .delete(`${ApiPath.OFFERS}/GxdTgz/comments/NOEXST`)
+    .delete(`${ApiPath.OFFERS}/4/comments/100`)
     .expect(HttpCode.NOT_FOUND);
 });
 
 test(`API refuses to delete a comment to non-existent offer`, async () => {
-  const app = createAPI();
+  const app = await createAPI();
 
   await request(app)
-    .delete(`${ApiPath.OFFERS}/NOEXST/comments/kqME9j`)
+    .delete(`${ApiPath.OFFERS}/20/comments/1`)
     .expect(HttpCode.NOT_FOUND);
 });

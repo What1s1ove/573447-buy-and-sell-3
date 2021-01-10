@@ -1,25 +1,22 @@
 import { OfferType } from '~/common/enums';
-import { IOffer } from '~/common/interfaces';
+import { MockedOffer } from '~/common/types';
 
-const mockedOffers: IOffer[] = [
+const mockedCategories = [`Животные`, `Посуда`, `Марки`, `Разное`, `Книги`];
+
+const mockedOffers: MockedOffer[] = [
   {
-    id: `bUAlOA`,
-    category: [`Животные`],
+    categories: [`Животные`],
     comments: [
       {
-        id: `nTTBf0`,
         text: `Неплохо, но дорого. Оплата наличными или перевод на карту? Продаю в связи с переездом. Отрываю от сердца.`,
       },
       {
-        id: `1Zos2U`,
         text: `А где блок питания? Неплохо, но дорого.`,
       },
       {
-        id: `XSpI5z`,
         text: `Оплата наличными или перевод на карту?`,
       },
       {
-        id: `ooeYVR`,
         text: `Продаю в связи с переездом. Отрываю от сердца. С чем связана продажа? Почему так дешёво? Оплата наличными или перевод на карту?`,
       },
     ],
@@ -30,19 +27,15 @@ const mockedOffers: IOffer[] = [
     sum: 10405,
   },
   {
-    id: `ptkZyI`,
-    category: [`Посуда`],
+    categories: [`Посуда`],
     comments: [
       {
-        id: `0DWOxR`,
         text: `Почему в таком ужасном состоянии?`,
       },
       {
-        id: `7ouDWO`,
         text: `Продаю в связи с переездом. Отрываю от сердца.`,
       },
       {
-        id: `k3H8Jj`,
         text: `С чем связана продажа? Почему так дешёво? Вы что?! В магазине дешевле. Оплата наличными или перевод на карту?`,
       },
     ],
@@ -53,23 +46,18 @@ const mockedOffers: IOffer[] = [
     sum: 96693,
   },
   {
-    id: `GxdTgz`,
-    category: [`Марки`],
+    categories: [`Марки`],
     comments: [
       {
-        id: `kqME9j`,
         text: `А сколько игр в комплекте? Почему в таком ужасном состоянии?`,
       },
       {
-        id: `V_Icd5`,
         text: `Продаю в связи с переездом. Отрываю от сердца. Вы что?! В магазине дешевле.`,
       },
       {
-        id: `uX3tD9`,
         text: `Совсем немного... Почему в таком ужасном состоянии?`,
       },
       {
-        id: `BTvHLX`,
         text: `А где блок питания?`,
       },
     ],
@@ -80,11 +68,9 @@ const mockedOffers: IOffer[] = [
     sum: 54666,
   },
   {
-    id: `XMlMSs`,
-    category: [`Разное`],
+    categories: [`Разное`],
     comments: [
       {
-        id: `avVlR3`,
         text: `А сколько игр в комплекте? Продаю в связи с переездом. Отрываю от сердца.`,
       },
     ],
@@ -95,11 +81,9 @@ const mockedOffers: IOffer[] = [
     sum: 29392,
   },
   {
-    id: `lP5Raq`,
-    category: [`Книги`],
+    categories: [`Книги`],
     comments: [
       {
-        id: `W-zdkL`,
         text: `Продаю в связи с переездом. Отрываю от сердца.`,
       },
     ],
@@ -111,4 +95,4 @@ const mockedOffers: IOffer[] = [
   },
 ];
 
-export { mockedOffers };
+export { mockedOffers, mockedCategories };
