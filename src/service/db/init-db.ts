@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-import { TableName } from '~/common/enums';
+import { ModelAlias } from '~/common/enums';
 import { MockedOffer } from '~/common/types';
 import { defineModels } from './define-models';
 
@@ -47,12 +47,15 @@ const initDb = async (
   );
 
   const offerPromises = offers.map(async (offer) => {
-    const offerModel = await Offer.create({
-      ...offer,
-      offerTypeId: offerTypeIdByName[offer.type],
-    }, {
-      include: [TableName.COMMENTS],
-    });
+    const offerModel = await Offer.create(
+      {
+        ...offer,
+        offerTypeId: offerTypeIdByName[offer.type],
+      },
+      {
+        include: [ModelAlias.COMMENTS],
+      },
+    );
 
     await offerModel.addCategories(
       offer.categories.map((name) => categoryIdByName[name]),

@@ -1,4 +1,4 @@
-import { OfferKey, TableName } from '~/common/enums';
+import { ModelAlias, OfferKey } from '~/common/enums';
 import { IOffer } from '~/common/interfaces';
 import { CreatedOffer, OfferModel } from '~/common/types';
 
@@ -16,9 +16,9 @@ class Offers {
   public async findAll(): Promise<IOffer[]> {
     const offers = await this.#Offer.findAll({
       include: [
-        TableName.CATEGORIES,
-        TableName.COMMENTS,
-        TableName.OFFER_TYPES,
+        ModelAlias.CATEGORIES,
+        ModelAlias.COMMENTS,
+        ModelAlias.OFFER_TYPES,
       ],
     });
 
@@ -28,9 +28,9 @@ class Offers {
   public findOne(id: IOffer[OfferKey.ID]): Promise<IOffer | null> {
     return this.#Offer.findByPk(id, {
       include: [
-        TableName.CATEGORIES,
-        TableName.COMMENTS,
-        TableName.OFFER_TYPES,
+        ModelAlias.CATEGORIES,
+        ModelAlias.COMMENTS,
+        ModelAlias.OFFER_TYPES,
       ],
     }) as Promise<IOffer | null>;
   }

@@ -1,4 +1,4 @@
-import { TableName, DbOperator } from '~/common/enums';
+import { DbOperator, ModelAlias } from '~/common/enums';
 import { IOffer } from '~/common/interfaces';
 import { OfferModel } from '~/common/types';
 
@@ -20,7 +20,11 @@ class Search {
           [DbOperator.substring]: titleValue,
         },
       },
-      include: [TableName.CATEGORIES],
+      include: [
+        ModelAlias.CATEGORIES,
+        ModelAlias.COMMENTS,
+        ModelAlias.OFFER_TYPES,
+      ],
     });
 
     return offers.map((offer) => offer.get());
