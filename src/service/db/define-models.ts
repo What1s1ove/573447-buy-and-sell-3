@@ -1,8 +1,7 @@
 import { Sequelize } from 'sequelize';
-import { CommentDtoKey, OfferDtoKey, TableName } from '~/common/enums';
+import { CommentDtoKey, ModelAlias, OfferDtoKey } from '~/common/enums';
 import { DbModels } from '~/common/types';
 import { define } from './models';
-
 
 const defineModels = (sequelize: Sequelize): DbModels => {
   const Category = define.categoryModel(sequelize);
@@ -13,12 +12,12 @@ const defineModels = (sequelize: Sequelize): DbModels => {
 
   Offer.belongsTo(OfferType, {
     foreignKey: OfferDtoKey.OFFER_TYPE_ID,
-    as: TableName.OFFER_TYPES,
+    as: ModelAlias.OFFER_TYPES,
   });
 
   Offer.hasMany(Comment, {
     foreignKey: CommentDtoKey.OFFER_ID,
-    as: TableName.COMMENTS,
+    as: ModelAlias.COMMENTS,
   });
 
   Comment.belongsTo(Offer, {
@@ -27,16 +26,16 @@ const defineModels = (sequelize: Sequelize): DbModels => {
 
   Offer.belongsToMany(Category, {
     through: OfferCategory,
-    as: TableName.CATEGORIES,
+    as: ModelAlias.CATEGORIES,
   });
 
   Category.belongsToMany(Offer, {
     through: OfferCategory,
-    as: TableName.OFFERS,
+    as: ModelAlias.OFFERS,
   });
 
   Category.hasMany(OfferCategory, {
-    as: TableName.OFFERS_CATEGORIES,
+    as: ModelAlias.OFFER_TYPES,
   });
 
   return {

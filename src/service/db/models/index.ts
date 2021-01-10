@@ -1,8 +1,8 @@
-import CategoryModel, { define as defineCategoryModel } from './category/category';
-import CommentModel, { define as defineCommentModel } from './comment/comment';
-import OfferModel, { define as defineOfferModel } from './offer/offer';
-import OfferCategoryModel, { define as defineOfferCategoryModel } from './offer-category/offer-category';
-import OfferTypeModel, { define as defineOfferTypeModel } from './offer-type/offer-type';
+import Category, { define as defineCategoryModel } from './category/category';
+import Comment, { define as defineCommentModel } from './comment/comment';
+import Offer, { define as defineOfferModel } from './offer/offer';
+import OfferCategory, { define as defineOfferCategoryModel } from './offer-category/offer-category';
+import OfferType, { define as defineOfferTypeModel } from './offer-type/offer-type';
 
 const define = {
   categoryModel: defineCategoryModel,
@@ -12,11 +12,4 @@ const define = {
   offerTypeModel: defineOfferTypeModel,
 };
 
-export {
-  CategoryModel,
-  CommentModel,
-  OfferModel,
-  OfferCategoryModel,
-  OfferTypeModel,
-  define,
-};
+export { Category, Comment, Offer, OfferCategory, OfferType, define };
