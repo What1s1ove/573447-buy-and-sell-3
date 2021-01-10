@@ -35,28 +35,34 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
   offersRouter.get(SsrOffersPath.ADD, async (_, res) => {
     const categories = await api.getCategories();
 
-    return res.render(`offers/new-ticket`, {
+    return res.render(`offers/ticket-edit`, {
+      offer: {},
       categories,
     });
   });
 
   offersRouter.post(SsrOffersPath.ADD, upload.single(`avatar`), async (req, res) => {
-    try {
-      const { body, file } = req;
-      const offerData: CreatedOffer = {
-        picture: file.filename,
-        sum: body.price,
-        offerTypeId: body.action,
-        description: body.comment,
-        title: body.title,
-        categories: body.category,
-      };
+    const { body, file } = req;
+    const offerData: CreatedOffer = {
+      picture: file.filename,
+      sum: body.sum,
+      offerTypeId: Number(body.offerTypeId),
+      description: body.comment,
+      title: body.title,
+      categories: body.categories,
+    };
 
+    try {
       await api.createOffer(offerData);
 
       return res.redirect(SsrPath.MY);
     } catch {
-      return res.redirect(`back`);
+      const categories = await api.getCategories();
+
+      return res.render(`offers/ticket-edit`, {
+        offer: offerData,
+        categories,
+      });
     }
   });
 
@@ -73,8 +79,13 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
     });
   });
 
-  offersRouter.get(SsrOffersPath.$OFFER_ID, (_, res) => {
-    return res.render(`offers/ticket`);
+  offersRouter.get(SsrOffersPath.$OFFER_ID, async (req, res) => {
+    const { id } = req.params;
+    const offer = await api.getOffer(Number(id));
+
+    return res.render(`offers/ticket`, {
+      item: offer,
+    });
   });
 };
 
