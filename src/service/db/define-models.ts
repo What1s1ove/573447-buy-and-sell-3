@@ -35,7 +35,7 @@ const defineModels = (sequelize: Sequelize): DbModels => {
   });
 
   Category.hasMany(OfferCategory, {
-    as: ModelAlias.OFFER_TYPES,
+    as: ModelAlias.OFFER_CATEGORIES,
   });
 
   return {
