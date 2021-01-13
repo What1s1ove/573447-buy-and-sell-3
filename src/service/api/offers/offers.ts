@@ -16,8 +16,16 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
 
   app.use(ApiPath.OFFERS, offersRouter);
 
-  offersRouter.get(OffersApiPath.ROOT, async (_req, res) => {
-    const offers = await offersService.findAll();
+  offersRouter.get(OffersApiPath.ROOT, async (req, res) => {
+    const { offset, limit } = req.query;
+    const isUsePagination = Boolean(offset ?? limit);
+
+    const offers = isUsePagination
+      ? await offersService.findPage({
+        offset: Number(offset),
+        limit: Number(limit),
+      })
+      : await offersService.findAll();
 
     return res.status(HttpCode.OK).json(offers);
   });
