@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiPath, HttpMethod, OfferKey } from '~/common/enums';
 import { HttpError } from '~/common/exceptions';
 import { IOffer } from '~/common/interfaces';
-import { CreatedOffer } from '~/common/types';
+import { CreatedOffer, OffersWithCount, PaginationPayload } from '~/common/types';
 import { checkIsOkStatusCode } from './helpers';
 
 type Constructor = {
@@ -55,6 +55,18 @@ class Api {
 
   public getOffers(): Promise<IOffer[]> {
     return this.load<IOffer[]>(ApiPath.OFFERS).then(Api.getData);
+  }
+
+  public getPageOffers({
+    offset,
+    limit,
+  }: PaginationPayload): Promise<OffersWithCount> {
+    return this.load<OffersWithCount>(ApiPath.OFFERS, {
+      params: {
+        offset,
+        limit,
+      },
+    }).then(Api.getData);
   }
 
   public getOffer(id: IOffer[OfferKey.ID]): Promise<IOffer> {
