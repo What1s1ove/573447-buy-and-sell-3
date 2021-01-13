@@ -35,7 +35,7 @@ class Offers {
     }) as Promise<IOffer | null>;
   }
 
-  public async create(createdOffer: CreatedOffer): Promise<boolean> {
+  public async create(createdOffer: CreatedOffer): Promise<IOffer> {
     const offer = await this.#Offer.create(createdOffer);
 
     await offer.addCategories(createdOffer.categories);

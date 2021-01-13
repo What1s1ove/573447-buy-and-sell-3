@@ -22,9 +22,12 @@ class Comments {
     });
   }
 
-  public create(offer: IOffer, comment: CreatedComment): Promise<IComment> {
+  public create(
+    offerId: IOffer[OfferKey.ID],
+    comment: CreatedComment,
+  ): Promise<IComment> {
     return this.#Comment.create({
-      offerId: offer.id,
+      offerId,
       ...comment,
     });
   }

@@ -23,9 +23,9 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
   });
 
   offersRouter.post(OffersApiPath.ROOT, validateOffer, async (req, res) => {
-    const isOfferCreated = await offersService.create(req.body);
+    const offer = await offersService.create(req.body);
 
-    return res.status(HttpCode.CREATED).json(isOfferCreated);
+    return res.status(HttpCode.CREATED).json(offer);
   });
 
   offersRouter.get(OffersApiPath.$OFFER_ID, async (req, res) => {
@@ -60,13 +60,13 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
 
   offersRouter.delete(OffersApiPath.$OFFER_ID, async (req, res) => {
     const { offerId } = req.params;
-    const offer = await offersService.drop(Number(offerId));
+    const isOfferDeleted = await offersService.drop(Number(offerId));
 
-    if (!offer) {
+    if (!isOfferDeleted) {
       return res.status(HttpCode.NOT_FOUND).send(`Not found`);
     }
 
-    return res.status(HttpCode.OK).json(offer);
+    return res.status(HttpCode.OK).json(isOfferDeleted);
   });
 
   offersRouter.get(
@@ -84,8 +84,8 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
     OffersApiPath.$OFFER_ID_COMMENTS,
     [existOffer(offersService), validateComment],
     async (req: Request<Partial<OfferIdParam>>, res: Response) => {
-      const { offer } = res.locals;
-      const comment = await commentsService.create(offer as IOffer, req.body);
+      const { offerId } = req.params;
+      const comment = await commentsService.create(Number(offerId), req.body);
 
       return res.status(HttpCode.CREATED).json(comment);
     },
