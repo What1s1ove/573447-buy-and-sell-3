@@ -14,12 +14,13 @@ block content
           each item, idx in items
             li.tickets-list__item
               +ticketCard(item, idx)
-    section.tickets-list
-      h2.visually-hidden Самые обсуждаемые предложения
-      div.tickets-list__wrapper
-        div.tickets-list__header
-          p.tickets-list__title Самые обсуждаемые
-        ul
-          each item, idx in items
-            li.tickets-list__item
-              +ticketCard(item, idx)
+      +pagination(page, totalPages, 2, `?`)
+    //- section.tickets-list
+    //-   h2.visually-hidden Самые обсуждаемые предложения
+    //-   div.tickets-list__wrapper
+    //-     div.tickets-list__header
+    //-       p.tickets-list__title Самые обсуждаемые
+    //-     ul
+    //-       each item, idx in items
+    //-         li.tickets-list__item
+    //-           +ticketCard(item, idx)
