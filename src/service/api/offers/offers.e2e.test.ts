@@ -69,7 +69,7 @@ describe(`API returns an offer with given id`, () => {
   });
 });
 
-describe(`API creates an offer if data is valid`, async () => {
+describe(`API creates an offer if data is valid`, () => {
   const newOffer: CreatedOffer = {
     categories: [`1`],
     title: `Дам погладить котика`,
@@ -322,6 +322,6 @@ test(`API refuses to delete a comment to non-existent offer`, async () => {
   const app = await createAPI();
 
   await request(app)
-    .delete(`${ApiPath.OFFERS}/20/comments/1`)
+    .delete(`${ApiPath.OFFERS}/20/comments/100`)
     .expect(HttpCode.NOT_FOUND);
 });
