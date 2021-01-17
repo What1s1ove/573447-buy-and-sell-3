@@ -4,8 +4,9 @@ import {
   CommentValidationMessage,
   CommentValidationRule,
 } from '~/common/enums';
+import { CreatedComment } from '~/common/types';
 
-const comment = Joi.object({
+const comment = Joi.object<CreatedComment>({
   [CommentKey.TEXT]: Joi.string()
     .min(CommentValidationRule.TEXT_MIN_LENGTH)
     .required()

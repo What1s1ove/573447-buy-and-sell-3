@@ -4,8 +4,9 @@ import {
   OfferValidationMessage,
   OfferValidationRule,
 } from '~/common/enums';
+import { CreatedOffer } from '~/common/types';
 
-const offer = Joi.object({
+const offer = Joi.object<CreatedOffer>({
   [OfferKey.TITLE]: Joi.string()
     .min(OfferValidationRule.TITLE_MIN_LENGTH)
     .max(OfferValidationRule.TITLE_MAX_LENGTH)
