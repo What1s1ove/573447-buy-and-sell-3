@@ -7,3 +7,4 @@ export * from './app';
 export * from './mocks';
 export * from './db';
 export * from './category';
+export * from './validation';
