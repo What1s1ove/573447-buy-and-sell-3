@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import path from 'path';
 import { Router } from 'express';
-import multer from 'multer';
+import multer, { Multer } from 'multer';
 import { SsrOffersPath, SsrPath } from '~/common/enums';
 import { SsrRouterSettings } from '~/express/common';
-import { getFileExtension, getRandomId } from '~/helpers';
-import { CreatedOffer } from '~/common/types';
+import { getFileExtension, getHttpErrors, getRandomId } from '~/helpers';
+import { getOfferData } from './helpers';
 
 const UPLOAD_DIR = `../../upload/img/`;
 
@@ -41,30 +42,28 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
     });
   });
 
-  offersRouter.post(SsrOffersPath.ADD, upload.single(`avatar`), async (req, res) => {
-    const { body, file } = req;
-    const offerData: CreatedOffer = {
-      picture: file.filename,
-      sum: body.sum,
-      offerTypeId: Number(body.offerTypeId),
-      description: body.comment,
-      title: body.title,
-      categories: body.categories,
-    };
+  offersRouter.post(
+    SsrOffersPath.ADD,
+    upload.single(`avatar`),
+    async (req, res) => {
+      const { body, file } = req;
+      const offerData = getOfferData(body, file?.filename);
 
-    try {
-      await api.createOffer(offerData);
+      try {
+        await api.createOffer(offerData);
 
-      return res.redirect(SsrPath.MY);
-    } catch {
-      const categories = await api.getCategories();
+        return res.redirect(SsrPath.MY);
+      } catch (err: unknown) {
+        const categories = await api.getCategories();
 
-      return res.render(`offers/ticket-edit`, {
-        offer: offerData,
-        categories,
-      });
-    }
-  });
+        return res.render(`offers/ticket-edit`, {
+          offer: offerData,
+          categories,
+          errorMessages: getHttpErrors(err),
+        });
+      }
+    },
+  );
 
   offersRouter.get(SsrOffersPath.EDIT_$OFFER_ID, async (req, res) => {
     const { id } = req.params;
@@ -78,6 +77,29 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
       categories,
     });
   });
+
+  offersRouter.post(
+    SsrOffersPath.EDIT_$OFFER_ID,
+    upload.single(`avatar`),
+    async (req, res) => {
+      const { body, file, params } = req;
+      const offerData = getOfferData(body, file?.filename);
+
+      try {
+        await api.updateOffer(Number(params.id), offerData);
+
+        return res.redirect(SsrPath.MY);
+      } catch (err: unknown) {
+        const categories = await api.getCategories();
+
+        return res.render(`offers/ticket-edit`, {
+          offer: offerData,
+          categories,
+          errorMessages: getHttpErrors(err),
+        });
+      }
+    },
+  );
 
   offersRouter.get(SsrOffersPath.$OFFER_ID, async (req, res) => {
     const { id } = req.params;
