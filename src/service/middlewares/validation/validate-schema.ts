@@ -19,7 +19,7 @@ const validateSchema = <T extends ObjectSchema, Req>(schema: T) => async (
       const { details } = err;
 
       return res.status(HttpCode.BAD_REQUEST).send({
-        message: details.map((error) => error.message),
+        messages: details.map((error) => error.message),
       });
     }
   }

@@ -6,3 +6,4 @@ export * from './validation';
 export * from './log';
 export * from './file';
 export * from './mocks';
+export * from './exceptions';
