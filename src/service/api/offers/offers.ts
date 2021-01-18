@@ -1,10 +1,7 @@
 import { Router } from 'express';
+import { existOffer, validateSchema } from '~/service/middlewares';
+import { offer as offerSchema, comment as commentSchema } from '~/schemas';
 import { ApiPath, HttpCode, OffersApiPath } from '~/common/enums';
-import {
-  existOffer,
-  validateComment,
-  validateOffer,
-} from '~/service/middlewares';
 import { IOffer } from '~/common/interfaces';
 import { Response, Request, OfferIdParam } from '~/common/types';
 import { OffersApiServices } from './common';
@@ -30,11 +27,15 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
     return res.status(HttpCode.OK).json(offers);
   });
 
-  offersRouter.post(OffersApiPath.ROOT, validateOffer, async (req, res) => {
-    const offer = await offersService.create(req.body);
+  offersRouter.post(
+    OffersApiPath.ROOT,
+    validateSchema(offerSchema),
+    async (req, res) => {
+      const offer = await offersService.create(req.body);
 
-    return res.status(HttpCode.CREATED).json(offer);
-  });
+      return res.status(HttpCode.CREATED).json(offer);
+    },
+  );
 
   offersRouter.get(OffersApiPath.$OFFER_ID, async (req, res) => {
     const { offerId } = req.params;
@@ -47,24 +48,26 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
     return res.status(HttpCode.OK).json(offer);
   });
 
-  offersRouter.put(OffersApiPath.$OFFER_ID, validateOffer, async (req, res) => {
-    const { offerId } = req.params;
-    const parsedOfferId = Number(offerId);
-    const offer = await offersService.findOne(parsedOfferId);
+  offersRouter.put(
+    OffersApiPath.$OFFER_ID,
+    validateSchema(offerSchema),
+    async (req: Request<Partial<OfferIdParam>>, res) => {
+      const { offerId } = req.params;
+      const parsedOfferId = Number(offerId);
+      const offer = await offersService.findOne(parsedOfferId);
 
-    if (!offer) {
-      return res
-        .status(HttpCode.NOT_FOUND)
-        .send(`Not found with ${offerId ?? ``}`);
-    }
+      if (!offer) {
+        return res.status(HttpCode.NOT_FOUND).send(`Not found with ${offerId ?? ``}`);
+      }
 
-    const isOfferUpdated = await offersService.update(
-      req.body as IOffer,
-      parsedOfferId,
-    );
+      const isOfferUpdated = await offersService.update(
+        req.body as IOffer,
+        parsedOfferId,
+      );
 
-    return res.status(HttpCode.OK).json(isOfferUpdated);
-  });
+      return res.status(HttpCode.OK).json(isOfferUpdated);
+    },
+  );
 
   offersRouter.delete(OffersApiPath.$OFFER_ID, async (req, res) => {
     const { offerId } = req.params;
@@ -90,7 +93,7 @@ const initOffersApi = (app: Router, services: OffersApiServices): void => {
 
   offersRouter.post(
     OffersApiPath.$OFFER_ID_COMMENTS,
-    [existOffer(offersService), validateComment],
+    [existOffer(offersService), validateSchema(commentSchema)],
     async (req: Request<Partial<OfferIdParam>>, res: Response) => {
       const { offerId } = req.params;
       const comment = await commentsService.create(Number(offerId), req.body);
