@@ -2,18 +2,25 @@ extends ../layout.pug
 
 block content
   - const isEdit = Boolean(offer.id);
+  - const hasErrors = Boolean(errorMessages && errorMessages.length);
+  - const offerCategories = offer.categories || [];
+  - const actionPath = `/offers/${isEdit ? `edit/${offer.id}` : 'add' }`;
   main.page-content
     section.ticket-form
       div.ticket-form__wrapper
         h1.ticket-form__title #{isEdit ? `Редактирование публикаци` : `Новая публикация`}
         div.ticket-form__tile
-          form.ticket-form__form.form(action="/offers/add" method=`${isEdit ? `PUT` : `POST`}` enctype="multipart/form-data" autocomplete="off")
+          form.ticket-form__form.form(action=actionPath method="POST" enctype="multipart/form-data" autocomplete="off")
+            if hasErrors
+              ul.error-list
+                each errorMessage in errorMessages
+                  li.error-list__item #{errorMessage}
             div(class=`ticket-form__avatar-container js-preview-container ${isEdit ? `uploaded` : ``}`)
               div.ticket-form__avatar.js-preview
                 if isEdit
                   img(src=`/img/${offer.picture}` alt="")
               div.ticket-form__field-avatar
-                input#avatar.visually-hidden.js-file-field(type="file" name="avatar" required)
+                input#avatar.visually-hidden.js-file-field(type="file" name="avatar")
                 label(for="avatar")
                   span.ticket-form__text-upload Загрузить фото…
                   span.ticket-form__text-another Загрузить другое фото…
@@ -25,14 +32,14 @@ block content
                   span Обязательное поле
               div.ticket-form__row
                 div.form__field
-                  textarea#comment-field.js-field(name="comment" cols="30" rows="10" maxlength="400" minlength="50")
+                  textarea#comment-field.js-field(name="description" cols="30" rows="10" maxlength="400" minlength="50")
                     |#{offer.description}
                   label(for="comment-field") Описание
                   span Обязательное поле
               div.ticket-form__row
                 select#category-field.form__select.js-multiple-select(name="categories" data-label="Выбрать категорию публикации" multiple)
                   each category in categories
-                    option(value=category.id selected=isEdit && offer.categories.some((item) => item.id === category.id)) #{category.name}
+                    option(value=category.id selected=offerCategories.some((item) => (isEdit ? item.id : item) === category.id)) #{category.name}
               div.ticket-form__row
                 div.form__field.form__field--price
                   input#price-field.js-field.js-price(type="number" name="sum" min="1" value=offer.sum required)
@@ -40,9 +47,9 @@ block content
                   span Обязательное поле
                 div.form__switch.switch
                   div.switch__item
-                    input#buy-field.visually-hidden(type="radio" name="offerTypeId" value="1" require checked=(offer.type === 'offer'))
+                    input#buy-field.visually-hidden(type="radio" name="offerTypeId" value="1" require checked=(offer.offerTypeId === 1))
                     label.switch__button(for="buy-field") Куплю
                   div.switch__item
-                    input#sell-field.visually-hidden(type="radio" name="offerTypeId" value="2" require checked=(offer.type === 'sale'))
+                    input#sell-field.visually-hidden(type="radio" name="offerTypeId" value="2" require checked=(offer.offerTypeId === 2))
                     label.switch__button(for="sell-field") Продам
             button(class="form__button btn btn--medium js-button" type="submit" disabled) Сохранить

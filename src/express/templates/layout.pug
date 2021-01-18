@@ -7,8 +7,17 @@ head
   title Куплю. Продам
   link(rel='stylesheet' href='/css/style.min.css')
   style.
-    a.active{
+    a.active {
       pointer-events: none;
+    }
+
+    .error-list {
+      padding: 0;
+      list-style: none;
+    }
+
+    .error-list__item {
+      color: red;
     }
 body
   include mixins/mixins.pug
