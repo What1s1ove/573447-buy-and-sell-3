@@ -1,9 +1,18 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { ApiPath, HttpMethod, OfferKey } from '~/common/enums';
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  AxiosError,
+} from 'axios';
+import { ApiPath, HttpCode, HttpMethod, OfferKey } from '~/common/enums';
 import { HttpError } from '~/common/exceptions';
 import { IOffer } from '~/common/interfaces';
-import { CreatedOffer, OffersWithCount, PaginationPayload } from '~/common/types';
-import { checkIsOkStatusCode } from './helpers';
+import {
+  CreatedOffer,
+  ErrorResponse,
+  OffersWithCount,
+  PaginationPayload,
+} from '~/common/types';
 
 type Constructor = {
   baseURL: string;
@@ -20,25 +29,19 @@ class Api {
     });
   }
 
-  static checkStatus<T>(response: AxiosResponse<T>): AxiosResponse<T> {
-    const isOk = checkIsOkStatusCode(response.status);
-
-    if (!isOk) {
-      throw new HttpError({
-        status: response.status,
-        message: `${response.status}: ${response.statusText}`,
-      });
-    }
-
-    return response;
-  }
-
   static getData<T>(response: AxiosResponse<T>): T {
     return response.data;
   }
 
-  static catchError(err: Error): never {
-    throw err;
+  static catchError(err: AxiosError<ErrorResponse>): never {
+    const { response } = err;
+    const status = response?.status ?? HttpCode.INTERNAL_SERVER_ERROR;
+    const messages = response?.data.messages ?? [];
+
+    throw new HttpError({
+      status,
+      messages,
+    });
   }
 
   private load<T>(
@@ -46,15 +49,15 @@ class Api {
     options: AxiosRequestConfig = {
       method: HttpMethod.GET,
     },
-  ): Promise<AxiosResponse<T>> {
+  ): Promise<T> {
     return this.#http
       .request<T>({ url, ...options })
-      .then(Api.checkStatus)
+      .then(Api.getData)
       .catch(Api.catchError);
   }
 
   public getOffers(): Promise<IOffer[]> {
-    return this.load<IOffer[]>(ApiPath.OFFERS).then(Api.getData);
+    return this.load<IOffer[]>(ApiPath.OFFERS);
   }
 
   public getPageOffers({
@@ -66,11 +69,11 @@ class Api {
         offset,
         limit,
       },
-    }).then(Api.getData);
+    });
   }
 
   public getOffer(id: IOffer[OfferKey.ID]): Promise<IOffer> {
-    return this.load<IOffer>(`${ApiPath.OFFERS}/${id}`).then(Api.getData);
+    return this.load<IOffer>(`${ApiPath.OFFERS}/${id}`);
   }
 
   public search(query: string): Promise<IOffer[]> {
@@ -78,18 +81,28 @@ class Api {
       params: {
         query,
       },
-    }).then(Api.getData);
+    });
   }
 
   public getCategories(): Promise<string[]> {
-    return this.load<string[]>(ApiPath.CATEGORIES).then(Api.getData);
+    return this.load<string[]>(ApiPath.CATEGORIES);
   }
 
   public createOffer(payload: CreatedOffer): Promise<IOffer> {
     return this.load<IOffer>(ApiPath.OFFERS, {
       method: HttpMethod.POST,
       data: payload,
-    }).then(Api.getData);
+    });
+  }
+
+  public updateOffer(
+    offerId: IOffer[OfferKey.ID],
+    payload: CreatedOffer,
+  ): Promise<IOffer> {
+    return this.load<IOffer>(`${ApiPath.OFFERS}/${offerId}`, {
+      method: HttpMethod.PUT,
+      data: payload,
+    });
   }
 }
 
