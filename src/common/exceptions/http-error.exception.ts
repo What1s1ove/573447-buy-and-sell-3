@@ -1,19 +1,20 @@
 import { HttpCode } from '~/common/enums';
+import { joinMessages } from './helpers';
 
 type Constructor = {
   status: HttpCode;
-  message: string;
+  messages: string[];
 };
 
 class HttpError extends Error {
   status: number;
 
-  message: string;
+  messages: string[];
 
-  constructor({ status, message }: Constructor) {
-    super(message);
+  constructor({ status, messages }: Constructor) {
+    super(joinMessages(messages));
     this.status = status;
-    this.message = message;
+    this.messages = messages;
   }
 }
 
