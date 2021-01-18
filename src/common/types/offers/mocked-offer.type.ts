@@ -6,12 +6,14 @@ type MockedOffer = Omit<
 IOffer,
 | OfferKey.ID
 | OfferKey.COMMENTS
+| OfferKey.CATEGORIES
 | OfferKey.CREATED_AT
 | OfferKey.UPDATED_AT
 | OfferKey.OFFER_TYPE
 | OfferKey.OFFER_TYPE_ID
 > & {
   [OfferKey.COMMENTS]: CreatedComment[];
+  [OfferKey.CATEGORIES]: string[];
   [MockedOfferKey.TYPE]: OfferType
 };
 

@@ -5,11 +5,11 @@ import { IOfferType } from '~/common/interfaces/offer/offer-type.interface';
 interface IOffer {
   [OfferKey.ID]: number;
   [OfferKey.TITLE]: string;
-  [OfferKey.PICTURE]: string;
+  [OfferKey.PICTURE]: string | null;
   [OfferKey.DESCRIPTION]: string;
   [OfferKey.OFFER_TYPE_ID]: number;
   [OfferKey.SUM]: number;
-  [OfferKey.CATEGORIES]: string[];
+  [OfferKey.CATEGORIES]: number[];
   [OfferKey.COMMENTS]: IComment[];
   [OfferKey.OFFER_TYPE]: IOfferType;
   [OfferKey.CREATED_AT]: string;
