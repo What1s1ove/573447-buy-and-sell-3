@@ -6,8 +6,9 @@ import axios, {
 } from 'axios';
 import { ApiPath, HttpCode, HttpMethod, OfferKey } from '~/common/enums';
 import { HttpError } from '~/common/exceptions';
-import { IOffer } from '~/common/interfaces';
+import { IComment, IOffer } from '~/common/interfaces';
 import {
+  CreatedComment,
   CreatedOffer,
   ErrorResponse,
   OffersWithCount,
@@ -35,6 +36,7 @@ class Api {
 
   static catchError(err: AxiosError<ErrorResponse>): never {
     const { response } = err;
+    console.log(err)
     const status = response?.status ?? HttpCode.INTERNAL_SERVER_ERROR;
     const messages = response?.data.messages ?? [];
 
@@ -101,6 +103,16 @@ class Api {
   ): Promise<IOffer> {
     return this.load<IOffer>(`${ApiPath.OFFERS}/${offerId}`, {
       method: HttpMethod.PUT,
+      data: payload,
+    });
+  }
+
+  public createComment(
+    offerId: IOffer[OfferKey.ID],
+    payload: CreatedComment,
+  ): Promise<IComment> {
+    return this.load<IComment>(`${ApiPath.OFFERS}/${offerId}/comments`, {
+      method: HttpMethod.POST,
       data: payload,
     });
   }
