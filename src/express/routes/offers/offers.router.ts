@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import path from 'path';
 import { Router } from 'express';
-import multer, { Multer } from 'multer';
+import multer from 'multer';
 import { SsrOffersPath, SsrPath } from '~/common/enums';
 import { SsrRouterSettings } from '~/express/common';
 import { getFileExtension, getHttpErrors, getRandomId } from '~/helpers';
@@ -108,6 +108,26 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
     return res.render(`offers/ticket`, {
       item: offer,
     });
+  });
+
+  offersRouter.post(SsrOffersPath.$OFFER_ID_COMMENT, async (req, res) => {
+    const { body, params } = req;
+    const { id } = params;
+
+    try {
+      await api.createComment(Number(id), {
+        text: body.comment,
+      });
+
+      return res.redirect(`${SsrPath.OFFERS}/${id}`);
+    } catch (err: unknown) {
+      const offer = await api.getOffer(Number(id));
+
+      return res.render(`offers/ticket`, {
+        item: offer,
+        errorMessages: getHttpErrors(err),
+      });
+    }
   });
 };
 
