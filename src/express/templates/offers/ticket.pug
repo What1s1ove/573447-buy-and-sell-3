@@ -1,6 +1,7 @@
 extends ../layout.pug
 
 block content
+  - const hasErrors = Boolean(errorMessages && errorMessages.length);
   main.page-content
     section.ticket
       div.ticket__wrapper
@@ -45,14 +46,19 @@ block content
         div.ticket__comments
           h2.ticket__subtitle Коментарии
           div.ticket__comment-form
-            form.form.comment-form(action="#" method="post")
+            form.form.comment-form(action=`/offers/${item.id}/comments` method="POST")
+              if hasErrors
+                ul.error-list
+                  each errorMessage in errorMessages
+                    li.error-list__item #{errorMessage}
               div.comment-form__header
                 a.comment-form__avatar.avatar(href="#")
                   img(src="/img/avatar.jpg" srcset="/img/avatar@2x.jpg 2x" alt="Аватар пользователя")
                 p.comment-form__author Вам слово
               div.comment-form__field
                 div.form__field
-                  textarea#comment-field.js-field(name="comment" cols="30" rows="10" maxlength="400" minlength="50") Нормальное вообще кресло! А как насч
+                  textarea#comment-field.js-field(name="comment" cols="30" rows="10" maxlength="400" minlength="50")
+                    | #{comment}
                   label(for="comment-field") Текст комментария
                   span Обязательное поле
               button.comment-form__button.btn.btn--white.js-button(type="submit" disabled="") Отправить
