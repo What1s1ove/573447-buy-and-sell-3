@@ -9,6 +9,7 @@ import { Request, Response, NextFunction } from '~/common/types';
 import { AppConfig } from './common';
 
 const app = express();
+app.use(express.urlencoded({ extended: false }));
 const api = new Api({
   baseURL: AppConfig.API_URL,
   timeout: AppConfig.API_TIMEOUT,
