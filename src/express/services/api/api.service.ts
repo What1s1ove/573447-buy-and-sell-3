@@ -36,7 +36,6 @@ class Api {
 
   static catchError(err: AxiosError<ErrorResponse>): never {
     const { response } = err;
-    console.log(err)
     const status = response?.status ?? HttpCode.INTERNAL_SERVER_ERROR;
     const messages = response?.data.messages ?? [];
 
