@@ -11,7 +11,8 @@ const comment = Joi.object<CreatedComment>({
     .min(CommentValidationRule.TEXT_MIN_LENGTH)
     .required()
     .messages({
-      'any.require': CommentValidationMessage.TEXT_MIN_LENGTH,
+      'any.require': CommentValidationMessage.TEXT_REQUIRE,
+      'string.max': CommentValidationMessage.TEXT_MIN_LENGTH,
     }),
 });
 
