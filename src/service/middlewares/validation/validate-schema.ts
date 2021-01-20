@@ -1,8 +1,8 @@
-import { ObjectSchema, ValidationError } from 'joi';
+import { AnySchema, ValidationError } from 'joi';
 import { HttpCode } from '~/common/enums';
 import { Request, Response, NextFunction } from '~/common/types';
 
-const validateSchema = <T extends ObjectSchema, Req>(schema: T) => async (
+const validateSchema = <T extends AnySchema, Req>(schema: T) => async (
   req: Request<Req>,
   res: Response,
   next: NextFunction,
