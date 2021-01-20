@@ -71,9 +71,9 @@ describe(`API returns an offer with given id`, () => {
 
 describe(`API creates an offer if data is valid`, () => {
   const newOffer: CreatedOffer = {
-    categories: [`1`],
+    categories: [1],
     title: `Дам погладить котика`,
-    description: `Дам погладить котика. Дорого. Не гербалайф`,
+    description: `Дам погладить котика. Дорого. Не гербалайф. Дам погладить котика. Дорого. Не гербалайф`,
     picture: `cat.jpg`,
     offerTypeId: 1,
     sum: 100500,
@@ -99,7 +99,7 @@ describe(`API creates an offer if data is valid`, () => {
 
 describe(`API refuses to create an offer if data is invalid`, () => {
   const newOffer: CreatedOffer = {
-    categories: [`Котики`],
+    categories: [],
     title: `Дам погладить котика`,
     description: `Дам погладить котика. Дорого. Не гербалайф`,
     picture: `cat.jpg`,
@@ -126,9 +126,9 @@ describe(`API refuses to create an offer if data is invalid`, () => {
 
 describe(`API changes existent offer`, () => {
   const newOffer: CreatedOffer = {
-    categories: [`Котики`],
+    categories: [],
     title: `Дам погладить котика`,
-    description: `Дам погладить котика. Дорого. Не гербалайф`,
+    description: `Дам погладить котика. Дорого. Не гербалайф. Дам погладить котика. Дорого. Не гербалайф`,
     picture: `cat.jpg`,
     offerTypeId: 1,
     sum: 100500,
@@ -158,23 +158,13 @@ describe(`API changes existent offer`, () => {
 test(`API returns status code 404 when trying to change non-existent offer`, async () => {
   const app = await createAPI();
 
-  const validOffer: IOffer = {
-    id: 1,
+  const validOffer: CreatedOffer = {
     categories: [],
-    title: `валидный`,
-    description: `объект`,
-    picture: `объявления`,
+    title: `Валидный заголовок`,
+    description: `Валидное-валидное-валидное-валидное-валидное описание`,
+    picture: `Валидная картинка`,
     offerTypeId: 1,
     sum: 404,
-    comments: [],
-    createdAt: `2020-05-05`,
-    updatedAt: `2020-05-05`,
-    offerType: {
-      id: 1,
-      name: OfferType.OFFER,
-      createdAt: `2020-05-05`,
-      updatedAt: `2020-05-05`,
-    },
   };
 
   await request(app)
