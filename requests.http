@@ -9,12 +9,12 @@ GET http://localhost:3000/api/offers HTTP/1.1
 ###
 
 # Offer by id
-GET http://localhost:3000/api/offers/6VsYCB HTTP/1.1
+GET http://localhost:3000/api/offers/1 HTTP/1.1
 
 ###
 
 # Delete offer by id
-DELETE http://localhost:3000/api/offers/6VsYCB HTTP/1.1
+DELETE http://localhost:3000/api/offers/6 HTTP/1.1
 
 ###
 
@@ -67,7 +67,7 @@ Content-Type: application/json
 
 # Delete comment
 
-DELETE http://localhost:3000/api/offers/1/comments/29 HTTP/1.1
+DELETE http://localhost:3000/api/offers/1/comments/12 HTTP/1.1
 
 ###
 
