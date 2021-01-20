@@ -1,5 +1,8 @@
+import { RequestParam } from "~/common/enums";
+
 type OfferIdParam = {
-  offerId: string;
+  [RequestParam.OFFER_ID]: string;
+  [RequestParam.COMMENT_ID]: string;
 };
 
 export { OfferIdParam };
