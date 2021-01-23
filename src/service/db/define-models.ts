@@ -4,11 +4,12 @@ import { DbModels } from '~/common/types';
 import { define } from './models';
 
 const defineModels = (sequelize: Sequelize): DbModels => {
-  const Category = define.categoryModel(sequelize);
-  const OfferType = define.offerTypeModel(sequelize);
-  const Comment = define.commentModel(sequelize);
-  const Offer = define.offerModel(sequelize);
-  const OfferCategory = define.offerCategoryModel(sequelize);
+  const Category = define.Category(sequelize);
+  const OfferType = define.OfferType(sequelize);
+  const Comment = define.Comment(sequelize);
+  const Offer = define.Offer(sequelize);
+  const OfferCategory = define.OfferCategory(sequelize);
+  const User = define.User(sequelize);
 
   Offer.belongsTo(OfferType, {
     foreignKey: OfferDtoKey.OFFER_TYPE_ID,
@@ -44,6 +45,7 @@ const defineModels = (sequelize: Sequelize): DbModels => {
     Comment,
     Offer,
     OfferCategory,
+    User,
   };
 };
 
