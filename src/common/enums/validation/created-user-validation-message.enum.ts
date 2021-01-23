@@ -12,6 +12,7 @@ const CreatedUserValidationMessage = {
   FIRST_NAME_WRONG: `Имя должно быть валидным полем`,
   LAST_NAME_REQUIRE: `Фамилия обязательное поле`,
   LAST_NAME_WRONG: `Фамилия должно быть валидным полем`,
+  AVATAR_REQUIRE: `Аватар обязательное поле`,
 } as const;
 
 export { CreatedUserValidationMessage };

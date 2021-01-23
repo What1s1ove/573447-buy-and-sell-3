@@ -38,6 +38,9 @@ const createdUserPayload = Joi.object({
       'any.required': CreatedUserValidationMessage.LAST_NAME_REQUIRE,
       'string.pattern.base': CreatedUserValidationMessage.LAST_NAME_REQUIRE,
     }),
+  [CreatedUserPayloadKey.AVATAR]: Joi.string().required().messages({
+    'any.required': CreatedUserValidationMessage.AVATAR_REQUIRE,
+  }),
 });
 
 export { createdUserPayload };

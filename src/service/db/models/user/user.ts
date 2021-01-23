@@ -12,6 +12,8 @@ class User extends Model {
 
   [UserDtoKey.LAST_NAME]: string;
 
+  [UserKey.AVATAR]: string;
+
   [UserDtoKey.CREATED_AT]: string;
 
   [UserDtoKey.UPDATED_AT]: string;
@@ -41,6 +43,10 @@ const define = (sequelize: Sequelize): ModelCtor<User> => {
         allowNull: false,
       },
       [UserKey.LAST_NAME]: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      [UserKey.AVATAR]: {
         type: DataTypes.STRING,
         allowNull: false,
       },

@@ -6,6 +6,7 @@ interface IUser {
   [UserKey.PASSWORD]: string;
   [UserKey.FIRST_NAME]: string;
   [UserKey.LAST_NAME]: string;
+  [UserKey.AVATAR]: string;
   [UserKey.CREATED_AT]: string;
   [UserKey.UPDATED_AT]: string;
 }

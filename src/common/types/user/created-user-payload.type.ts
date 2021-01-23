@@ -6,6 +6,7 @@ type CreatedUserPayload = {
   [CreatedUserPayloadKey.REPEATED_PASSWORD]: string;
   [CreatedUserPayloadKey.FIRST_NAME]: string;
   [CreatedUserPayloadKey.LAST_NAME]: string;
+  [CreatedUserPayloadKey.AVATAR]: string;
 };
 
 export { CreatedUserPayload };
