@@ -3,7 +3,7 @@ extends layout.pug
 block content
   main.page-content
       section.sign-up
-        form.sign-up__form.form(action="#" method="post" enctype="multipart/form-data" autocomplete="off")
+        form.sign-up__form.form(action="/register" method="POST" enctype="multipart/form-data" autocomplete="off")
           .sign-up__title
             h2 Регистрация
             a.sign-up__link(href="/login") Вход
@@ -15,19 +15,19 @@ block content
                 span.sign-up__text-upload Загрузить аватар…
                 span.sign-up__text-another Загрузить другой аватар…
           .form__field.sign-up__field
-            input#user-name.js-field(type="text" name="user-name" required="")
-            label(for="user-name") Имя и фамилия
-            span Обязательное поле
+            input#user-firstname.js-field(value=registerPayload.firstName type="text" name="firstName" required="")
+            label(for="user-firstname") Имя
           .form__field.sign-up__field
-            input#user-email.js-field(type="email" name="user-email" required="")
+            input#user-lastname.js-field(value=registerPayload.lastName type="text" name="lastName" required="")
+            label(for="user-lastname") Фамилия
+          .form__field.sign-up__field
+            input#user-email.js-field(value=registerPayload.email type="email" name="email" required="")
             label(for="user-email") Эл. почта
-            span Обязательное поле
           .form__field.sign-up__field
-            input#user-password.js-field(type="password" name="user-password" required="")
+            input#user-password.js-field(value=registerPayload.password type="password" name="password" required="")
             label(for="user-password") Пароль
-            span Обязательное поле
           .form__field.sign-up__field
-            input#user-password-again.js-field(type="password" name="user-password-again" required="")
+            input#user-password-again.js-field(value=registerPayload.repeatedPassword type="password" name="repeatedPassword" required="")
             label(for="user-password-again") Пароль еще раз
-            span Обязательное поле
+          +errorList(errorMessages)
           button.sign-up__button.btn.btn--medium.js-button(type="submit" disabled="") Создать аккаунт
