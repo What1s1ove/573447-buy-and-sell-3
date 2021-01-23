@@ -6,10 +6,11 @@ import axios, {
 } from 'axios';
 import { ApiPath, HttpCode, HttpMethod, OfferKey } from '~/common/enums';
 import { HttpError } from '~/common/exceptions';
-import { IComment, IOffer } from '~/common/interfaces';
+import { IComment, IOffer, IUser } from '~/common/interfaces';
 import {
   CreatedComment,
   CreatedOffer,
+  CreatedUserPayload,
   ErrorResponse,
   OffersWithCount,
   PaginationPayload,
@@ -111,6 +112,13 @@ class Api {
     payload: CreatedComment,
   ): Promise<IComment> {
     return this.load<IComment>(`${ApiPath.OFFERS}/${offerId}/comments`, {
+      method: HttpMethod.POST,
+      data: payload,
+    });
+  }
+
+  public registerUser(payload: CreatedUserPayload): Promise<IUser> {
+    return this.load<IUser>(ApiPath.USERS, {
       method: HttpMethod.POST,
       data: payload,
     });
