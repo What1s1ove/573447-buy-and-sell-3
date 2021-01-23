@@ -1,6 +1,6 @@
 import path from 'path';
 import express from 'express';
-import { Api } from '~/express/services';
+import { Api, DiskStorage } from '~/express/services';
 import { initMainRouter } from '~/express/routes/main/main.router';
 import { initMyRouter } from '~/express/routes/my/my.router';
 import { initOffersRouter } from '~/express/routes/offers/offers.router';
@@ -9,16 +9,23 @@ import { Request, Response, NextFunction } from '~/common/types';
 import { AppConfig } from './common';
 
 const app = express();
+
 app.use(express.urlencoded({ extended: false }));
+
+const uploadImgPath = path.resolve(__dirname, `./${AppConfig.UPLOAD_DIR}/img/`);
+const routers = [initMainRouter, initMyRouter, initOffersRouter];
 const api = new Api({
   baseURL: AppConfig.API_URL,
   timeout: AppConfig.API_TIMEOUT,
 });
-const routers = [initMainRouter, initMyRouter, initOffersRouter];
+const storage = new DiskStorage({
+  destination: uploadImgPath,
+});
 
 routers.forEach((routeInit) => {
   routeInit(app, {
     api,
+    storage,
   });
 });
 

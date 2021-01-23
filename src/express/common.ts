@@ -1,4 +1,4 @@
-import { Api } from '~/express/services';
+import { Api, DiskStorage } from '~/express/services';
 import { ENV } from '~/common/enums';
 
 const API_PORT = ENV.API_PORT || 3000;
@@ -13,6 +13,7 @@ const AppConfig = {
 
 type SsrRouterSettings = {
   api: Api;
+  storage: DiskStorage;
 };
 
 export { AppConfig, SsrRouterSettings };

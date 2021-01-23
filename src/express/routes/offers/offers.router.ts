@@ -1,36 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
-import path from 'path';
 import { Router } from 'express';
-import multer from 'multer';
 import { SsrOffersPath, SsrPath } from '~/common/enums';
 import { SsrRouterSettings } from '~/express/common';
 import {
-  getFileExtension,
   getHttpErrors,
-  getRandomId,
   asyncHandler,
 } from '~/helpers';
 import { getOfferData } from './helpers';
 
-const UPLOAD_DIR = `../../upload/img/`;
-
-const uploadDirAbsolute = path.resolve(__dirname, UPLOAD_DIR);
-
-const storage = multer.diskStorage({
-  destination: uploadDirAbsolute,
-  filename: (_, file, cb) => {
-    const uniqueName = getRandomId();
-    const extension = getFileExtension(file.originalname);
-
-    cb(null, `${uniqueName}.${extension}`);
-  },
-});
-
-const upload = multer({ storage });
-
 const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
   const offersRouter = Router();
-  const { api } = settings;
+  const { api, storage } = settings;
 
   app.use(SsrPath.OFFERS, offersRouter);
 
@@ -52,7 +32,7 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
 
   offersRouter.post(
     SsrOffersPath.ADD,
-    upload.single(`avatar`),
+    storage.upload.single(`avatar`),
     asyncHandler(async (req, res) => {
       const { body, file } = req;
       const offerData = getOfferData(body, file?.filename);
@@ -91,7 +71,7 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
 
   offersRouter.post(
     SsrOffersPath.EDIT_$OFFER_ID,
-    upload.single(`avatar`),
+    storage.upload.single(`avatar`),
     asyncHandler(async (req, res) => {
       const { body, file, params } = req;
       const parsedId = Number(params.id);
