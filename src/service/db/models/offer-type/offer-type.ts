@@ -1,5 +1,10 @@
 import { Sequelize, DataTypes, Model, ModelCtor } from 'sequelize';
-import { TableName, OfferTypeDtoKey, ModelName } from '~/common/enums';
+import {
+  TableName,
+  OfferTypeDtoKey,
+  ModelName,
+  OfferTypeKey,
+} from '~/common/enums';
 
 class OfferType extends Model {
   [OfferTypeDtoKey.ID]: number;
@@ -15,13 +20,13 @@ const define = (sequelize: Sequelize): ModelCtor<OfferType> => {
   return sequelize.define(
     ModelName.OFFER_TYPE,
     {
-      id: {
+      [OfferTypeKey.ID]: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
         allowNull: false,
       },
-      name: {
+      [OfferTypeKey.NAME]: {
         type: DataTypes.STRING,
         allowNull: false,
       },

@@ -5,7 +5,6 @@ import { Offers, Comments } from '~/service/data';
 import { initDb } from '~/service/db/init-db';
 import { ApiPath, HttpCode, OfferType } from '~/common/enums';
 import { CreatedComment, CreatedOffer, DbModels } from '~/common/types';
-import { IOffer } from '~/common/interfaces';
 import { initOffersApi } from './offers';
 import { mockedOffers, mockedCategories } from './offers.mocks';
 

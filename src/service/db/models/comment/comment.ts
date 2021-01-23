@@ -1,5 +1,10 @@
 import { Sequelize, DataTypes, Model, ModelCtor } from 'sequelize';
-import { CommentDtoKey, ModelName, TableName } from '~/common/enums';
+import {
+  CommentDtoKey,
+  CommentKey,
+  ModelName,
+  TableName,
+} from '~/common/enums';
 
 class Comment extends Model {
   [CommentDtoKey.ID]: number;
@@ -17,13 +22,13 @@ const define = (sequelize: Sequelize): ModelCtor<Comment> => {
   return sequelize.define(
     ModelName.COMMENT,
     {
-      id: {
+      [CommentKey.ID]: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
         allowNull: false,
       },
-      text: {
+      [CommentKey.TEXT]: {
         type: DataTypes.STRING,
         allowNull: false,
       },
