@@ -6,12 +6,12 @@ import { ApiPath, HttpCode, UsersApiPath } from '~/common/enums';
 import { Request, Response } from '~/common/types';
 import { mapCreatedUser } from './helpers';
 
-const initSearchApi = (app: Router, service: Users): void => {
-  const searchRouter = Router();
+const initUsersApi = (app: Router, service: Users): void => {
+  const usersRouter = Router();
 
-  app.use(ApiPath.USERS, searchRouter);
+  app.use(ApiPath.USERS, usersRouter);
 
-  searchRouter.post(
+  usersRouter.post(
     UsersApiPath.ROOT,
     [validateSchema(createdUserPayloadSchema), checkAlreadyRegister(service)],
     async (req: Request, res: Response) => {
@@ -23,4 +23,4 @@ const initSearchApi = (app: Router, service: Users): void => {
   );
 };
 
-export { initSearchApi };
+export { initUsersApi };
