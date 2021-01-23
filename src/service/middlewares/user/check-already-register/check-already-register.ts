@@ -12,7 +12,7 @@ const checkAlreadyRegister = (service: Users) => async (
 
   if (hasUser) {
     return res.status(HttpCode.BAD_REQUEST).send({
-      messages: CreatedUserValidationMessage.EMAIL_ALREADY_REGISTER,
+      messages: [CreatedUserValidationMessage.EMAIL_ALREADY_REGISTER],
     });
   }
 
