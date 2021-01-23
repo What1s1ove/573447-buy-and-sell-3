@@ -3,6 +3,7 @@ import { CreatedUserValidationRule } from '~/common/enums/validation/created-use
 const CreatedUserValidationMessage = {
   EMAIL_REQUIRE: `Электронная почта обязательное поле`,
   EMAIL_WRONG: `Неправильный email`,
+  EMAIL_ALREADY_REGISTER: `Пользователь с таким email уже зарегистрирован`,
   PASSWORD_REQUIRE: `Пароль обязательно поле`,
   PASSWORD_MIN_LENGTH: `Пароль должен быть минимум ${CreatedUserValidationRule.PASSWORD_MIN_LENGTH} символов`,
   REPEATED_PASSWORD_REQUIRE: `Повторяемы пароль обязательное поле`,
