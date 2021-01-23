@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { Router } from 'express';
-import { SsrOffersPath, SsrPath } from '~/common/enums';
+import { OfferKey, SsrOffersPath, SsrPath } from '~/common/enums';
 import { SsrRouterSettings } from '~/express/common';
 import {
   getHttpErrors,
@@ -32,7 +32,7 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
 
   offersRouter.post(
     SsrOffersPath.ADD,
-    storage.upload.single(`avatar`),
+    storage.upload.single(OfferKey.PICTURE),
     asyncHandler(async (req, res) => {
       const { body, file } = req;
       const offerData = getOfferData(body, file?.filename);
@@ -71,7 +71,7 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
 
   offersRouter.post(
     SsrOffersPath.EDIT_$OFFER_ID,
-    storage.upload.single(`avatar`),
+    storage.upload.single(OfferKey.PICTURE),
     asyncHandler(async (req, res) => {
       const { body, file, params } = req;
       const parsedId = Number(params.id);
