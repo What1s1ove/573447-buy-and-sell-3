@@ -94,17 +94,22 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
     upload.single(`avatar`),
     asyncHandler(async (req, res) => {
       const { body, file, params } = req;
+      const parsedId = Number(params.id);
       const offerData = getOfferData(body, file?.filename);
 
       try {
-        await api.updateOffer(Number(params.id), offerData);
+        await api.updateOffer(parsedId, offerData);
 
         return res.redirect(SsrPath.MY);
       } catch (err: unknown) {
+        const offer = await api.getOffer(parsedId);
         const categories = await api.getCategories();
 
         return res.render(`offers/ticket-edit`, {
-          offer: offerData,
+          offer: {
+            ...offer,
+            ...offerData,
+          },
           categories,
           errorMessages: getHttpErrors(err),
         });
@@ -128,16 +133,16 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
     SsrOffersPath.$OFFER_ID_COMMENT,
     asyncHandler(async (req, res) => {
       const { body, params } = req;
-      const { id } = params;
+      const parsedComment = Number(params.id);
 
       try {
-        await api.createComment(Number(id), {
+        await api.createComment(parsedComment, {
           text: body.comment,
         });
 
-        return res.redirect(`${SsrPath.OFFERS}/${id}`);
+        return res.redirect(`${SsrPath.OFFERS}/${parsedComment}`);
       } catch (err: unknown) {
-        const offer = await api.getOffer(Number(id));
+        const offer = await api.getOffer(parsedComment);
 
         return res.render(`offers/ticket`, {
           item: offer,
