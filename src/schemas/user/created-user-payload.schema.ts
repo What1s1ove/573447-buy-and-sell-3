@@ -25,14 +25,14 @@ const createdUserPayload = Joi.object({
       'any.required': CreatedUserValidationMessage.REPEATED_PASSWORD_REQUIRE,
     }),
   [CreatedUserPayloadKey.FIRST_NAME]: Joi.string()
-    .regex(/^[A-Z]+$/)
+    .regex(/^[A-z]+$/)
     .required()
     .messages({
       'any.required': CreatedUserValidationMessage.FIRST_NAME_REQUIRE,
       'string.pattern.base': CreatedUserValidationMessage.FIRST_NAME_WRONG,
     }),
   [CreatedUserPayloadKey.LAST_NAME]: Joi.string()
-    .regex(/^[A-Z]+$/)
+    .regex(/^[A-z]+$/)
     .required()
     .messages({
       'any.required': CreatedUserValidationMessage.LAST_NAME_REQUIRE,
