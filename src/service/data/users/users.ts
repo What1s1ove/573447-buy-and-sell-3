@@ -17,6 +17,14 @@ class Users {
 
     return user.get();
   }
+
+  public findByEmail(email: string): Promise<IUser | null> {
+    return this.#User.findOne({
+      where: {
+        email,
+      },
+    });
+  }
 }
 
 export default Users;
