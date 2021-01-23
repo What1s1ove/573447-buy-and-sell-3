@@ -1,3 +1,6 @@
+import bcrypt from 'bcrypt';
+
+export { bcrypt };
 export * from './number';
 export * from './string';
 export * from './array';
