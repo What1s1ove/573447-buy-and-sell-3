@@ -73,7 +73,7 @@ const generateOffersSqlRows = (
     const typeId = getRandomNumber(INCREASE_COUNT_FOR_IDX, offerTypes.length);
 
     return generateInsertSqlRow(
-      `'${offer.picture}', '${offer.title}', '${offer.description}', '${offer.sum}', '${createdDate}', ${userId}, ${typeId}`,
+      `'${offer.picture ??  ``}', '${offer.title}', '${offer.description}', '${offer.sum}', '${createdDate}', ${userId}, ${typeId}`,
     );
   });
 };
