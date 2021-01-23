@@ -19,7 +19,7 @@ class User extends Model {
 
 const define = (sequelize: Sequelize): ModelCtor<User> => {
   return sequelize.define(
-    ModelName.OFFER_TYPE,
+    ModelName.USER,
     {
       [UserKey.ID]: {
         type: DataTypes.INTEGER,
