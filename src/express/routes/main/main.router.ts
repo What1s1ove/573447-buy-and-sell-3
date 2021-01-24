@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { Router } from 'express';
+import { getHttpErrors } from '~/helpers';
 import { SsrMainPath, SsrPath, UserKey } from '~/common/enums';
 import { OFFERS_PER_PAGE, OFFERS_SKIP_PAGE_COUNT } from '~/common/constants';
 import { SsrRouterSettings } from '~/express/common';
-import { getRegisterData } from './helpers';
-import { getHttpErrors } from '~/helpers';
+import { getLoginData, getRegisterData } from './helpers';
 
 const initMainRouter = (app: Router, settings: SsrRouterSettings): void => {
   const mainRouter = Router();
@@ -61,7 +61,26 @@ const initMainRouter = (app: Router, settings: SsrRouterSettings): void => {
     },
   );
 
-  mainRouter.get(SsrMainPath.LOGIN, (_req, res) => res.render(`login`));
+  mainRouter.get(SsrMainPath.LOGIN, (_req, res) => {
+    return res.render(`login`, {
+      loginPayload: {},
+    });
+  });
+
+  mainRouter.post(SsrMainPath.LOGIN, async (req, res) => {
+    const loginPayload = getLoginData(req.body);
+
+    try {
+      await api.loginUser(loginPayload);
+
+      return res.redirect(SsrPath.MAIN);
+    } catch (err: unknown) {
+      return res.render(`login`, {
+        loginPayload,
+        errorMessages: getHttpErrors(err),
+      });
+    }
+  });
 
   mainRouter.get(SsrMainPath.SEARCH, async (req, res) => {
     const { search } = req.query;

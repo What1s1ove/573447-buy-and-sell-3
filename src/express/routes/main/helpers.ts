@@ -1,4 +1,4 @@
-import { CreatedUserPayload } from '~/common/types';
+import { CreatedUserPayload, UserLoginPayload } from '~/common/types';
 
 const getRegisterData = <T extends Record<string, unknown>>(
   body: T,
@@ -12,4 +12,10 @@ const getRegisterData = <T extends Record<string, unknown>>(
     avatar: filename as string,
   });
 
-export { getRegisterData };
+const getLoginData = <T extends Record<string, unknown>>(
+  body: T): UserLoginPayload => ({
+    email: body.email as string,
+    password: body.password as string,
+  });
+
+export { getRegisterData, getLoginData };

@@ -4,7 +4,13 @@ import axios, {
   AxiosResponse,
   AxiosError,
 } from 'axios';
-import { ApiPath, HttpCode, HttpMethod, OfferKey } from '~/common/enums';
+import {
+  ApiPath,
+  HttpCode,
+  HttpMethod,
+  OfferKey,
+  UsersApiPath,
+} from '~/common/enums';
 import { HttpError } from '~/common/exceptions';
 import { IComment, IOffer, IUser } from '~/common/interfaces';
 import {
@@ -14,6 +20,7 @@ import {
   ErrorResponse,
   OffersWithCount,
   PaginationPayload,
+  UserLoginPayload,
 } from '~/common/types';
 
 type Constructor = {
@@ -119,6 +126,13 @@ class Api {
 
   public registerUser(payload: CreatedUserPayload): Promise<IUser> {
     return this.load<IUser>(ApiPath.USERS, {
+      method: HttpMethod.POST,
+      data: payload,
+    });
+  }
+
+  public loginUser(payload: UserLoginPayload): Promise<void> {
+    return this.load<void>(`${ApiPath.USERS}${UsersApiPath.LOGIN}`, {
       method: HttpMethod.POST,
       data: payload,
     });
