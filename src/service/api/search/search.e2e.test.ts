@@ -1,7 +1,7 @@
 import express from 'express';
 import { Sequelize } from 'sequelize';
 import request, { Response } from 'supertest';
-import { initDb } from '~/service/db/init-db';
+import { initDb } from '~/db/init-db';
 import { Search } from '~/service/data';
 import { ApiPath, HttpCode, OfferType } from '~/common/enums';
 import { DbModels } from '~/common/types';

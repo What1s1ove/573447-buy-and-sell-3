@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { Category, Offers, Comments, Search, Users } from '~/service/data';
-import sequelize from '~/service/db/db';
-import { defineModels } from '~/service/db/define-models';
+import sequelize from '~/db/db';
+import { defineModels } from '~/db/define-models';
 import { DbModels } from '~/common/types';
 import { initCategoryApi } from './category/category';
 import { initOffersApi } from './offers/offers';

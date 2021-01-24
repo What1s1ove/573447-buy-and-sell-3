@@ -2,7 +2,7 @@ import express from 'express';
 import { Sequelize } from 'sequelize';
 import request, { Response } from 'supertest';
 import { Category } from '~/service/data';
-import { initDb } from '~/service/db/init-db';
+import { initDb } from '~/db/init-db';
 import { DbModels } from '~/common/types';
 import { ApiPath, HttpCode, OfferType } from '~/common/enums';
 import { initCategoryApi } from './category';

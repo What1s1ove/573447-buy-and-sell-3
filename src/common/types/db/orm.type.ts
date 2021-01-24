@@ -1,4 +1,4 @@
-import sequelize from '~/service/db/db';
+import sequelize from '~/db/db';
 
 type ORM = typeof sequelize;
 

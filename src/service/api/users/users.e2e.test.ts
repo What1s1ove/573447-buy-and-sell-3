@@ -2,7 +2,7 @@ import express, { Express } from 'express';
 import { Sequelize } from 'sequelize';
 import request, { Response } from 'supertest';
 import { Users } from '~/service/data';
-import { initDb } from '~/service/db/init-db';
+import { initDb } from '~/db/init-db';
 import { CreatedUserPayload, DbModels } from '~/common/types';
 import { ApiPath, HttpCode } from '~/common/enums';
 import { initUsersApi } from './users';

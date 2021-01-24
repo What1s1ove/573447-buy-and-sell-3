@@ -1,6 +1,6 @@
 import express from 'express';
 import apiRouter from '~/service/api/api';
-import sequelize from '~/service/db/db';
+import sequelize from '~/db/db';
 import { getLogger } from '~/helpers';
 import { CliCommandName, HttpCode, LoggerName } from '~/common/enums';
 import { API_PREFIX } from '~/common/constants';

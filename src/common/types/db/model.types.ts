@@ -6,7 +6,7 @@ import {
   Offer,
   OfferCategory,
   User,
-} from '~/service/db/models';
+} from '~/db/models';
 
 type CategoryModel = ModelCtor<Category>;
 type OfferTypeModel = ModelCtor<OfferType>;

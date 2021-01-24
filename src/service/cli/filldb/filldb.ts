@@ -5,8 +5,8 @@ import {
   logger,
 } from '~/helpers';
 import { CliCommandName, MocksConfig } from '~/common/enums';
-import sequelize from '~/service/db/db';
-import { initDb } from '~/service/db/init-db';
+import sequelize from '~/db/db';
+import { initDb } from '~/db/init-db';
 
 export default {
   name: CliCommandName.FILLDB,

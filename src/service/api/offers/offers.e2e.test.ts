@@ -2,7 +2,7 @@ import express, { Express } from 'express';
 import { Sequelize } from 'sequelize';
 import request, { Response } from 'supertest';
 import { Offers, Comments } from '~/service/data';
-import { initDb } from '~/service/db/init-db';
+import { initDb } from '~/db/init-db';
 import { ApiPath, HttpCode, OfferType } from '~/common/enums';
 import { CreatedComment, CreatedOffer, DbModels } from '~/common/types';
 import { initOffersApi } from './offers';
