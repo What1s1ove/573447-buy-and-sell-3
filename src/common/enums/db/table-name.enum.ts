@@ -5,6 +5,7 @@ enum TableName {
   COMMENTS = `comments`,
   OFFERS = `offers`,
   OFFERS_CATEGORIES = `offers_categories`,
+  SESSIONS = `sessions`,
 }
 
 export { TableName };

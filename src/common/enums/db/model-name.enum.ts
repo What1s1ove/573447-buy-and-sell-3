@@ -5,6 +5,7 @@ enum ModelName {
   OFFER_CATEGORY = `OfferCategory`,
   OFFER_TYPE = `OfferType`,
   USER = `User`,
+  SESSION = `Session`,
 }
 
 export { ModelName };

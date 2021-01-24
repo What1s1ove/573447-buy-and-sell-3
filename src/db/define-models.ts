@@ -10,6 +10,7 @@ const defineModels = (sequelize: Sequelize): DbModels => {
   const Offer = define.Offer(sequelize);
   const OfferCategory = define.OfferCategory(sequelize);
   const User = define.User(sequelize);
+  const Session = define.Session(sequelize);
 
   Offer.belongsTo(OfferType, {
     foreignKey: OfferDtoKey.OFFER_TYPE_ID,
@@ -46,6 +47,7 @@ const defineModels = (sequelize: Sequelize): DbModels => {
     Offer,
     OfferCategory,
     User,
+    Session,
   };
 };
 
