@@ -9,3 +9,4 @@ export * from './db';
 export * from './category';
 export * from './validation';
 export * from './user';
+export * from './session';
