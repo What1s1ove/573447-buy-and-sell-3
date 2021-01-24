@@ -8,7 +8,7 @@ const getRegisterData = <T extends Record<string, unknown>>(
     password: body.password as string,
     repeatedPassword: body.repeatedPassword as string,
     firstName: body.firstName as string,
-    lastName: body.firstName as string,
+    lastName: body.lastName as string,
     avatar: filename as string,
   });
 
