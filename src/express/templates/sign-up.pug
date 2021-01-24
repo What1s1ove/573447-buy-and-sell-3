@@ -3,31 +3,31 @@ extends layout.pug
 block content
   main.page-content
       section.sign-up
-        form.sign-up__form.form(action="/register" method="POST" enctype="multipart/form-data" autocomplete="off")
-          .sign-up__title
+        form.sign-up__form.form(action="/register" method="POST"   autocomplete="off")
+          div.sign-up__title
             h2 Регистрация
             a.sign-up__link(href="/login") Вход
-          .sign-up__avatar-container.js-preview-container
-            .sign-up__avatar.js-preview
-            .sign-up__field-avatar
+          div.sign-up__avatar-container.js-preview-container
+            div.sign-up__avatar.js-preview
+            div.sign-up__field-avatar
               input#avatar.visually-hidden.js-file-field(type="file" name="avatar")
               label(for="avatar")
                 span.sign-up__text-upload Загрузить аватар…
                 span.sign-up__text-another Загрузить другой аватар…
-          .form__field.sign-up__field
-            input#user-firstname.js-field(value=registerPayload.firstName type="text" name="firstName" required="")
+          div.form__field.sign-up__field
+            input#user-firstname.js-field(value=registerPayload.firstName type="text" name="firstName" required)
             label(for="user-firstname") Имя
-          .form__field.sign-up__field
-            input#user-lastname.js-field(value=registerPayload.lastName type="text" name="lastName" required="")
+          div.form__field.sign-up__field
+            input#user-lastname.js-field(value=registerPayload.lastName type="text" name="lastName" required)
             label(for="user-lastname") Фамилия
-          .form__field.sign-up__field
-            input#user-email.js-field(value=registerPayload.email type="email" name="email" required="")
+          div.form__field.sign-up__field
+            input#user-email.js-field(value=registerPayload.email type="email" name="email" required)
             label(for="user-email") Эл. почта
-          .form__field.sign-up__field
-            input#user-password.js-field(value=registerPayload.password type="password" name="password" required="")
+          div.form__field.sign-up__field
+            input#user-password.js-field(value=registerPayload.password type="password" name="password" required)
             label(for="user-password") Пароль
-          .form__field.sign-up__field
-            input#user-password-again.js-field(value=registerPayload.repeatedPassword type="password" name="repeatedPassword" required="")
+          div.form__field.sign-up__field
+            input#user-password-again.js-field(value=registerPayload.repeatedPassword type="password" name="repeatedPassword" required)
             label(for="user-password-again") Пароль еще раз
           +errorList(errorMessages)
-          button.sign-up__button.btn.btn--medium.js-button(type="submit" disabled="") Создать аккаунт
+          button.sign-up__button.btn.btn--medium.js-button(type="submit" disabled) Создать аккаунт
