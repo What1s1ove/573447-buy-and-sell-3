@@ -5,3 +5,4 @@ export * from './offer-validation-rule.enum';
 export * from './route-id-validation-message.enum';
 export * from './created-user-validation-rule.enum';
 export * from './created-user-validation-message.enum';
+export * from './user-login-validation-message.enum';
