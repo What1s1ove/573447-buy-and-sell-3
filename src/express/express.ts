@@ -6,11 +6,13 @@ import { initMyRouter } from '~/express/routes/my/my.router';
 import { initOffersRouter } from '~/express/routes/offers/offers.router';
 import { HttpCode, ENV } from '~/common/enums';
 import { Request, Response, NextFunction } from '~/common/types';
+import { sessionMiddleware } from './session';
 import { AppConfig } from './common';
 
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
+app.use(sessionMiddleware);
 
 const uploadImgPath = path.resolve(__dirname, `./${AppConfig.UPLOAD_DIR}/img/`);
 const routers = [initMainRouter, initMyRouter, initOffersRouter];
