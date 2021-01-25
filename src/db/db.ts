@@ -12,7 +12,7 @@ const sequelize = new Sequelize(
   {
     host: config.host,
     port: Number(config.port),
-    dialect: `postgres`,
+    dialect: config.dialect,
     pool: {
       max: 5,
       min: 0,
@@ -21,5 +21,7 @@ const sequelize = new Sequelize(
     },
   },
 );
+
+export { config };
 
 export default sequelize;

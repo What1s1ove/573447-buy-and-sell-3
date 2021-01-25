@@ -1,3 +1,4 @@
+import { Dialect } from 'sequelize/types';
 import { AppEnvironment, ENV } from '~/common/enums';
 import { DbConfig } from './common';
 
@@ -8,6 +9,7 @@ const dbConfig: DbConfig = {
     port: ENV.DB_PORT ?? ``,
     username: ENV.DB_USER ?? ``,
     password: ENV.DB_PASSWORD ?? ``,
+    dialect: (ENV.DB_DIALECT ?? ``) as Dialect,
   },
 };
 

@@ -1,3 +1,4 @@
+import { Dialect } from 'sequelize/types';
 import { AppEnvironment } from '~/common/enums';
 
 type DbEnvironmentConfig = {
@@ -6,6 +7,7 @@ type DbEnvironmentConfig = {
   port: string;
   username: string;
   password: string;
+  dialect: Dialect;
 };
 
 type DbConfig = Record<AppEnvironment, DbEnvironmentConfig>;
