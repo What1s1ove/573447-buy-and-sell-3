@@ -13,3 +13,7 @@ DB_PORT=5432
 DB_NAME=buy_and_sell
 DB_USER=user
 DB_PASSWORD=password
+DB_DIALECT=postgres
+
+# SECRET
+SECRET=topsecret
