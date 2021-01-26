@@ -4,6 +4,7 @@ import { getHttpErrors } from '~/helpers';
 import { SsrMainPath, SsrPath, UserKey } from '~/common/enums';
 import { OFFERS_PER_PAGE, OFFERS_SKIP_PAGE_COUNT } from '~/common/constants';
 import { SsrRouterSettings } from '~/express/common';
+import { SessionRequest } from '~/common/types';
 import { getLoginData, getRegisterData } from './helpers';
 
 const initMainRouter = (app: Router, settings: SsrRouterSettings): void => {
@@ -71,7 +72,9 @@ const initMainRouter = (app: Router, settings: SsrRouterSettings): void => {
     const loginPayload = getLoginData(req.body);
 
     try {
-      await api.loginUser(loginPayload);
+      const user = await api.loginUser(loginPayload);
+
+      (req.session as SessionRequest).user = user;
 
       return res.redirect(SsrPath.MAIN);
     } catch (err: unknown) {
