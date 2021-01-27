@@ -1,5 +1,6 @@
 import { bcrypt } from '~/helpers';
 import { USER_PASSWORD_SALT_ROUNDS } from '~/common/constants';
+import { IUser } from '~/common/interfaces';
 import { CreatedUser, CreatedUserPayload } from '~/common/types';
 
 const mapCreatedUser = async (
@@ -20,4 +21,11 @@ const mapCreatedUser = async (
   return copiedUserPayload;
 };
 
-export { mapCreatedUser };
+const checkIsPasswordSame = (
+  user: IUser,
+  password: string,
+): Promise<boolean> => {
+  return bcrypt.compare(user.password, password);
+};
+
+export { mapCreatedUser, checkIsPasswordSame };
