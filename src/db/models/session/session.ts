@@ -4,6 +4,7 @@ import {
   ModelName,
   SessionDtoKey,
   SessionKey,
+  SessionValidationRule,
 } from '~/common/enums';
 
 class Session extends Model {
@@ -30,7 +31,7 @@ const define = (sequelize: Sequelize): ModelCtor<Session> => {
         type: DataTypes.DATE,
       },
       [SessionKey.DATA]: {
-        type: DataTypes.STRING,
+        type: new DataTypes.STRING(SessionValidationRule.DATA_LENGTH),
       },
     },
     {
