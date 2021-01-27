@@ -33,6 +33,7 @@ const initMainRouter = (app: Router, settings: SsrRouterSettings): void => {
       totalPages,
       items: offers,
       page: parsedPage,
+      user: (req.session as SessionRequest).user,
     });
   });
 
@@ -72,9 +73,7 @@ const initMainRouter = (app: Router, settings: SsrRouterSettings): void => {
     const loginPayload = getLoginData(req.body);
 
     try {
-      const user = await api.loginUser(loginPayload);
-
-      (req.session as SessionRequest).user = user;
+      (req.session as SessionRequest).user = await api.loginUser(loginPayload);
 
       return res.redirect(SsrPath.MAIN);
     } catch (err: unknown) {
@@ -92,6 +91,7 @@ const initMainRouter = (app: Router, settings: SsrRouterSettings): void => {
     return res.render(`search-result`, {
       resultItems,
       searchValue: search,
+      user: (req.session as SessionRequest).user,
     });
   });
 };

@@ -131,8 +131,8 @@ class Api {
     });
   }
 
-  public loginUser(payload: UserLoginPayload): Promise<void> {
-    return this.load<void>(`${ApiPath.USERS}${UsersApiPath.LOGIN}`, {
+  public loginUser(payload: UserLoginPayload): Promise<IUser> {
+    return this.load<IUser>(`${ApiPath.USERS}${UsersApiPath.LOGIN}`, {
       method: HttpMethod.POST,
       data: payload,
     });

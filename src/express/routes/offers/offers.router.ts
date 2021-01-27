@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { Router } from 'express';
 import { OfferKey, SsrOffersPath, SsrPath } from '~/common/enums';
+import { SessionRequest } from '~/common/types';
 import { SsrRouterSettings } from '~/express/common';
 import {
   getHttpErrors,
   asyncHandler,
 } from '~/helpers';
+import { checkUserAuthenticate } from '~/service/middlewares';
 import { getOfferData } from './helpers';
 
 const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
@@ -14,25 +16,29 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
 
   app.use(SsrPath.OFFERS, offersRouter);
 
-  offersRouter.get(SsrOffersPath.CATEGORY_$CATEGORY_ID, (_, res) => {
-    return res.render(`category`);
+  offersRouter.get(SsrOffersPath.CATEGORY_$CATEGORY_ID, (req, res) => {
+    return res.render(`category`, {
+      user: (req.session as SessionRequest).user,
+    });
   });
 
   offersRouter.get(
     SsrOffersPath.ADD,
-    asyncHandler(async (_, res) => {
+    checkUserAuthenticate,
+    asyncHandler(async (req, res) => {
       const categories = await api.getCategories();
 
       return res.render(`offers/ticket-edit`, {
-        offer: {},
         categories,
+        offer: {},
+        user: (req.session as SessionRequest).user,
       });
     }),
   );
 
   offersRouter.post(
     SsrOffersPath.ADD,
-    storage.upload.single(OfferKey.PICTURE),
+    [checkUserAuthenticate, storage.upload.single(OfferKey.PICTURE)],
     asyncHandler(async (req, res) => {
       const { body, file } = req;
       const offerData = getOfferData(body, file?.filename);
@@ -45,9 +51,10 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
         const categories = await api.getCategories();
 
         return res.render(`offers/ticket-edit`, {
-          offer: offerData,
           categories,
+          offer: offerData,
           errorMessages: getHttpErrors(err),
+          user: (req.session as SessionRequest).user,
         });
       }
     }),
@@ -55,6 +62,7 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
 
   offersRouter.get(
     SsrOffersPath.EDIT_$OFFER_ID,
+    checkUserAuthenticate,
     asyncHandler(async (req, res) => {
       const { id } = req.params;
       const [offer, categories] = await Promise.all([
@@ -65,13 +73,14 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
       return res.render(`offers/ticket-edit`, {
         offer,
         categories,
+        user: (req.session as SessionRequest).user,
       });
     }),
   );
 
   offersRouter.post(
     SsrOffersPath.EDIT_$OFFER_ID,
-    storage.upload.single(OfferKey.PICTURE),
+    [checkUserAuthenticate, storage.upload.single(OfferKey.PICTURE)],
     asyncHandler(async (req, res) => {
       const { body, file, params } = req;
       const parsedId = Number(params.id);
@@ -86,12 +95,13 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
         const categories = await api.getCategories();
 
         return res.render(`offers/ticket-edit`, {
+          categories,
           offer: {
             ...offer,
             ...offerData,
           },
-          categories,
           errorMessages: getHttpErrors(err),
+          user: (req.session as SessionRequest).user,
         });
       }
     }),
@@ -105,12 +115,14 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
 
       return res.render(`offers/ticket`, {
         item: offer,
+        user: (req.session as SessionRequest).user,
       });
     }),
   );
 
   offersRouter.post(
     SsrOffersPath.$OFFER_ID_COMMENT,
+    checkUserAuthenticate,
     asyncHandler(async (req, res) => {
       const { body, params } = req;
       const parsedComment = Number(params.id);
@@ -127,6 +139,7 @@ const initOffersRouter = (app: Router, settings: SsrRouterSettings): void => {
         return res.render(`offers/ticket`, {
           item: offer,
           errorMessages: getHttpErrors(err),
+          user: (req.session as SessionRequest).user,
         });
       }
     }),
