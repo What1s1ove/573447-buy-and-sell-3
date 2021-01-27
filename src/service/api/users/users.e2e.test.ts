@@ -3,8 +3,8 @@ import { Sequelize } from 'sequelize';
 import request, { Response } from 'supertest';
 import { Users } from '~/service/data';
 import { initDb } from '~/db/init-db';
-import { CreatedUserPayload, DbModels } from '~/common/types';
-import { ApiPath, HttpCode } from '~/common/enums';
+import { CreatedUserPayload, DbModels, UserLoginPayload } from '~/common/types';
+import { ApiPath, HttpCode, UserKey, UsersApiPath } from '~/common/enums';
 import { initUsersApi } from './users';
 
 const createAPI = async (): Promise<Express> => {
@@ -78,5 +78,71 @@ describe(`API refuses to create a user if data is invalid`, () => {
 
   test(`Status code 400`, () => {
     expect(response?.status).toBe(HttpCode.BAD_REQUEST);
+  });
+});
+
+describe(`Api works correct when user try to login`, () => {
+  const newUser: CreatedUserPayload = {
+    email: `test@mail.com`,
+    password: `password`,
+    repeatedPassword: `password`,
+    firstName: `firstName`,
+    lastName: `lastName`,
+    avatar: `avatar.jpg`,
+  };
+
+  let app: Express | null = null;
+  let response: Response | null = null;
+
+  beforeAll(async () => {
+    app = await createAPI();
+    response = await request(app).post(ApiPath.USERS).send(newUser);
+  });
+
+  test(`Status code 201`, () => {
+    expect(response?.status).toBe(HttpCode.CREATED);
+  });
+
+  test(`Allows to login if the user-payload is correct`, async () => {
+    const userLoginPayload: UserLoginPayload = {
+      email: newUser.email,
+      password: newUser.password,
+    };
+
+    const userResponse = await request(app)
+      .post(`${ApiPath.USERS}/${UsersApiPath.LOGIN}`)
+      .send(userLoginPayload);
+
+    expect(userResponse.status).toBe(HttpCode.OK);
+    expect(userResponse.body).toHaveProperty(
+      UserKey.EMAIL,
+      userLoginPayload.email,
+    );
+  });
+
+  test(`Refuses to login if email is wrong`, async () => {
+    const userLoginPayload: UserLoginPayload = {
+      email: `wrong@mail.com`,
+      password: newUser.password,
+    };
+
+    const userResponse = await request(app)
+      .post(`${ApiPath.USERS}/${UsersApiPath.LOGIN}`)
+      .send(userLoginPayload);
+
+    expect(userResponse.status).toBe(HttpCode.UNAUTHORIZE);
+  });
+
+  test(`Refuses to login if password is wrong`, async () => {
+    const userLoginPayload: UserLoginPayload = {
+      email: newUser.email,
+      password: `wrong-password`,
+    };
+
+    const userResponse = await request(app)
+      .post(`${ApiPath.USERS}/${UsersApiPath.LOGIN}`)
+      .send(userLoginPayload);
+
+    expect(userResponse.status).toBe(HttpCode.UNAUTHORIZE);
   });
 });
