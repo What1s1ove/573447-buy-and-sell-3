@@ -25,7 +25,7 @@ const checkIsPasswordSame = (
   user: IUser,
   password: string,
 ): Promise<boolean> => {
-  return bcrypt.compare(user.password, password);
+  return bcrypt.compare(password, user.password);
 };
 
 export { mapCreatedUser, checkIsPasswordSame };
