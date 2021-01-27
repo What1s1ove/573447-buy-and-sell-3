@@ -13,7 +13,7 @@ header.header
       input(value=`${searchValue || ``}` type="search" name="search" placeholder="Поиск" aria-label="Поиск")
       div.search__icon
       div.search__close-btn
-    a.header__avatar.avatar(href="#")
-      if hasUser
+    if hasUser
+      a.header__avatar.avatar(href="/logout")
         img(src=`/img/${user.avatar}` alt="Аватар пользователя")
     a.header__input(href="/register") Вход и регистрация

@@ -84,6 +84,12 @@ const initMainRouter = (app: Router, settings: SsrRouterSettings): void => {
     }
   });
 
+  mainRouter.get(SsrMainPath.LOGOUT, (req, res) => {
+    req.session.destroy(() => {
+      res.redirect(SsrMainPath.LOGIN);
+    });
+  });
+
   mainRouter.get(SsrMainPath.SEARCH, async (req, res) => {
     const { search } = req.query;
     const resultItems = await api.search(search as string);
