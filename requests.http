@@ -8,7 +8,7 @@ Content-Type: application/json
   "repeatedPassword": "123456",
   "firstName": "Вася",
   "lastName": "Здоров",
-  "avatar": "/path-to-avatar"
+  "avatar": "avatar.jpg"
 }
 
 ###
